@@ -12,6 +12,7 @@ class BookingsController < ApplicationController
 
   def new
     @booking = Booking.new
+    @disabled_dates = @activity.bookings.map { |booking| { from: booking.start_date, to: booking.end_date } }
   end
 
   def create
