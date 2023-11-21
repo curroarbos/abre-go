@@ -23,12 +23,17 @@ class ActivitiesController < ApplicationController
   end
 
   def edit
-  end
-
-  def destroy
+    @activity = Activity.find(params[:id])
   end
 
   def update
+    @activity.update(activity_params)
+    redirect_to activity_path(@activity)
+  end
+
+  def destroy
+    @activity.destroy
+    redirect_to activities_path, status: other
   end
 
   private
