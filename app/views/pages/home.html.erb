@@ -1,17 +1,13 @@
+<div class="container">
 <h1>Abrego</h1>
-<p>Book your favourite activities</p>
+<div class="d-flex justify-content-between my-4">
+<%= link_to "Book your favourite activities", activities_path, class: "btn btn-primary" %>
+<%= link_to "Become a service provider", new_activity_path, class: "btn btn-primary" %>
+</div>
+
 <p>Search bar</p>
 <p>Value proposition text</p>
 <p>Snapshot of 3 </p>
 
-<%= link_to "Become a service provider", new_activity_path %>
 
-
-<%= button_to(
-        "Log Out",
-        destroy_user_session_path,
-        method: :delete
-      ) %>
-
-<%= link_to "Sign in", new_user_session_path  %>
-<%= link_to "Sign up", new_user_registration_path %>
+</div>
