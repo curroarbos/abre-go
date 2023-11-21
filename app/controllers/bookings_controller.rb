@@ -1,7 +1,7 @@
 class BookingsController < ApplicationController
   before_action :set_activity, only: %i[new create]
   before_action :set_booking, only: %i[show edit destroy]
-  before_action :set_user, only: %i[index]
+  before_action :set_user, only: %i[index create]
 
   def index
     @bookings = @user.bookings
@@ -11,9 +11,18 @@ class BookingsController < ApplicationController
   end
 
   def new
+    @booking = Booking.new
   end
 
   def create
+    @booking = Booking.new(booking_params)
+    @booking.user = @user
+    @booking.activity = @activity
+    if @booking.save
+      redirect_to bookings_path
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def edit
@@ -28,7 +37,7 @@ class BookingsController < ApplicationController
   private
 
   def set_activity
-    @activity = Activity.find(params[:id])
+    @activity = Activity.find(params[:activity_id])
   end
 
   def set_booking
@@ -36,6 +45,10 @@ class BookingsController < ApplicationController
   end
 
   def set_user
-    @user = User.find(params[:id])
+    @user = current_user
+  end
+
+  def booking_params
+    params.require(:booking).permit(:start_date, :end_date, :number_of_people)
   end
 end
