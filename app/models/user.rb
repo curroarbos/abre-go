@@ -7,6 +7,11 @@ class User < ApplicationRecord
   # validates :first_name, :last_name, presence: true
   has_many :bookings
   has_many :activities
+  has_many :bookings_as_provider, through: :activities, source: :bookings
   # has_many :activities, through: :bookings
   has_many :reviews, through: :activities
+
+  def provider?
+    is_provider
+  end
 end
