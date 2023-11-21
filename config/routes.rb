@@ -8,5 +8,7 @@ Rails.application.routes.draw do
   end
   resources :bookings, only: %i[index show edit update destroy]
 
-  resources :users, only: %i[show edit update destroy] 
+  resources :users, only: %i[show edit update destroy]
+
+  get 'users/:id/activities/offered', to: 'activities#offered' , as: :offered
 end

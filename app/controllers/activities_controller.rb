@@ -1,5 +1,6 @@
 class ActivitiesController < ApplicationController
   before_action :set_activity, only: [:show, :destroy]
+  before_action :set_user, only: [:offered]
 
   def index
     @activities = Activity.all
@@ -36,6 +37,10 @@ class ActivitiesController < ApplicationController
     redirect_to activities_path, status: other
   end
 
+  def offered
+    @activities = @user.activities
+  end
+
   private
 
   def activity_params
@@ -44,5 +49,9 @@ class ActivitiesController < ApplicationController
 
   def set_activity
     @activity = Activity.find(params[:id])
+  end
+
+  def set_user
+    @user = User.find(params[:id])
   end
 end
