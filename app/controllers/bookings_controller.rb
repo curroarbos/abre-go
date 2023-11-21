@@ -4,6 +4,7 @@ class BookingsController < ApplicationController
   before_action :set_user, only: %i[index]
 
   def index
+    @bookings = @user.bookings
   end
 
   def show

@@ -7,5 +7,8 @@ Rails.application.routes.draw do
     resources :reviews, only: %i[new create]
   end
   resources :bookings, only: %i[show edit update destroy]
-  # TODO: Include nested resources :bookings only: %i[index] in users controller
+
+  resources :users, only: %i[show edit update destroy] do
+    resources :bookings, only: %i[index]
+  end
 end
