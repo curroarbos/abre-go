@@ -78,3 +78,4 @@ end
 gem "geocoder"
 gem "cloudinary"
 gem "dotenv-rails"
+gem 'faker'

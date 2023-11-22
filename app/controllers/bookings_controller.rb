@@ -1,7 +1,7 @@
 class BookingsController < ApplicationController
   before_action :set_activity, only: %i[new create]
   before_action :set_booking, only: %i[show edit destroy]
-  before_action :set_user, only: %i[index create]
+  before_action :set_user, only: %i[index create requested]
 
   def index
     @bookings = @user.bookings
@@ -24,6 +24,10 @@ class BookingsController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def requested
+    @bookings = @user.bookings_as_provider
   end
 
   def edit
