@@ -12,22 +12,27 @@
 
     <%= f.input :first_name,
                 required: false,
-                autofocus: true %>
+                autofocus: true,
+                input_html: { autocomplete: "first-name" } %>
     <%= f.input :last_name,
-                required: false %>
+                required: false,
+                input_html: { autocomplete: "last-name" } %>
+    <%= f.input :phone_number,
+                required: false,
+                input_html: { autocomplete: "phone-number" } %>
+    <%= f.input :email,
+                required: true,
+                input_html: { autocomplete: "email" }%>
     <%= f.input :password,
                 hint: "leave it blank if you don't want to change it",
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
+                required: false %>
     <%= f.input :password_confirmation,
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
+                required: false %>
     <%= f.input :current_password,
                 hint: "we need your current password to confirm your changes",
-                required: true,
-                input_html: { autocomplete: "current-password" } %>
+                required: true %>
     <%= f.input :photo_url,
-                hint: "Add a profile photo"%>
+                hint: "Add a profile photo" %>
 
   </div>
 
