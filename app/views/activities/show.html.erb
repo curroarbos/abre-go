@@ -1,9 +1,10 @@
 <div class="position-relative">
 <%= @activity.title %>
-<%= @activity.price %>
+<%= @activity.price %> €
 <%= @activity.location %>
 <%= @activity.max_people %>
 <%= @activity.category.name %>
+
 
 <div class="card-category text-decoration-none" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('<%= cl_image_path @activity.photo.key, height: 300, crop: :fill %>')">
           <%= @activity.title %>
