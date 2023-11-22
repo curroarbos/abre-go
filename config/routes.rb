@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   resources :users, only: %i[show edit update destroy]
 
   get 'users/:id/activities/offered', to: 'activities#offered' , as: :offered
+  get 'users/:id/bookings/requested', to: 'bookings#requested', as: :requested
 end

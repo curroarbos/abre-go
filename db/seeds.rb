@@ -1,16 +1,26 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+Booking.destroy_all
+Activity.destroy_all
+Category.destroy_all
+User.destroy_all
 
 
-Activity.create(title: "Best Chef in Town", price: 99, location: "Bali", max_people: 3, photo_url: "https://st.depositphotos.com/1499736/2462/i/950/depositphotos_24628361-stock-photo-chef-decorating-pasta-salad-with.jpg")
-Activity.create(title: "DJ for disco party", price: 300, location: "London", max_people: 6, photo_url: "https://st.depositphotos.com/1499736/2462/i/950/depositphotos_24628361-stock-photo-chef-decorating-pasta-salad-with.jpg")
-Activity.create(title: "Horse riding", price: 50, location: "Uluwatu", max_people: 5, photo_url: "https://st.depositphotos.com/1499736/2462/i/950/depositphotos_24628361-stock-photo-chef-decorating-pasta-salad-with.jpg")
-Activity.create(title: "Local supper club in your house", price: 200, location: "Bali", max_people: 10, photo_url: "https://st.depositphotos.com/1499736/2462/i/950/depositphotos_24628361-stock-photo-chef-decorating-pasta-salad-with.jpg")
+Category.create!(name: "Food")
+Category.create!(name: "Music")
+Category.create!(name: "Corporate Services")
+Category.create!(name: "Oudoors")
 
+ACTIVITIES = ["Cooking lesson", "Waterski", "DJ set", "Yoga lesson", "Paella at home", "IT equipment"]
+LOCATIONS = ["Malaga", "Velez Malaga", "Ronda", "Torremolinos", "Rincon de la Victoria", "Archidona", "Antequera"]
+
+5.times do
+  User.create! :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name, :email => Faker::Internet.email, :password => 123456, :password_confirmation => 123456, is_provider: true
+end
+
+User.all.each do |user|
+  Activity.create!(title: ACTIVITIES.sample, user: user, category: Category.first, price: rand(10..100), location: LOCATIONS.sample, max_people: rand(1..10), photo_url: "https://as2.ftcdn.net/v2/jpg/02/87/24/95/1000_F_287249541_Ui4Iqyp4ggPSuHg89yvvEWsB4ksH9jYT.jpg")
+  Activity.create!(title: ACTIVITIES.sample, user: user, category: Category.first, price: rand(10..100), location: LOCATIONS.sample, max_people: rand(1..10), photo_url: "https://as2.ftcdn.net/v2/jpg/02/87/24/95/1000_F_287249541_Ui4Iqyp4ggPSuHg89yvvEWsB4ksH9jYT.jpg")
+end
+
+5.times do
+  User.create! :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name, :email => Faker::Internet.email, :password => 123456, :password_confirmation => 123456, is_provider: false
+end

@@ -1,0 +1,20 @@
+<div class="container py-5">
+  <div class="d-flex align-items-center justify-content-between mb-3">
+      <h3 class="mb-0">My Published Activities</h3>
+  </div>
+    <div class="row">
+      <% @bookings.each do | booking | %>
+        <div class="co-12 col-sm-6 col-md-4 mb-3">
+        <%= link_to activity_path(booking), class:"text-decoration-none" do %>
+          <%= booking.activity.title %>
+          <%= booking.activity.price %>
+          <%= booking.activity.location %>
+          <%= booking.start_date %>
+          <%= booking.end_date %>
+          <%= booking.status %>
+        <% end %>
+        </div>
+       <% end %>
+    </div>
+  </div>
+</div>
