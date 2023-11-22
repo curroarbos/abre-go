@@ -1,20 +1,50 @@
-<div class="container py-5">
-  <div class="d-flex align-items-center justify-content-between mb-3">
-      <h3 class="mb-0">Manage my requested bookings</h3>
-  </div>
-    <div class="row">
-      <% @bookings.each do | booking | %>
-        <div class="co-12 col-sm-6 col-md-4 mb-3">
-        <%= link_to activity_path(booking), class:"text-decoration-none" do %>
-          <%= booking.activity.title %>
-          <%= booking.activity.price %>
-          <%= booking.activity.location %>
-          <%= booking.start_date %>
-          <%= booking.end_date %>
-          <%= booking.status %>
-        <% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+    <h2 class="py-3">Pending Bookings</h2>
+    <% @bookings.each do |booking| %>
+      <% if booking.status.nil? %>
+        <div class="card shadow my-2">
+          <h5 class="card-header"><%= booking.activity.title %> - <%= booking.activity.price %>€</h5>
+          <div class="card-body d-flex justify-content-between align-items-center">
+            <div><strong>Customer: </strong><%= booking.user.first_name %> <%= booking.user.last_name %></div>
+            <div> <strong>from: </strong><%= booking.start_date.strftime('%B %d, %Y - %H:%M') %>
+            <strong>to: </strong><%= booking.end_date.strftime('%B %d, %Y - %H:%M') %></div>
+            <div class="btn-group" role="group">
+              <%= link_to "Reject", update_booking_path(booking, status: false), data: {turbo_method: :patch}, class:"btn btn-danger"%>
+              <%= link_to "Accept", update_booking_path(booking, status: true), data: {turbo_method: :patch}, class:"btn btn-success"%>
+            </div>
+          </div>
         </div>
-       <% end %>
+        <% else %>
+      <% end %>
+    <% end %>
+    <h2 class="py-3">Accepted Bookings</h2>
+    <% @bookings.each do |booking| %>
+      <% if booking.status %>
+        <div class="card shadow my-2">
+          <h5 class="card-header"><%= booking.activity.title %> - <%= booking.activity.price %>€</h5>
+          <div class="card-body d-flex justify-content-between align-items-center">
+            <div><strong>Customer: </strong><%= booking.user.first_name %> <%= booking.user.last_name %></div>
+            <div> <strong>from: </strong><%= booking.start_date.strftime('%B %d, %Y - %H:%M') %>
+            <strong>to: </strong><%= booking.end_date.strftime('%B %d, %Y - %H:%M') %></div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    <h2 class="py-3">Rejected Bookings</h2>
+    <% @bookings.each do |booking| %>
+      <% if !booking.status %>
+        <div class="card shadow my-2">
+          <h5 class="card-header"><%= booking.activity.title %> - <%= booking.activity.price %>€</h5>
+          <div class="card-body d-flex justify-content-between align-items-center">
+            <div><strong>Customer: </strong><%= booking.user.first_name %> <%= booking.user.last_name %></div>
+            <div> <strong>from: </strong><%= booking.start_date.strftime('%B %d, %Y - %H:%M') %>
+            <strong>to: </strong><%= booking.end_date.strftime('%B %d, %Y - %H:%M') %></div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
     </div>
   </div>
 </div>
