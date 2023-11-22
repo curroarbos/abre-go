@@ -9,6 +9,8 @@
           <%= f.input :price, placeholder: '100$' %>
           <%= f.input :location, placeholder: 'Barcelona' %>
           <%= f.input :max_people, placeholder: 2 %>
+          <%= f.association :category, placeholder: 'Corporate Services' %>
+           <%= f.input :photo, as: :file %>
           <%= f.submit class: 'btn btn-primary' %>
         <% end %>
       </div>
