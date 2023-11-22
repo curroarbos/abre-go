@@ -5,8 +5,8 @@
     <div class="row my-2">
       <% @activities.each do | activity | %>
         <div class="col-12 col-sm-6 mb-4" data-aos="zoom-in">
-        <%= link_to activity_path(activity), class:"text-decoration-none" do %>
-          <div class="card-category" data-aos="zoom-in" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= asset_path('activity_test.jpg') %>)">
+        <%= link_to activity_path(activity), class:"text-decoration-none text-white" do %>
+          <div class="card-category" data-aos="zoom-in" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%=activity.photo_url%>')">
           <strong><%= activity.title %> </strong>
           <%= activity.location %>
           <%= activity.price %> €
