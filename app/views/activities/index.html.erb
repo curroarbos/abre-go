@@ -2,16 +2,16 @@
   <div class="d-flex align-items-center justify-content-between mb-3">
       <h3 class="mb-0">Explore All Activities</h3>
   </div>
-    <div class="row">
+    <div class="row my-2">
       <% @activities.each do | activity | %>
-        <div class="co-12 col-sm-6 col-md-4 mb-3">
+        <div class="col-12 col-sm-6 mb-4" data-aos="zoom-in">
         <%= link_to activity_path(activity), class:"text-decoration-none" do %>
-          <%= activity.photo.key %> 
-          <%= activity.title %>
+          <div class="card-category" data-aos="zoom-in" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= asset_path('activity_test.jpg') %>)">
+          <strong><%= activity.title %> </strong>
           <%= activity.location %>
           <%= activity.price %> €
-
         <% end %>
+        </div>
         </div>
        <% end %>
     </div>
