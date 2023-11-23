@@ -1,6 +1,6 @@
 class BookingsController < ApplicationController
   before_action :set_activity, only: %i[new create]
-  before_action :set_booking, only: %i[show edit destroy]
+  before_action :set_booking, only: %i[show update destroy]
   before_action :set_user, only: %i[index create requested]
 
   def index
@@ -34,6 +34,8 @@ class BookingsController < ApplicationController
   end
 
   def update
+    @booking.update(status: params[:status])
+    redirect_to requested_path(current_user)
   end
 
   def destroy
@@ -54,6 +56,6 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:start_date, :end_date, :number_of_people)
+    params.require(:booking).permit(:start_date, :end_date, :number_of_people, :status)
   end
 end

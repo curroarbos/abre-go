@@ -6,7 +6,8 @@ Rails.application.routes.draw do
     resources :bookings, only: %i[new create]
     resources :reviews, only: %i[new create]
   end
-  resources :bookings, only: %i[index show edit update destroy]
+  resources :bookings, only: %i[index show edit destroy]
+  patch 'bookings/:id', to: 'bookings#update', as: :update_booking
 
   resources :users, only: %i[show edit update destroy]
 
