@@ -1,46 +1,60 @@
-.btn-green {
+// .btn-green {
+//   color: white;
+//   padding: 8px 24px;
+//   border-radius: 4px;
+//   background: #68b0ab;
+//   transition: background 0.3s ease;
+// }
+
+// .btn-green :hover {
+//   color: white;
+//   padding: 8px 24px;
+//   border-radius: 4px;
+//   background: #218679;
+//   transition: background 0.3s ease;
+
+// .btn-grey {
+//   color: white;
+//   padding: 8px 24px;
+//   border-radius: 4px;
+//   background: #8fc0a9;
+//   transition: background 0.3s ease;
+// }
+
+
+// .btn-cancel {
+//   color: white;
+//   padding: 8px 24px;
+//   border-radius: 4px;
+//   background: #6a757e;
+//   transition: background 0.3s ease;
+// }
+
+
+
+.btn-dark-green {
   color: white;
   padding: 8px 24px;
   border-radius: 4px;
-  background: #29a494;
+  background: $dark-green;
   transition: background 0.3s ease;
 }
 
-.btn-green :hover {
+.btn-dark-green:hover {
+  background: #375c42;
+  color: white;
+}
+
+
+.btn-lighter-green {
   color: white;
   padding: 8px 24px;
   border-radius: 4px;
-  background: #218679;
+  background: $lighter-green;
   transition: background 0.3s ease;
 }
 
-.btn-grey {
-  color: white;
-  padding: 8px 24px;
-  border-radius: 4px;
-  background: #8a9d9b;
-  transition: background 0.3s ease;
-}
-
-
-.btn-cancel {
-  color: white;
-  padding: 8px 24px;
-  border-radius: 4px;
-  background: #6a757e;
-  transition: background 0.3s ease;
-}
-
-
-.btn-flat {
-  color: white;
-  padding: 8px 24px;
-  border-radius: 4px;
-  background: #29a494;
-  transition: background 0.3s ease;
-}
-
-.btn-flat:hover {
-  background: #208578;
+.btn-lighter-green:hover {
+  background: $light-green;
   color: white;
 }

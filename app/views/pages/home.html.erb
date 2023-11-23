@@ -3,19 +3,19 @@
 <h1>Abrego</h1>
 <p> Get local services at your new home ! </p> -->
 
-<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= asset_path('yoga.png')%>)">
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url(<%= asset_path('yoga.png')%>)">
   <div class="container">
     <h1><strong> Tailored Services, Crafted Just for You, Your Host's Signature Touch!</strong></h1>
     <%# <p> Your Host's Finest Selection!" <p> %>
     <div class="d-flex justify-content-between my-4">
       <% if current_user.nil? %>
-        <%= link_to "Explore services now", activities_path, class: "btn btn-flat" %>
-        <%= link_to "Become a service provider", new_activity_path, class: "btn btn-grey" %>
+        <%= link_to "Explore services now", activities_path, class: "btn btn-dark-green" %>
+        <%= link_to "Become a service provider", new_activity_path, class: "btn btn-lighter-green" %>
       <% elsif current_user.provider? %>
-        <%= link_to "Explore services now", activities_path, class: "btn btn-green" %>
+        <%= link_to "Explore services now", activities_path, class: "btn btn-dark-green" %>
       <% elsif !current_user.nil? %>
-        <%= link_to "Explore services now", activities_path, class: "btn btn-flat" %>
-        <%= link_to "Become a service provider", new_activity_path, class: "btn btn-grey" %>
+        <%= link_to "Explore services now", activities_path, class: "btn btn-dark-green" %>
+        <%= link_to "Become a service provider", new_activity_path, class: "btn lighter-green" %>
       <% end %>
     </div>
   </div>
@@ -25,7 +25,7 @@
   <div class="d-flex align-items-center justify-content-between mb-3">
     <div class="cards">
       <div>
-        <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= asset_path('guitar.png')%>)">
+        <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(<%= asset_path('guitar.png')%>)">
         </div>
         <div class="p-3 rounded-bottom d-flex flex-column">
           <strong> Guitar Lesson  <span class="text-muted font-weight-normal">• 5 <i class="fas fa-star star-yellow"></i></span></strong>
@@ -34,7 +34,7 @@
       </div>
 
       <div>
-        <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= asset_path('laundry_services.png')%>)">
+        <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(<%= asset_path('laundry_services.png')%>)">
         </div>
         <div class="p-3 rounded-bottom d-flex flex-column">
           <strong> Laundry Service  <span class="text-muted font-weight-normal">• 4.5 <i class="fas fa-star star-yellow"></i></span></strong>
@@ -43,14 +43,13 @@
       </div>
 
       <div>
-        <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= asset_path('wine_party.png')%>)">
+        <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(<%= asset_path('wine_party.png')%>)">
         </div>
         <div class="p-3 rounded-bottom d-flex flex-column">
           <strong> Wine Tasting  <span class="text-muted font-weight-normal">• 4.7 <i class="fas fa-star star-yellow"></i></span></strong>
-          <small class="text-muted"> I went to local winery near by vacation home and had superb evening with my friends </small>
+          <small class="text-muted"> I went to local winery near my vacation home and had superb evening with my friends </small>
         </div>
       </div>
-
 
     </div>
 
