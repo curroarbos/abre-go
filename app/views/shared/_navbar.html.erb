@@ -19,16 +19,14 @@
             <img class="avatar dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="https://kitt.lewagon.com/placeholder/users/curroarbos" />
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <%= link_to "Sign-up", new_user_registration_path, class: "dropdown-item" %>
-            <%= link_to "Edit profile", edit_user_registration_path, class: "dropdown-item" %>
-              <a class="dropdown-item" data-turbo-method="delete" href="#">Log out</a>
             </div>
           </li>
                 <% elsif current_user.provider? %>
                   <li class="nav-item">
-                  <%= link_to 'Manage my bookings', requested_path(current_user), class: "nav-link" %>
+                  <%= link_to 'Manage my bookings', requested_path(current_user), class: "nav-link text-white" %>
                  </li>
                   <li class="nav-item">
-                  <%= link_to 'Create an activity', new_activity_path, class: "nav-link" %>
+                  <%= link_to 'Create an activity', new_activity_path, class: "nav-link text-white" %>
                  </li>
                 <li class="nav-item dropdown">
                   <img class="avatar dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="https://kitt.lewagon.com/placeholder/users/curroarbos" />
@@ -40,11 +38,12 @@
               class: "dropdown-item",
               method: :delete
             ) %>
+            <%= link_to "See my bookings as a user", bookings_path, class: "dropdown-item" %>
                   </div>
                 </li>
           <% elsif !current_user.nil? %>
                   <li class="nav-item">
-                  <%= link_to 'See my bookings', bookings_path, class: "nav-link" %>
+                  <%= link_to 'See my bookings', bookings_path, class: "nav-link text-white" %>
                  </li>
           <li class="nav-item dropdown">
             <img class="avatar dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="https://kitt.lewagon.com/placeholder/users/curroarbos" />
