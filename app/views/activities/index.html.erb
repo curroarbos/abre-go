@@ -1,24 +1,31 @@
 <div class="container py-5">
   <div class="d-flex align-items-center justify-content-between mb-3">
-      <h3 class="mb-0">Explore All Activities</h3>
+    <h3 class="mb-0">Explore All Activities</h3>
   </div>
-    <div class="row my-2">
-      <% @activities.each do | activity | %>
-        <div class="col-12 col-sm-6 mb-4" data-aos="zoom-in">
-        <%= link_to activity_path(activity), class:"text-decoration-none text-white" do %>
 
-        <% if !activity.photo_url.nil?  %>
-        <div class="card-category" data-aos="zoom-in" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%=activity.photo_url%>')">
-        <% else %>
-        <div class="card-category text-decoration-none" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('<%= cl_image_path activity.photo.key, height: 300, crop: :fill %>')">
-        <% end %>
-          <strong><%= activity.title %> </strong>
-          <%= activity.location %>
-          <%= activity.price %> €
-        <% end %>
+  <div class="mb-3">
+    <div class="row my-2">
+      <div class="cards">
+      <% @activities.each do | activity | %>
+        <div class="mb-3">
+          <%= link_to activity_path(activity), class: "text-decoration-none text-dark" do %>
+            <% if !activity.photo_url.nil?  %>
+              <div class="card-category" data-aos="zoom-in" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%=activity.photo_url%>')"> </div>
+            <% else %>
+              <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('<%= cl_image_path activity.photo.key, height: 300, crop: :fill %>')"> </div>
+            <% end %>
+            <div class="p-3 rounded-bottom d-flex flex-column">
+              <div class="d-flex justify-content-between">
+                <h4> <%= activity.title %> </h4>
+                <p class="text-muted font-weight-normal"> 5 <i class="fas fa-star star-yellow"></i></p>
+              </div>
+              <p> <%= activity.location %> </p>
+              <p> <strong><%= activity.price %> € </strong></p>
+            </div>
+          <% end %>
         </div>
-        </div>
-       <% end %>
+      <% end %>
+      </div>
     </div>
   </div>
 </div>
