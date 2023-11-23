@@ -8,6 +8,7 @@
         <%= link_to activity_path(activity), class:"text-decoration-none text-white" do %>
 
         <% if !activity.photo_url.nil?  %>
+        <%# I don't think the else works here. If not seeded then get an error %>
         <div class="card-category" data-aos="zoom-in" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%=activity.photo_url%>')">
         <% else %>
         <div class="card-category text-decoration-none" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('<%= cl_image_path activity.photo.key, height: 300, crop: :fill %>')">
@@ -19,6 +20,11 @@
         </div>
         </div>
        <% end %>
+    </div>
+
+    <div style="width: 100%; height: 600px;"
+      data-controller="map"
+      data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
     </div>
   </div>
 </div>
