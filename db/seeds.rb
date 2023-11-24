@@ -1,7 +1,7 @@
+User.destroy_all
 Booking.destroy_all
 Activity.destroy_all
 Category.destroy_all
-User.destroy_all
 
 
 Category.create!(name: "Food")
