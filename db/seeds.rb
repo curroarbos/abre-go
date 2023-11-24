@@ -13,7 +13,7 @@ ACTIVITIES = ["Cooking lesson", "Waterski", "DJ set", "Yoga lesson", "Paella at 
 LOCATIONS = ["Malaga", "Velez Malaga", "Ronda", "Torremolinos", "Rincon de la Victoria", "Archidona", "Antequera"]
 
 5.times do
-  User.create! :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name, :email => Faker::Internet.email, :password => 123456, :password_confirmation => 123456, is_provider: true
+  User.create! :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name, :email => Faker::Internet.email, :password => '123456', :password_confirmation => '123456', is_provider: true
 end
 
 User.all.each do |user|
@@ -22,8 +22,8 @@ User.all.each do |user|
 end
 
 5.times do
-  User.create! :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name, :email => Faker::Internet.email, :password => 123456, :password_confirmation => 123456, is_provider: false
+  User.create! :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name, :email => Faker::Internet.email, :password => '123456', :password_confirmation => '123456', is_provider: false
 end
 
-User.create! :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name, :email => "test-provider@test.com", :password => 123456, :password_confirmation => 123456, is_provider: true
-User.create! :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name, :email => "test-user@test.com", :password => 123456, :password_confirmation => 123456, is_provider: false
+User.create! :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name, :email => "test-provider@test.com", :password => '123456', :password_confirmation => '123456', is_provider: true
+User.create! :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name, :email => "test-user@test.com", :password => '123456', :password_confirmation => '123456', is_provider: false
