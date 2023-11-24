@@ -73,7 +73,7 @@
       <div class="card shadow">
         <h2 class="card-header">Reviews</h2>
           <% @activity.reviews.each do |review| %>
-            <div class="card-body d-flex border-bottom">
+            <div class="card-body d-flex pb-0 border-bottom">
               <div class="d-flex flex-column">
                 <% if !review.user.photo_url.nil? %>
                   <%= image_tag 'https://kitt.lewagon.com/placeholder/users/krokrob', class: "avatar" %>
