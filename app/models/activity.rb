@@ -7,4 +7,8 @@ class Activity < ApplicationRecord
   # has_many :users, through: :reviews
   geocoded_by :location
   after_validation :geocode, if: :will_save_change_to_location?
+
+  def method_name
+    
+  end
 end

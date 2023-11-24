@@ -5,12 +5,12 @@ class ReviewsController < ApplicationController
     @review = Review.new(review_params)
     @activity = Activity.find(params[:activity_id])
     @review.activity = @activity
+    @review.user = current_user
     if @review.save
-      redirect_to activity_path(@review.activity)
+      redirect_to activity_path(@activity)
     else
       render 'activities/show', status: :unprocessable_entity
     end
-    raise
   end
 
   private
