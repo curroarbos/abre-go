@@ -59,4 +59,14 @@
       </div>
     </div>
   </div>
+
+  <div class="row">
+    <%= simple_form_for [@activity, @review] do |f| %>
+      <%= f.input :comment,
+                  as: :string %>
+      <%= f.input :rating,
+                  as: :float %>
+      <%= f.submit class: 'btn btn-primary' %>
+    <% end %>
+  </div>
 </div>
