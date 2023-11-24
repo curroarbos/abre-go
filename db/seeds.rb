@@ -13,7 +13,7 @@ Category.create!(name: "Other")
 
 
 # ACTIVITIES = ["Cooking lesson", "Waterski", "DJ set", "Yoga lesson", "Paella at home", "IT equipment"]
-LOCATIONS = ["Canggu", "Uluwatu", "Seminyak", "Sanur", "Denpasar", "Nusa Dua", "Tanah Lot"]
+LOCATIONS = ["Canggu", "Uluwatu", "Seminyak", "Sanur", "Denpasar", "Nusa Dua", "Tanah Lot", "Bali"]
 
 6.times do
   User.create! :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name, :email => Faker::Internet.email, :password => 123456, :password_confirmation => 123456, is_provider: true
@@ -35,7 +35,9 @@ Activity.create(title: "Yoga Session", user: User.third, category: Category.four
 Activity.create(title: "IT Equipment", user: User.fourth, category: Category.third, price: 300, location: LOCATIONS.sample, max_people: 1, photo_url: "https://images.unsplash.com/photo-1515603403036-f3d35f75ca52?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
 Activity.create(title: "Party by the Pool", user: User.fifth, category: Category.second, price: 499, location: LOCATIONS.sample, max_people: 15, photo_url: "https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
 Activity.create(title: "Laundry Service", user: User.first, category: Category.fourth, price: 5, location: LOCATIONS.sample, max_people: 1, photo_url: "https://images.unsplash.com/photo-1567113463300-102a7eb3cb26?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
-
+Activity.create(title: "Dj set", user: User.first, category: Category.second, price: 200, location: LOCATIONS.sample, max_people: 15, photo_url: "https://images.unsplash.com/photo-1571266028243-d220c6a7edbf?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
+Activity.create(title: "Nany to your home", user: User.second, category: Category.fifth, price: 80, location: LOCATIONS.sample, max_people: 3, photo_url: "https://images.unsplash.com/photo-1594950981383-6eb659d18fbf?q=80&w=2669&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
+Activity.create(title: "Supper Club", user: User.third, category: Category.first, price: 100, location: LOCATIONS.sample, max_people: 8, photo_url: "https://images.unsplash.com/photo-1519671282429-b44660ead0a7?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
 
 User.create! :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name, :email => "test-provider@test.com", :password => 123456, :password_confirmation => 123456, is_provider: true
 User.create! :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name, :email => "test-user@test.com", :password => 123456, :password_confirmation => 123456, is_provider: false
