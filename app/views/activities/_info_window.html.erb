@@ -1,0 +1,16 @@
+            <div class="mb-3">
+              <%= link_to activity_path(activity), class: "text-decoration-none text-dark" do %>
+                <% if !activity.photo_url.nil?  %>
+                  <div class="card-category" data-aos="zoom-in" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%=activity.photo_url%>')"> </div>
+                <% else %>
+                  <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('<%= cl_image_path activity.photo.key, height: 300, crop: :fill %>')"> </div>
+                <% end %>
+                <div class="p-3 rounded-bottom d-flex flex-column">
+                  <div class="d-flex justify-content-between">
+                    <h4> <%= activity.title %> </h4>
+                  </div>
+                  <p> <%= activity.location %> </p>
+                  <p> <strong><%= activity.price %> € </strong></p>
+                </div>
+              <% end %>
+            </div>

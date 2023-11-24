@@ -3,7 +3,19 @@ class ActivitiesController < ApplicationController
   before_action :set_user, only: [:offered]
 
   def index
-    @activities = Activity.all
+    @activities =
+    if params[:query].present?
+      Activity.search_by_keyword(params[:query])
+    else
+      Activity.all
+    end
+    @markers = @activities.geocoded.map do |activity|
+      {
+        lat: activity.latitude,
+        lng: activity.longitude,
+        info_window_html: render_to_string(partial: "info_window", locals: {activity: activity})
+      }
+    end
   end
 
   def show

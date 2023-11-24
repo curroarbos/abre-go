@@ -10,12 +10,12 @@
     <div class="d-flex justify-content-between my-4">
       <% if current_user.nil? %>
         <%= link_to "Explore services now", activities_path, class: "btn btn-dark-green" %>
-        <%= link_to "Become a service provider", new_activity_path, class: "btn btn-lighter-green" %>
+        <%= link_to "Become a service provider", new_user_registration_path, class: "btn btn-lighter-green" %>
       <% elsif current_user.provider? %>
         <%= link_to "Explore services now", activities_path, class: "btn btn-dark-green" %>
       <% elsif !current_user.nil? %>
         <%= link_to "Explore services now", activities_path, class: "btn btn-dark-green" %>
-        <%= link_to "Become a service provider", new_activity_path, class: "btn lighter-green" %>
+        <%= link_to "Become a service provider", edit_user_registration_path, class: "btn btn-lighter-green" %>
       <% end %>
     </div>
   </div>
