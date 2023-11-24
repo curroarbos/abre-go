@@ -1,5 +1,5 @@
 class ActivitiesController < ApplicationController
-  before_action :set_activity, only: [:show, :destroy]
+  before_action :set_activity, only: [:show, :destroy, :update]
   before_action :set_user, only: [:offered]
 
   def index
@@ -53,7 +53,7 @@ class ActivitiesController < ApplicationController
 
   def destroy
     @activity.destroy
-    redirect_to activities_path, status: other
+    redirect_to activities_path, status: :see_other
   end
 
   def offered

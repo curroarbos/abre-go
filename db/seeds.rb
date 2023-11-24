@@ -37,5 +37,3 @@ Activity.create(title: "Party by the Pool", user: User.fifth, category: Category
 Activity.create(title: "Laundry Service", user: User.first, category: Category.fourth, price: 5, location: LOCATIONS.sample, max_people: 1, photo_url: "https://images.unsplash.com/photo-1567113463300-102a7eb3cb26?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
 
 
-User.create! :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name, :email => "test-provider@test.com", :password => 123456, :password_confirmation => 123456, is_provider: true
-User.create! :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name, :email => "test-user@test.com", :password => 123456, :password_confirmation => 123456, is_provider: false
