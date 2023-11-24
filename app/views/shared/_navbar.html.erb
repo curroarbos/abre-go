@@ -32,13 +32,14 @@
                   <img class="avatar dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="https://kitt.lewagon.com/placeholder/users/curroarbos" />
                   <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                   <%= link_to "Edit profile", edit_user_registration_path, class: "dropdown-item" %>
+                  <%= link_to "Edit my activities", offered_path(current_user), class: "dropdown-item" %>
+                  <%= link_to "See my bookings as a user", bookings_path, class: "dropdown-item" %>
                     <%= button_to(
                             "Log Out",
               destroy_user_session_path,
               class: "dropdown-item",
               method: :delete
             ) %>
-            <%= link_to "See my bookings as a user", bookings_path, class: "dropdown-item" %>
                   </div>
                 </li>
           <% elsif !current_user.nil? %>

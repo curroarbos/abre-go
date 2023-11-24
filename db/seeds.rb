@@ -25,5 +25,3 @@ end
   User.create! :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name, :email => Faker::Internet.email, :password => 123456, :password_confirmation => 123456, is_provider: false
 end
 
-User.create! :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name, :email => "test-provider@test.com", :password => 123456, :password_confirmation => 123456, is_provider: true
-User.create! :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name, :email => "test-user@test.com", :password => 123456, :password_confirmation => 123456, is_provider: false
