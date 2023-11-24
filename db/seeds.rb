@@ -39,3 +39,5 @@ Activity.create(title: "Dj set", user: User.first, category: Category.second, pr
 Activity.create(title: "Nany to your home", user: User.second, category: Category.fifth, price: 80, location: LOCATIONS.sample, max_people: 3, photo_url: "https://images.unsplash.com/photo-1594950981383-6eb659d18fbf?q=80&w=2669&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
 Activity.create(title: "Supper Club", user: User.third, category: Category.first, price: 100, location: LOCATIONS.sample, max_people: 8, photo_url: "https://images.unsplash.com/photo-1519671282429-b44660ead0a7?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
 
+User.create! :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name, :email => "test-provider@test.com", :password => 123456, :password_confirmation => 123456, is_provider: true
+User.create! :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name, :email => "test-user@test.com", :password => 123456, :password_confirmation => 123456, is_provider: false
