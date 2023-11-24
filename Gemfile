@@ -79,3 +79,4 @@ gem "geocoder"
 gem "cloudinary"
 gem "dotenv-rails"
 gem 'faker'
+gem "pg_search"
