@@ -4,11 +4,18 @@ class ActivitiesController < ApplicationController
 
   def index
     @activities =
-      if params[:query].present?
-        Activity.search_by_keyword(params[:query])
-      else
-        Activity.all
-      end
+    if params[:query].present?
+      Activity.search_by_keyword(params[:query])
+    else
+      Activity.all
+    end
+    @markers = @activities.geocoded.map do |activity|
+      {
+        lat: activity.latitude,
+        lng: activity.longitude,
+        info_window_html: render_to_string(partial: "info_window", locals: {activity: activity})
+      }
+    end
   end
 
   def show
@@ -17,7 +24,8 @@ class ActivitiesController < ApplicationController
     @markers = [{
       lat: @activity.latitude,
       lng: @activity.longitude
-    }]
+      }]
+    @review = Review.new
   end
 
   def new

@@ -11,6 +11,7 @@ Category.create!(name: "Oudoors")
 Category.create!(name: "Other")
 
 
+
 # ACTIVITIES = ["Cooking lesson", "Waterski", "DJ set", "Yoga lesson", "Paella at home", "IT equipment"]
 LOCATIONS = ["Canggu", "Uluwatu", "Seminyak", "Sanur", "Denpasar", "Nusa Dua", "Tanah Lot"]
 
@@ -22,6 +23,7 @@ end
 #   Activity.create!(title: ACTIVITIES.sample, user: user, category: Category.first, price: rand(10..100), location: LOCATIONS.sample, max_people: rand(1..10), photo_url: "https://as2.ftcdn.net/v2/jpg/02/87/24/95/1000_F_287249541_Ui4Iqyp4ggPSuHg89yvvEWsB4ksH9jYT.jpg")
 #   Activity.create!(title: ACTIVITIES.sample, user: user, category: Category.first, price: rand(10..100), location: LOCATIONS.sample, max_people: rand(1..10), photo_url: "https://as2.ftcdn.net/v2/jpg/02/87/24/95/1000_F_287249541_Ui4Iqyp4ggPSuHg89yvvEWsB4ksH9jYT.jpg")
 # end
+
 
 # 5.times do
 #   User.create! :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name, :email => Faker::Internet.email, :password => 123456, :password_confirmation => 123456, is_provider: false
