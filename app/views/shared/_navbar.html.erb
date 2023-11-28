@@ -1,9 +1,9 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
-  <div class="container-fluid">
-  <%= link_to root_path, class: "navbar-brand" do %>
+  <div class="container-fluid mx-5">
+    <%= link_to root_path, class: "navbar-brand" do %>
       <%= image_tag "abrego 2.png", alt: "Logo", width: 100 %>
     <% end %>
-</a>
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -12,53 +12,58 @@
       <ul class="navbar-nav me-auto">
 
       <% if current_user.nil? %>
-          <li class="nav-item active">
-             <%= link_to "Log-in", new_user_session_path, class: "nav-link text-light" %>
-          </li>
-           <li class="nav-item dropdown">
-            <img class="avatar dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="https://kitt.lewagon.com/placeholder/users/curroarbos" />
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-            <%= link_to "Sign-up", new_user_registration_path, class: "dropdown-item" %>
-            </div>
-          </li>
-                <% elsif current_user.provider? %>
-                  <li class="nav-item">
-                  <%= link_to 'Manage my bookings', requested_path(current_user), class: "nav-link text-white" %>
-                 </li>
-                  <li class="nav-item">
-                  <%= link_to 'Create an activity', new_activity_path, class: "nav-link text-white" %>
-                 </li>
-                <li class="nav-item dropdown">
-                  <img class="avatar dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="https://kitt.lewagon.com/placeholder/users/curroarbos" />
-                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  <%= link_to "Edit profile", edit_user_registration_path, class: "dropdown-item" %>
-                  <%= link_to "Edit my activities", offered_path(current_user), class: "dropdown-item" %>
-                  <%= link_to "See my bookings as a user", bookings_path, class: "dropdown-item" %>
-                    <%= button_to(
-                            "Log Out",
-              destroy_user_session_path,
-              class: "dropdown-item",
-              method: :delete
-            ) %>
-                  </div>
-                </li>
-          <% elsif !current_user.nil? %>
-                  <li class="nav-item">
-                  <%= link_to 'See my bookings', bookings_path, class: "nav-link text-white" %>
-                 </li>
+          <%# <li class="nav-item active">
+          </li> %>
           <li class="nav-item dropdown">
-            <img class="avatar dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="https://kitt.lewagon.com/placeholder/users/curroarbos" />
+            <img class="avatar dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="https://res.cloudinary.com/dp39nvrov/image/upload/v1701160462/no_profile_pic_mygech.png" />
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-            <%= link_to "Edit profile", edit_user_registration_path, class: "dropdown-item" %>
-              <%= button_to(
-                      "Log Out",
-        destroy_user_session_path,
-        class: "dropdown-item",
-        method: :delete
-      ) %>
+              <%= link_to "Log-in", new_user_session_path, class: "dropdown-item" %>
+              <%= link_to "Sign-up", new_user_registration_path, class: "dropdown-item" %>
             </div>
           </li>
-
+      <% elsif current_user.provider? %>
+        <li class="nav-item">
+          <%= link_to 'Manage my bookings', requested_path(current_user), class: "nav-link text-white" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Create an activity', new_activity_path, class: "nav-link text-white" %>
+        </li>
+        <li class="nav-item dropdown">
+        <% if current_user.photo_url.nil? %>
+          <img class="avatar dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="https://res.cloudinary.com/dp39nvrov/image/upload/v1701160462/no_profile_pic_mygech.png" />
+        <% else %>
+          <img class="avatar dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="<%= cloudinary_url(current_user.photo.key, crop: :fill) %>" />
+        <% end %>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <%= link_to "Edit profile", edit_user_registration_path, class: "dropdown-item" %>
+            <%= link_to "Edit my activities", offered_path(current_user), class: "dropdown-item" %>
+            <%= link_to "See my bookings as a user", bookings_path, class: "dropdown-item" %>
+            <%= button_to(
+                          "Log Out",
+                          destroy_user_session_path,
+                          class: "dropdown-item",
+                          method: :delete
+                        )
+            %>
+          </div>
+        </li>
+      <% elsif !current_user.nil? %>
+        <li class="nav-item">
+          <%= link_to 'See my bookings', bookings_path, class: "nav-link text-white" %>
+        </li>
+        <li class="nav-item dropdown">
+          <img class="avatar dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="https://kitt.lewagon.com/placeholder/users/curroarbos" />
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <%= link_to "Edit profile", edit_user_registration_path, class: "dropdown-item" %>
+            <%= button_to(
+                          "Log Out",
+                          destroy_user_session_path,
+                          class: "dropdown-item",
+                          method: :delete
+                        )
+            %>
+          </div>
+        </li>
       <% end %>
 
           <!--li class="nav-item"-->
