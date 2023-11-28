@@ -29,11 +29,11 @@
           <%= link_to 'Create an activity', new_activity_path, class: "nav-link text-white" %>
         </li>
         <li class="nav-item dropdown">
-        <% if current_user.photo_url.nil? %>
-          <img class="avatar dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="https://res.cloudinary.com/dp39nvrov/image/upload/v1701160462/no_profile_pic_mygech.png" />
-        <% else %>
-          <img class="avatar dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="<%= cloudinary_url(current_user.photo.key, crop: :fill) %>" />
-        <% end %>
+          <% if current_user.photo.attached? %>
+            <%= cl_image_tag current_user.photo.key, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false"} %>
+          <% else %>
+            <img class="avatar dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="https://res.cloudinary.com/dp39nvrov/image/upload/v1701160462/no_profile_pic_mygech.png" />
+          <% end %>
           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <%= link_to "Edit profile", edit_user_registration_path, class: "dropdown-item" %>
             <%= link_to "Edit my activities", offered_path(current_user), class: "dropdown-item" %>
@@ -45,16 +45,49 @@
                           method: :delete
                         )
             %>
-          </div>
+            </div>
+        </li>
+      <% elsif current_user.owner? %>
+        <li class="nav-item">
+          <%= link_to 'Manage my bookings', requested_path(current_user), class: "nav-link text-white" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Create an activity', new_activity_path, class: "nav-link text-white" %>
+        </li>
+        <li class="nav-item dropdown">
+          <% if current_user.photo.attached? %>
+            <%= cl_image_tag current_user.photo.key, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false"} %>
+          <% else %>
+            <img class="avatar dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="https://res.cloudinary.com/dp39nvrov/image/upload/v1701160462/no_profile_pic_mygech.png" />
+          <% end %>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <%= link_to "Edit profile", edit_user_registration_path, class: "dropdown-item" %>
+            <%# Change below link to property %>
+            <%= link_to "Edit my properties", edit_user_registration_path, class: "dropdown-item" %>
+            <%= link_to "Edit my activities", offered_path(current_user), class: "dropdown-item" %>
+            <%= link_to "See my bookings as a user", bookings_path, class: "dropdown-item" %>
+            <%= button_to(
+                          "Log Out",
+                          destroy_user_session_path,
+                          class: "dropdown-item",
+                          method: :delete
+                        )
+            %>
+            </div>
         </li>
       <% elsif !current_user.nil? %>
         <li class="nav-item">
           <%= link_to 'See my bookings', bookings_path, class: "nav-link text-white" %>
         </li>
         <li class="nav-item dropdown">
-          <img class="avatar dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="https://kitt.lewagon.com/placeholder/users/curroarbos" />
+          <% if current_user.photo.attached? %>
+            <%= cl_image_tag current_user.photo.key, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false"} %>
+          <% else %>
+            <img class="avatar dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="https://res.cloudinary.com/dp39nvrov/image/upload/v1701160462/no_profile_pic_mygech.png" />
+          <% end %>
           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <%= link_to "Edit profile", edit_user_registration_path, class: "dropdown-item" %>
+            <%= link_to "Become a provider", new_activity_path, class: "dropdown-item" %>
             <%= button_to(
                           "Log Out",
                           destroy_user_session_path,
