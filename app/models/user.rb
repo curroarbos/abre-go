@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :bookings_as_provider, through: :activities, source: :bookings
   # has_many :activities, through: :bookings
   has_many :reviews, through: :activities
+  has_one_attached :photo
 
   def provider?
     is_provider

@@ -31,12 +31,12 @@
                       required: false %>
           <%= f.input :password_confirmation,
                       required: false %>
+          <%= f.input :photo, as: :file, label: "Profile photo",
+                      hint: "Add a profile photo" %>
           <%= f.input :current_password,
                       hint: "we need your current password to confirm your changes",
                       required: true %>
-          <%= f.input :photo_url, as: :file, label: "Profile photo",
-                      hint: "Add a profile photo" %>
-          <%= f.input :is_provider, label: "Are you a provider"%>
+          <%# <%= f.input :is_provider, label: "Are you a provider"%>
         </div>
 
         <div class="form-actions">
