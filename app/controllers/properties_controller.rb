@@ -2,7 +2,7 @@ class PropertiesController < ApplicationController
 
   def show
     @property = Property.find(params[:id])
-    # @recommendations = Recommendations.where(property_id: @property.id)
+    @recommendations = Recommendation.where(property_id: @property.id)
   end
 
   def new

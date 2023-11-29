@@ -6,16 +6,47 @@
   <% if @recommendations.nil? %>
     <p>You have no recommendations yet.</p>
   <% else %>
-    <ul>
+    <div class="mb-3">
+    <div class="row my-2">
+    <div class="col-12 col-lg-8">
+      <div class="cards">
       <% @recommendations.each do |recommendation| %>
-        <li><%= recommendation.name %></li>
+        <div class="mb-3">
+          <%# <%= link_to activity_path(activity), class: "text-decoration-none text-dark" do %>
+            <% if !recommendation.recommendable.photo_url.nil?  %>
+              <div class="card-category" data-aos="zoom-in" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%=recommendation.recommendable.photo_url%>')"> </div>
+            <% else %>
+              <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('<%= cl_image_path recommendation.recommendable.photo.key, height: 300, crop: :fill %>')"> </div>
+            <% end %>
+            <div class="p-3 rounded-bottom d-flex flex-column">
+              <div class="d-flex justify-content-between">
+                <h4> <%= recommendation.recommendable.title %> </h4>
+                <p class="text-muted font-weight-normal">
+                <%# Get average rating %>
+                <% if recommendation.recommendable.reviews.empty? %>
+                  No reviews yet
+                <% else %>
+                  <%= (recommendation.recommendable.reviews.pluck(:rating).sum / recommendation.recommendable.reviews.pluck(:rating).length).round(1) %>
+                  <i class="fa-solid fa-star text-warning"></i>
+                <% end %>
+                </p>
+              </div>
+              <p> <%= recommendation.recommendable.location %> </p>
+              <p> <strong><%= recommendation.recommendable.price %> € </strong></p>
+            </div>
+        <%# <% end %>
+        <%= link_to "Delete", recommendation_path(recommendation), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+        </div>
       <% end %>
-    </ul>
+      </div>
+    </div>
+    </div>
+    </div>
   <% end %>
 
   <h3>Add new recommendations below</h3>
   <%= simple_form_for [@property, @recommendation] do |f| %>
     <%= f.input :recommendable, collection: @activities, as: :check_boxes %>
-    <%= f.submit 'ok' %>
+    <%= f.submit 'Finished', class: "btn-dark-green" %>
   <% end %>
 </div>
