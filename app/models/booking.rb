@@ -3,4 +3,10 @@ class Booking < ApplicationRecord
   belongs_to :activity
   belongs_to :user
   # scope :status, -> { where(status: nil) }
+  validates :start_date, presence: true
+  validates :end_date, presence: true
+
+  def valid?
+    end_date > start_date
+  end
 end
