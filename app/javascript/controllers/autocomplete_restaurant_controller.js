@@ -1,0 +1,43 @@
+import { Controller } from "@hotwired/stimulus"
+
+// Connects to data-controller="autocomplete-restaurant"
+export default class extends Controller {
+  static values = {
+    apiKey: String,
+  }
+
+  static targets = ["list", "search"]
+
+  connect() {
+  }
+
+  find(event) {
+    event.preventDefault();
+    const url = `https://local-business-data.p.rapidapi.com/autocomplete?query=${this.searchTarget.value}&region=eu&language=en`;
+    const options = {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Key': '8065d585f3msh6fc7bc0e2d4fa2dp1925fajsna889c96982de',
+        'X-RapidAPI-Host': 'local-business-data.p.rapidapi.com'
+      }
+    };
+
+    fetch(url, options)
+      .then(response => response.json())
+      .then((data) => {
+        console.log(data)
+        this.listTarget.innerHTML = "";
+        const places = data.data.filter((placeItem) => {
+          return placeItem.type === "place"
+        })
+        if (places.length === 0) {
+          this.listTarget.insertAdjacentHTML("beforeend", "<p>No results were found. Please, try again</p>")
+        } else
+          data.data.forEach(restaurant => {
+            if (restaurant.type === "place") {
+              this.listTarget.insertAdjacentHTML("beforeend", `<li class="list-group-item"><a data-turbo-method="post" href="/restaurants?place_id=${restaurant.place_id}">${restaurant.main_text} - ${restaurant.secondary_text}</a></li>`);
+            }
+          });
+      }).catch(error => console.log(error))
+  }
+}

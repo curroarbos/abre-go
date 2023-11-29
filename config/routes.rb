@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'show/new'
-  get 'show/create'
   devise_for :users
   root to: "pages#home"
 
@@ -16,6 +14,7 @@ Rails.application.routes.draw do
   get 'users/:id/activities/offered', to: 'activities#offered' , as: :offered
   get 'users/:id/bookings/requested', to: 'bookings#requested', as: :requested
 
+  resources :restaurants, only: %i[index show new create delete]
   resources :properties, only: %i[show new create] do
     resources :recommendations, only: %i[index new create]
   end
