@@ -1,2 +1,48 @@
-<h1>Restaurants#show</h1>
-<p>Find me in app/views/restaurants/show.html.erb</p>
+<div class="map" style="background-image: url('<%= @restaurant.photo_url %>')"></div>
+<div class="container margin-top-negative">
+  <div class="row">
+    <div class="col-12 col-lg-8">
+      <div class="card shadow">
+        <h2 class="card-header"><%= @restaurant.name %></h2>
+        <div class="card-body d-flex justify-content-between align-items-center">
+          <p class="card-text m-0"><i class="fa-solid fa-location-dot"></i> <%= @restaurant.address %></p>
+        </div>
+      </div>
+      <div class="card shadow mb-2 p-0">
+        <div class="card-body d-flex justify-content-between align-items-center">
+          <div class= "d-flex justify-content-start align-items-center">
+              <% if @restaurant.rating.nil? %>
+                No reviews yet
+              <% else %>
+                <%= @restaurant.rating %>
+                <i class="fa-solid fa-star text-warning"></i> (<%= @restaurant.review_count %>)
+              <% end %>
+            </p>
+          </div>
+          <div>
+            <p class="m-0 fst-italic"><i class="fa-solid fa-phone primary"></i><%= link_to @restaurant.telephone_number, "tel:#{@restaurant.telephone_number}" %></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card shadow my-4 p-0">
+        <h4 class="card-header">Where is this restaurant?</h4>
+        <div class="card-body d-flex justify-content-start align-items-center">
+          <div style="width: 100%; height: 600px;"
+            data-controller="map"
+            data-map-markers-value="<%= @markers.to_json %>"
+            data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-4">
+      <div class="card shadow sticky-top">
+        <h2 class="card-header">Book now!</h2>
+        <div class="card-body">
+          <%= link_to "Restaurant Link in GM", @restaurant.google_link, :target => '_blank', class: "btn btn-primary text-decoration-none white"%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

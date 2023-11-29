@@ -1,4 +1,4 @@
-<div class="container my-3" data-controller="autocomplete-restaurant">
+<div class="container my-3" data-controller="autocomplete-restaurant" data-autocomplete-restaurant-key-value=<%= ENV['BUSINESS_LOCAL_DATA_KEY'] %>>
   <form action="#" data-action="submit->autocomplete-restaurant#find">
     <input type="text" data-autocomplete-restaurant-target="search">
     <input type="submit" value="Find the restaurant">

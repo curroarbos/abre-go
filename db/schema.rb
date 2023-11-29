@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_29_071016) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_29_143948) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -89,18 +89,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_071016) do
     t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable"
   end
 
-  create_table "restaurants", force: :cascade do |t|
-    t.string "search_name"
-    t.string "name"
-    t.string "address"
-    t.integer "rating"
-    t.integer "review_count"
-    t.string "telephone_number"
-    t.string "google_link"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-    
   create_table "properties", force: :cascade do |t|
     t.string "name"
     t.string "location"
@@ -119,6 +107,21 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_071016) do
     t.datetime "updated_at", null: false
     t.index ["property_id"], name: "index_recommendations_on_property_id"
     t.index ["recommendable_type", "recommendable_id"], name: "index_recommendations_on_recommendable"
+  end
+
+  create_table "restaurants", force: :cascade do |t|
+    t.string "search_name"
+    t.string "name"
+    t.string "address"
+    t.float "rating"
+    t.integer "review_count"
+    t.string "telephone_number"
+    t.string "google_link"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.float "latitude"
+    t.float "longitude"
+    t.string "photo_url"
   end
 
   create_table "reviews", force: :cascade do |t|
