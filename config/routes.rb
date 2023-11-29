@@ -16,7 +16,10 @@ Rails.application.routes.draw do
   get 'users/:id/activities/offered', to: 'activities#offered' , as: :offered
   get 'users/:id/bookings/requested', to: 'bookings#requested', as: :requested
 
-  resources :properties, only: %i[show new] do
+  resources :properties, only: %i[show new create] do
     resources :recommendations, only: %i[index new create]
   end
+  resources :recommendations, only: :destroy
+  post '/properties/:property_id/recommendations', to: 'recommendations#create', as: :create_recommendation
+
 end

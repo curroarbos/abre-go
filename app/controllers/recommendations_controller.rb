@@ -5,6 +5,7 @@ class RecommendationsController < ApplicationController
 
   def new
     @property = Property.find(params[:property_id])
+    @recommendations = Recommendation.where(property_id: params[:property_id])
     @recommendation = Recommendation.new
     @activities = Activity.all
   end
@@ -23,6 +24,12 @@ class RecommendationsController < ApplicationController
     # else
     #   render :new
     # end
+  end
+
+  def destroy
+    @recommendation = Recommendation.find(params[:id])
+    @recommendation.destroy
+    redirect_to new_property_recommendation_path(@recommendation.property)
   end
 
   private
