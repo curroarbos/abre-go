@@ -1,0 +1,21 @@
+<div class="container">
+  <h1>Add new recommendations for <%= @property.name %></h1>
+
+  <h3>These are your previous recommendations</h3>
+
+  <% if @recommendations.nil? %>
+    <p>You have no recommendations yet.</p>
+  <% else %>
+    <ul>
+      <% @recommendations.each do |recommendation| %>
+        <li><%= recommendation.name %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <h3>Add new recommendations below</h3>
+  <%= simple_form_for [@property, @recommendation] do |f| %>
+    <%= f.input :recommendable, collection: @activities, as: :check_boxes %>
+    <%= f.submit 'ok' %>
+  <% end %>
+</div>
