@@ -19,11 +19,15 @@ class BookingsController < ApplicationController
     @booking = Booking.new(booking_params)
     @booking.user = @user
     @booking.activity = @activity
-    if @booking.save
-      redirect_to bookings_path
-    else
-      render :new, status: :unprocessable_entity
-    end
+    # if @booking.valid?
+      if @booking.save
+        redirect_to bookings_path
+      else
+        render :new, status: :unprocessable_entity
+      end
+    # else
+    #   render "activities/show", status: :unprocessable_entity
+    # end
   end
 
   def requested
