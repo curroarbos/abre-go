@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_28_074958) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_29_061901) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -67,7 +67,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_28_074958) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.bigint "property_id"
     t.index ["activity_id"], name: "index_bookings_on_activity_id"
+    t.index ["property_id"], name: "index_bookings_on_property_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
@@ -85,6 +87,26 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_28_074958) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable"
+  end
+
+  create_table "properties", force: :cascade do |t|
+    t.string "name"
+    t.string "location"
+    t.text "embedded_link"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_properties_on_user_id"
+  end
+
+  create_table "recommendations", force: :cascade do |t|
+    t.bigint "property_id", null: false
+    t.string "recommendable_type"
+    t.bigint "recommendable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["property_id"], name: "index_recommendations_on_property_id"
+    t.index ["recommendable_type", "recommendable_id"], name: "index_recommendations_on_recommendable"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -111,6 +133,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_28_074958) do
     t.text "photo_url"
     t.boolean "is_provider"
     t.string "phone_number"
+    t.boolean "is_owner", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -120,7 +143,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_28_074958) do
   add_foreign_key "activities", "categories"
   add_foreign_key "activities", "users"
   add_foreign_key "bookings", "activities"
+  add_foreign_key "bookings", "properties"
   add_foreign_key "bookings", "users"
+  add_foreign_key "properties", "users"
+  add_foreign_key "recommendations", "properties"
   add_foreign_key "reviews", "activities"
   add_foreign_key "reviews", "users"
 end
