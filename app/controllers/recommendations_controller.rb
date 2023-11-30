@@ -1,6 +1,9 @@
 class RecommendationsController < ApplicationController
+
+  before_action :set_property, only: [:index]
   def index
     @recommendations = Recommendation.where(property_id: params[:property_id])
+
   end
 
   def new
@@ -37,4 +40,10 @@ class RecommendationsController < ApplicationController
   def recommendation_params
     params.require(:recommendation).permit(:recommendable)
   end
+
+  def set_property
+    @property = Property.find(params[:property_id])
+  end
+
+
 end
