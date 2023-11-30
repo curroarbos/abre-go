@@ -45,8 +45,42 @@
   <% end %>
 
   <h3>Add new recommendations below</h3>
-  <%= simple_form_for [@property, @recommendation] do |f| %>
-    <%= f.input :recommendable, collection: @activities, as: :check_boxes %>
-    <%= f.submit 'Finished', class: "btn-dark-green" %>
-  <% end %>
+
+  <div class="mb-3">
+    <div class="row my-2">
+    <div class="col-12 col-lg-8">
+      <div class="cards" data-controller="recommendations">
+      <%= simple_form_for [@property, @recommendation] do |f| %>
+        <%= f.input :activity_ids, value: ',', as: :hidden, input_html: { data: { recommendations_target: 'activityIds' }}%>
+        <%= f.submit 'Finished', class: "btn-dark-green" %>
+      <% end %>
+
+      <% @activities.each do | activity | %>
+        <div data-id="<%= activity.id %>" class="mb-3" data-recommendations-target="activity" data-action="click->recommendations#select">
+          <% if !activity.photo_url.nil?  %>
+            <div class="card-category" data-aos="zoom-in" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%=activity.photo_url%>')"> </div>
+          <% else %>
+            <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('<%= cl_image_path activity.photo.key, height: 300, crop: :fill %>')"> </div>
+          <% end %>
+          <div class="p-3 rounded-bottom d-flex flex-column">
+            <div class="d-flex justify-content-between">
+              <h4> <%= activity.title %> </h4>
+              <p class="text-muted font-weight-normal">
+              <%# Get average rating %>
+              <% if activity.reviews.empty? %>
+                No reviews yet
+              <% else %>
+                <%= (activity.reviews.pluck(:rating).sum / activity.reviews.pluck(:rating).length).round(1) %>
+                <i class="fa-solid fa-star text-warning"></i>
+              <% end %>
+              </p>
+            </div>
+            <p> <%= activity.location %> </p>
+            <p> <strong><%= activity.price %> € </strong></p>
+          </div>
+        </div>
+        <% end %>
+      </div>
+      </div>
+  </div>
 </div>

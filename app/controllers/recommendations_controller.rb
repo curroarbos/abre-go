@@ -16,7 +16,12 @@ class RecommendationsController < ApplicationController
   def create
     # raise
     @property = Property.find(params[:property_id])
-    params[:recommendation][:recommendable][1..].each do |activity_id|
+    activity_ids = params[:recommendation][:activity_ids].split(",")
+    p "activity_ids: #{activity_ids}"
+    activity_ids.map(&:to_i).sort!
+    activity_ids.select! { |activity_id| activity_ids.count(activity_id) % 2 != 0 }
+    activity_ids.uniq!
+    activity_ids.each do |activity_id|
       activity = Activity.find(activity_id)
       @recommendation = Recommendation.new(recommendable: activity)
       @recommendation.property = @property
