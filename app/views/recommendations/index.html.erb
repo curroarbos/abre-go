@@ -3,8 +3,8 @@
   <div class="p-3">
     <div class="row align-items-center">
       <div class="col-lg-2">
-        <% if current_user.photo.attached? %>
-          <%= cl_image_tag current_user.photo.key, class: "avatar-lg dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false"} %>
+        <% if @property.user.photo.attached? %>
+          <%= cl_image_tag @property.user.photo.key, class: "avatar-lg dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false"} %>
         <% else %>
           <img class="avatar-lg dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="https://cdn-icons-png.flaticon.com/512/8765/8765781.png" />
         <% end %>
@@ -136,7 +136,8 @@
                     <div class="col-md-3 mb-3">
                       <div class="card">
                       <%= link_to restaurant_path(restaurant.recommendable), class: "text-decoration-none text-dark" do %>
-                          <img class="img-fluid" alt="100%x280" src="<%= restaurant.recommendable.photo_url %>">
+                          <img class="img-fluid" alt="100%x280" src="<%= restaurant.recommendable.photo_url %>" height="300">
+
                         <div class="card-body">
                           <div class="d-flex justify-content-between">
                             <h4 class="card-title">
