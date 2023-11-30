@@ -21,7 +21,7 @@
               <%= link_to "Sign-up", new_user_registration_path, class: "dropdown-item" %>
             </div>
           </li>
-      <% elsif current_user.provider? && current_user!.owner? %>
+      <% elsif current_user.provider? && current_user.is_owner == false %>
         <li class="nav-item">
           <%= link_to 'Manage my bookings', requested_path(current_user), class: "nav-link text-white" %>
         </li>
@@ -48,7 +48,7 @@
             %>
             </div>
         </li>
-      <% elsif current_user.owner? && current_user.is_provider != true%>
+      <% elsif current_user.owner? && current_user.is_provider == false %>
         <li class="nav-item">
           <%= link_to 'Become a provider', new_activity_path, class: "nav-link text-white" %>
         </li>
@@ -60,7 +60,7 @@
           <% end %>
           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <%= link_to "Edit profile", edit_user_registration_path, class: "dropdown-item" %>
-            <%= link_to "See my properties", properties_path, class: "dropdown-item" %>
+            <%= link_to "See my properties", property_path(current_user), class: "dropdown-item" %>
             <%= link_to "Register a new property", new_property_path, class: "dropdown-item" %>
             <%= link_to "See my bookings as a user", bookings_path, class: "dropdown-item" %>
             <%= button_to(
@@ -88,7 +88,7 @@
           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <%= link_to "Edit profile", edit_user_registration_path, class: "dropdown-item" %>
             <%= link_to "Edit my activities", offered_path(current_user), class: "dropdown-item" %>
-            <%= link_to "See my properties", properties_path, class: "dropdown-item" %>
+            <%= link_to "See my properties", property_path(current_user), class: "dropdown-item" %>
             <%= link_to "Register a new property", new_property_path, class: "dropdown-item" %>
             <%= link_to "See my bookings as a user", bookings_path, class: "dropdown-item" %>
             <%= button_to(
