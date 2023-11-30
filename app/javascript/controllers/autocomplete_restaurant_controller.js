@@ -3,7 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="autocomplete-restaurant"
 export default class extends Controller {
   static values = {
-    apiKey: String,
+    key: String,
   }
 
   static targets = ["list", "search"]
@@ -17,7 +17,7 @@ export default class extends Controller {
     const options = {
       method: 'GET',
       headers: {
-        'X-RapidAPI-Key': '8065d585f3msh6fc7bc0e2d4fa2dp1925fajsna889c96982de',
+        'X-RapidAPI-Key': this.keyValue,
         'X-RapidAPI-Host': 'local-business-data.p.rapidapi.com'
       }
     };
