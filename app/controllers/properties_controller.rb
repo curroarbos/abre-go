@@ -1,7 +1,9 @@
 class PropertiesController < ApplicationController
 
   def show
-    @property = Property.find(params[:id])
+    # Have the user_id only
+    @user = User.find(params[:id])
+    @property = Property.where(user_id: @user.id).first
     @recommendations = Recommendation.where(property_id: @property.id)
   end
 
