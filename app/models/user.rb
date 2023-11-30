@@ -16,4 +16,8 @@ class User < ApplicationRecord
   def provider?
     is_provider
   end
+
+  def owner?
+    is_owner
+  end
 end
