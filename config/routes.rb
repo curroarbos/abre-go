@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   get 'users/:id/bookings/requested', to: 'bookings#requested', as: :requested
 
   resources :restaurants, only: %i[index show new create delete]
-  resources :properties, only: %i[index show new create] do
+  resources :properties, only: %i[show new create] do
     resources :recommendations, only: %i[index new create]
   end
   resources :recommendations, only: :destroy
