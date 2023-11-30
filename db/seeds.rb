@@ -63,6 +63,14 @@ Property.all.each do |property|
     Recommendation.create!(property: property, recommendable: activities[rand(0..(activities.length-1))])
   end
 end
-puts "Recommendations created"
+puts "Recommendations with activities created"
+
+restaurants = Restaurant.all
+Property.all.each do |property|
+  5.times do
+    Recommendation.create!(property: property, recommendable: restaurants[rand(0..(restaurants.length-1))])
+  end
+end
+puts "Recommendations with restaurants created"
 
 puts "Finished"

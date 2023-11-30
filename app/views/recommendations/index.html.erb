@@ -23,6 +23,7 @@
   <div class="container">
     <div class="row">
       <div class="col-6">
+      <% activities = @recommendations.select { |recommendation| recommendation if recommendation.recommendable_type == 'Activity' } %>
         <h4 class="mb-3">Recommended outdoor activities</h4>
       </div>
       <div class="col-6 text-right">
@@ -38,29 +39,29 @@
           <div class="carousel-inner">
             <div class="carousel-item active">
               <div class="row">
-                  <% @recommendations.first(4).each do |recommendation| %>
+                  <% activities.first(4).each do |activity| %>
                     <div class="col-md-3 mb-3">
                       <div class="card">
-                      <%= link_to activity_path(recommendation.recommendable), class: "text-decoration-none text-dark" do %>
-                        <% if !recommendation.recommendable.photo_url.nil?  %>
-                          <img class="img-fluid" alt="100%x280" src="<%= recommendation.recommendable.photo_url %>">
+                      <%= link_to activity_path(activity.recommendable), class: "text-decoration-none text-dark" do %>
+                        <% if !activity.recommendable.photo_url.nil?  %>
+                          <img class="img-fluid" alt="100%x280" src="<%= activity.recommendable.photo_url %>">
                         <% else %>
                           <img class="img-fluid" alt="100%x280" src="<%= cl_image_path activity.photo.key, height: 300, crop: :fill %>">
                         <% end %>
                         <div class="card-body">
                           <div class="d-flex justify-content-between">
-                            <h4 class="card-title"> <%= recommendation.recommendable.title %> </h4>
+                            <h4 class="card-title"> <%= activity.recommendable.title %> </h4>
                             <p class="text-muted font-weight-normal">
                               <%# Get average rating %>
-                              <% if recommendation.recommendable.reviews.empty? %>
+                              <% if activity.recommendable.reviews.empty? %>
                                 New
                               <% else %>
-                                <%= (recommendation.recommendable.reviews.pluck(:rating).sum / recommendation.recommendable.reviews.pluck(:rating).length).round(1) %>
+                                <%= (activity.recommendable.reviews.pluck(:rating).sum / activity.recommendable.reviews.pluck(:rating).length).round(1) %>
                                 <i class="fa-solid fa-star text-warning"></i>
                               <% end %>
                             </p>
                           </div>
-                            <p class="card-text"> <%= recommendation.recommendable.price %> € </p>
+                            <p class="card-text"> <%= activity.recommendable.price %> € </p>
                         </div>
                       <% end %>
                     </div>
@@ -71,29 +72,29 @@
 
             <div class="carousel-item">
               <div class="row">
-                  <% @recommendations.last(4).each do |recommendation| %>
+                  <% activities.last(4).each do |activity| %>
                     <div class="col-md-3 mb-3">
                       <div class="card">
-                      <%= link_to activity_path(recommendation.recommendable), class: "text-decoration-none text-dark" do %>
-                        <% if !recommendation.recommendable.photo_url.nil?  %>
-                          <img class="img-fluid" alt="100%x280" src="<%= recommendation.recommendable.photo_url %>">
+                      <%= link_to activity_path(activity.recommendable), class: "text-decoration-none text-dark" do %>
+                        <% if !activity.recommendable.photo_url.nil?  %>
+                          <img class="img-fluid" alt="100%x280" src="<%= activity.recommendable.photo_url %>">
                         <% else %>
-                          <img class="img-fluid" alt="100%x280" src="<%= cl_image_path recommendation.recommendable.photo.key, height: 300, crop: :fill %>">
+                          <img class="img-fluid" alt="100%x280" src="<%= cl_image_path activity.recommendable.photo.key, height: 300, crop: :fill %>">
                         <% end %>
                         <div class="card-body">
                           <div class="d-flex justify-content-between">
-                            <h4 class="card-title"> <%= recommendation.recommendable.title %> </h4>
+                            <h4 class="card-title"> <%= activity.recommendable.title %> </h4>
                             <p class="text-muted font-weight-normal">
                               <%# Get average rating %>
-                              <% if recommendation.recommendable.reviews.empty? %>
+                              <% if activity.recommendable.reviews.empty? %>
                                 New
                               <% else %>
-                                <%= (recommendation.recommendable.reviews.pluck(:rating).sum / recommendation.recommendable.reviews.pluck(:rating).length).round(1) %>
+                                <%= (activity.recommendable.reviews.pluck(:rating).sum / activity.recommendable.reviews.pluck(:rating).length).round(1) %>
                                 <i class="fa-solid fa-star text-warning"></i>
                               <% end %>
                             </p>
                           </div>
-                            <p class="card-text"> <%= recommendation.recommendable.price %> € </p>
+                            <p class="card-text"> <%= activity.recommendable.price %> € </p>
                         </div>
                       <% end %>
                     </div>
@@ -110,115 +111,39 @@
 </section>
 
 
-<section class="pt-2 pb-2">
-  <div class="container">
-    <div class="row">
-      <div class="col-6">
-        <h4 class="mb-3">Recommended in-house services</h4>
-      </div>
-      <div class="col-6 text-right">
-        <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators3" role="button" data-slide="prev">
-          <i class="fa fa-arrow-left"></i>
-        </a>
-        <a class="btn btn-primary mb-3 " href="#carouselExampleIndicators3" role="button" data-slide="next">
-          <i class="fa fa-arrow-right"></i>
-        </a>
-      </div>
-      <div class="col-12">
-        <div id="carouselExampleIndicators3" class="carousel slide" data-ride="carousel" data-interval="false">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <div class="row">
-                  <% @recommendations.first(4).each do |recommendation| %>
-                    <div class="col-md-3 mb-3">
-                      <div class="card">
-                      <%= link_to activity_path(recommendation.recommendable), class: "text-decoration-none text-dark" do %>
-                        <% if !recommendation.recommendable.photo_url.nil?  %>
-                          <img class="img-fluid" alt="100%x280" src="<%= recommendation.recommendable.photo_url %>">
-                        <% else %>
-                          <img class="img-fluid" alt="100%x280" src="<%= cl_image_path activity.photo.key, height: 300, crop: :fill %>">
-                        <% end %>
-                        <div class="card-body">
-                          <div class="d-flex justify-content-between">
-                            <h4 class="card-title"> <%= recommendation.recommendable.title %> </h4>
-                            <p class="card-text">5<i class="fa-solid fa-star text-warning"></i> </p>
-                          </div>
-                            <p class="card-text"> <%= recommendation.recommendable.price %> € </p>
-                        </div>
-                      <% end %>
-                    </div>
-                  </div>
-                  <% end %>
-              </div>
-            </div>
-
-            <div class="carousel-item">
-              <div class="row">
-                  <% @recommendations.last(4).each do |recommendation| %>
-                    <div class="col-md-3 mb-3">
-                      <div class="card">
-                      <%= link_to activity_path(recommendation.recommendable), class: "text-decoration-none text-dark" do %>
-                        <% if !recommendation.recommendable.photo_url.nil?  %>
-                          <img class="img-fluid" alt="100%x280" src="<%= recommendation.recommendable.photo_url %>">
-                        <% else %>
-                          <img class="img-fluid" alt="100%x280" src="<%= cl_image_path recommendation.recommendable.photo.key, height: 300, crop: :fill %>">
-                        <% end %>
-                        <div class="card-body">
-                          <div class="d-flex justify-content-between">
-                            <h4 class="card-title"> <%= recommendation.recommendable.title %> </h4>
-                            <p class="card-text">5<i class="fa-solid fa-star text-warning"></i> </p>
-                          </div>
-                            <p class="card-text"> <%= recommendation.recommendable.price %> € </p>
-                        </div>
-                      <% end %>
-                    </div>
-                  </div>
-                  <% end %>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-   </div>
-</section>
-
 
 <section class="pt-2 pb-2">
   <div class="container">
     <div class="row">
       <div class="col-6">
+      <% restaurants = @recommendations.select { |restaurant| restaurant if restaurant.recommendable_type == 'Restaurant'} %>
         <h4 class="mb-3">Recommended bars and restaurants</h4>
       </div>
       <div class="col-6 text-right">
-        <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators3" role="button" data-slide="prev">
+        <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators4" role="button" data-slide="prev">
           <i class="fa fa-arrow-left"></i>
         </a>
-        <a class="btn btn-primary mb-3 " href="#carouselExampleIndicators3" role="button" data-slide="next">
+        <a class="btn btn-primary mb-3 " href="#carouselExampleIndicators4" role="button" data-slide="next">
           <i class="fa fa-arrow-right"></i>
         </a>
       </div>
       <div class="col-12">
-        <div id="carouselExampleIndicators3" class="carousel slide" data-ride="carousel" data-interval="false">
+        <div id="carouselExampleIndicators4" class="carousel slide" data-ride="carousel" data-interval="false">
           <div class="carousel-inner">
             <div class="carousel-item active">
               <div class="row">
-                  <% @recommendations.first(4).each do |recommendation| %>
+                  <% restaurants.first(4).each do |restaurant| %>
                     <div class="col-md-3 mb-3">
                       <div class="card">
-                      <%= link_to activity_path(recommendation.recommendable), class: "text-decoration-none text-dark" do %>
-                        <% if !recommendation.recommendable.photo_url.nil?  %>
-                          <img class="img-fluid" alt="100%x280" src="<%= recommendation.recommendable.photo_url %>">
-                        <% else %>
-                          <img class="img-fluid" alt="100%x280" src="<%= cl_image_path activity.photo.key, height: 300, crop: :fill %>">
-                        <% end %>
+                      <%= link_to restaurant_path(restaurant.recommendable), class: "text-decoration-none text-dark" do %>
+                          <img class="img-fluid" alt="100%x280" src="<%= restaurant.recommendable.photo_url %>">
                         <div class="card-body">
                           <div class="d-flex justify-content-between">
-                            <h4 class="card-title"> <%= recommendation.recommendable.title %> </h4>
-                            <p class="card-text">5<i class="fa-solid fa-star text-warning"></i> </p>
+                            <h4 class="card-title">
+                             <%= restaurant.recommendable.name %> </h4>
+                            <p class="card-text"><%= restaurant.recommendable.rating %><i class="fa-solid fa-star text-warning"></i> </p>
                           </div>
-                            <p class="card-text"> <%= recommendation.recommendable.price %> € </p>
+                            <p class="card-text"> <%= restaurant.recommendable.address %> </p>
                         </div>
                       <% end %>
                     </div>
@@ -229,21 +154,17 @@
 
             <div class="carousel-item">
               <div class="row">
-                  <% @recommendations.last(4).each do |recommendation| %>
+                  <% restaurants.last(4).each do |restaurant| %>
                     <div class="col-md-3 mb-3">
                       <div class="card">
-                      <%= link_to activity_path(recommendation.recommendable), class: "text-decoration-none text-dark" do %>
-                        <% if !recommendation.recommendable.photo_url.nil?  %>
-                          <img class="img-fluid" alt="100%x280" src="<%= recommendation.recommendable.photo_url %>">
-                        <% else %>
-                          <img class="img-fluid" alt="100%x280" src="<%= cl_image_path recommendation.recommendable.photo.key, height: 300, crop: :fill %>">
-                        <% end %>
+                      <%= link_to restaurant_path(restaurant.recommendable), class: "text-decoration-none text-dark" do %>
+                          <img class="img-fluid" alt="100%x280" src="<%= restaurant.recommendable.photo_url %>">
                         <div class="card-body">
                           <div class="d-flex justify-content-between">
-                            <h4 class="card-title"> <%= recommendation.recommendable.title %> </h4>
-                            <p class="card-text">5<i class="fa-solid fa-star text-warning"></i> </p>
+                            <h4 class="card-title"> <%= restaurant.recommendable.name %> </h4>
+                            <p class="card-text"><%= restaurant.recommendable.rating %><i class="fa-solid fa-star text-warning"></i> </p>
                           </div>
-                            <p class="card-text"> <%= recommendation.recommendable.price %> € </p>
+                            <p class="card-text"> <%= restaurant.recommendable.address %> € </p>
                         </div>
                       <% end %>
                     </div>
