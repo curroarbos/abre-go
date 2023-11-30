@@ -1,5 +1,9 @@
 class PropertiesController < ApplicationController
 
+  def index
+    # @properties = Property..where(user_id: current_user.id)
+  end
+
   def show
     @property = Property.find(params[:id])
     @recommendations = Recommendation.where(property_id: @property.id)
