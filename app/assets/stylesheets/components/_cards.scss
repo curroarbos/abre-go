@@ -76,3 +76,11 @@
   object-fit: cover; /* Scale the image as large as possible while preserving its aspect ratio */
   object-position: center;
 }
+
+.card {
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  overflow: hidden;
+  position: relative;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
