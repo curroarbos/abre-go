@@ -2,6 +2,7 @@ class Activity < ApplicationRecord
   has_many :bookings
   has_many :reviews
   has_many :recommendations, as: :recommendable
+  has_one :config_time_slot
   belongs_to :user
   belongs_to :category
   has_one_attached :photo
