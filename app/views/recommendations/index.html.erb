@@ -72,7 +72,7 @@
 
             <div class="carousel-item">
               <div class="row">
-                  <% activities.last(4).each do |activity| %>
+                  <% activities[3..7].each do |activity| %>
                     <div class="col-md-3 mb-3">
                       <div class="card">
                       <%= link_to activity_path(activity.recommendable), class: "text-decoration-none text-dark" do %>
@@ -155,7 +155,7 @@
 
             <div class="carousel-item">
               <div class="row">
-                  <% restaurants.last(4).each do |restaurant| %>
+                  <% restaurants[3..7].each do |restaurant| %>
                     <div class="col-md-3 mb-3">
                       <div class="card">
                       <%= link_to restaurant_path(restaurant.recommendable), class: "text-decoration-none text-dark" do %>

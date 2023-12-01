@@ -27,3 +27,5 @@ class Activity < ApplicationRecord
   #   tsearch: { prefix: true }
   # }
 end
+
+
