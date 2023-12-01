@@ -1,4 +1,5 @@
 class ActivitiesController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:index, :show]
   before_action :set_activity, only: [:show, :destroy, :update]
   before_action :set_user, only: [:offered]
 
