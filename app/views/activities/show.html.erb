@@ -16,7 +16,7 @@
       <div class="card shadow mb-2 p-0">
         <div class="card-body d-flex justify-content-between align-items-center">
           <div class= "d-flex justify-content-start align-items-center">
-            <%= image_tag("https://kitt.lewagon.com/placeholder/users/krokrob", class: "avatar me-4") %>
+            <%= image_tag("https://kitt.lewagon.com/placeholder/users/krokrob", id: "avatar", class: "me-4") %>
             <p class="card-text m-0"><%= @activity.user.first_name %> -
               <%# Get average rating %>
               <% if @activity.reviews.empty? %>
@@ -53,16 +53,17 @@
       <div class="card shadow sticky-top">
         <h2 class="card-header">Book now!</h2>
         <div class="card-body">
-          <%# <%= simple_form_for [@activity, @booking] do |f| %> %>
+          <%# <%= simple_form_for [@activity, @booking] do |f| %>
             <%# <%= f.input :start_date, %>
                         <%# as: :string, %>
-                        <%# input_html: { data: { controller: "datepicker" , datepicker_disabled_dates_value: @disabled_dates} } %> %>
+                        <%# input_html: { data: { controller: "datepicker" , datepicker_disabled_dates_value: @disabled_dates} } %>
             <%# <%= f.input :end_date, %>
                         <%# as: :string, %>
-                        <%# input_html: { data: { controller: "datepicker", datepicker_disabled_dates_value: @disabled_dates } } %> %>
-            <%# <%= f.input :number_of_people%> %>
-            <%# <%= f.submit class: 'btn btn-primary' %> %>
-          <%# <% end %> %>
+                        <%# input_html: { data: { controller: "datepicker", datepicker_disabled_dates_value: @disabled_dates } } %>
+            <%# <%= f.input :number_of_people%>
+            <%# <%= f.submit class: 'btn btn-primary' %>
+          <%# <% end %>
+          Select Date
         </div>
       </div>
     </div>
@@ -75,7 +76,7 @@
           <% @activity.reviews.each do |review| %>
             <div class="card-body d-flex pb-0 border-bottom">
               <div class="d-flex flex-column">
-                  <%= image_tag 'https://kitt.lewagon.com/placeholder/users/krokrob', class: "avatar" %>
+                  <%= image_tag 'https://kitt.lewagon.com/placeholder/users/krokrob', id: "avatar2" %>
                 <p class="text-center"><%= review.user.first_name %></p>
               </div>
               <div class="d-flex flex-column ms-3">

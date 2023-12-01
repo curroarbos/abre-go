@@ -41,7 +41,7 @@
               <div class="row">
                   <% activities.first(4).each do |activity| %>
                     <div class="col-md-3 mb-3">
-                      <div class="card">
+                      <div class="card-carousel">
                       <%= link_to activity_path(activity.recommendable), class: "text-decoration-none text-dark" do %>
                         <% if !activity.recommendable.photo_url.nil?  %>
                           <img class="img-fluid" alt="100%x280" src="<%= activity.recommendable.photo_url %>">
@@ -74,7 +74,7 @@
               <div class="row">
                   <% activities[3...7].each do |activity| %>
                     <div class="col-md-3 mb-3">
-                      <div class="card">
+                      <div class="card-carousel">
                       <%= link_to activity_path(activity.recommendable), class: "text-decoration-none text-dark" do %>
                         <% if !activity.recommendable.photo_url.nil?  %>
                           <img class="img-fluid" alt="100%x280" src="<%= activity.recommendable.photo_url %>">
@@ -134,7 +134,7 @@
               <div class="row">
                   <% restaurants.first(4).each do |restaurant| %>
                     <div class="col-md-3 mb-3">
-                      <div class="card">
+                      <div class="card-carousel">
                       <%= link_to restaurant_path(restaurant.recommendable), class: "text-decoration-none text-dark" do %>
                           <img class="img-fluid" alt="100%x280" src="<%= restaurant.recommendable.photo_url %>" height="300">
 
@@ -156,7 +156,7 @@
               <div class="row">
                   <% restaurants[3...7].each do |restaurant| %>
                     <div class="col-md-3 mb-3">
-                      <div class="card">
+                      <div class="card-carousel">
                       <%= link_to restaurant_path(restaurant.recommendable), class: "text-decoration-none text-dark" do %>
                           <img class="img-fluid" alt="100%x280" src="<%= restaurant.recommendable.photo_url %>">
                         <div class="card-body">
