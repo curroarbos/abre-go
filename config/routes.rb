@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :activities do
     resources :config_time_slots, only: %i[show new create], shallow: true do
-      resources :day_time_slots, only: %i[new create], shallow: true
+      resources :days_time_slots, only: %i[new create], shallow: true
     end
     resources :bookings, only: %i[new create]
     resources :reviews, only: %i[new create]
