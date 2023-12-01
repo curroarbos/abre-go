@@ -1,8 +1,18 @@
-<div class="container">
-  <h1>Welcome to recommendations for <%= @property.name %></h1>
+<div class="container my-2">
+  <div class="row align-items-center">
+    <div class="col-8">
+      <h1>Welcome to recommendations for <%= @property.name %></h1>
+    </div>
+    <div class="col-4">
+      <% if @property.photo.nil? %>
+      <% else %>
+        <%= image_tag @property.photo, alt: "#{@property.name} Main Photo", class: "img-thumbnail", width: 400, height: 400 %>
+      <% end %>
+    </div>
+  </div>
 
 
-  <% if @recommendations.nil? %>
+  <% if @recommendations.empty? %>
     <p>You have not given any
     recommendations yet.</p>
   <% else %>
