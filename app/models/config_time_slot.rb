@@ -1,4 +1,4 @@
 class ConfigTimeSlot < ApplicationRecord
-  belongs_to :activities
+  belongs_to :activity
   has_many :days_time_slots
 end

@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_01_043405) do
-
+ActiveRecord::Schema[7.1].define(version: 2023_12_01_075238) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -83,12 +82,12 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_043405) do
   end
 
   create_table "config_time_slots", force: :cascade do |t|
-    t.integer "frequency"
+    t.string "frequency"
     t.float "duration"
-    t.bigint "activities_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["activities_id"], name: "index_config_time_slots_on_activities_id"
+    t.bigint "activity_id"
+    t.index ["activity_id"], name: "index_config_time_slots_on_activity_id"
   end
 
   create_table "days_time_slots", force: :cascade do |t|
@@ -194,7 +193,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_043405) do
   add_foreign_key "bookings", "properties"
   add_foreign_key "bookings", "time_slots"
   add_foreign_key "bookings", "users"
-  add_foreign_key "config_time_slots", "activities", column: "activities_id"
+  add_foreign_key "config_time_slots", "activities"
   add_foreign_key "days_time_slots", "config_time_slots", column: "config_time_slots_id"
   add_foreign_key "properties", "users"
   add_foreign_key "recommendations", "properties"

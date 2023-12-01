@@ -54,12 +54,9 @@
         <h2 class="card-header">Book now!</h2>
         <div class="card-body">
           <%= simple_form_for [@activity, @booking] do |f| %>
-            <%= f.input :start_date,
+            <%= f.input :time_slot,
                         as: :string,
                         input_html: { data: { controller: "datepicker" , datepicker_disabled_dates_value: @disabled_dates} } %>
-            <%= f.input :end_date,
-                        as: :string,
-                        input_html: { data: { controller: "datepicker", datepicker_disabled_dates_value: @disabled_dates } } %>
             <%= f.input :number_of_people%>
             <%= f.submit class: 'btn btn-primary' %>
           <% end %>

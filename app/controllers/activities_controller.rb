@@ -19,6 +19,7 @@ class ActivitiesController < ApplicationController
   end
 
   def show
+    @time_slot = TimeSlot.new
     @booking = Booking.new
     @disabled_dates = @activity.bookings.map { |booking| { from: booking.start_date, to: booking.end_date } }
     @markers = [{
