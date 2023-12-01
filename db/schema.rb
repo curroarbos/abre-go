@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_01_031709) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_01_043405) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -60,8 +60,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_031709) do
   end
 
   create_table "bookings", force: :cascade do |t|
-    t.datetime "start_date"
-    t.datetime "end_date"
     t.integer "number_of_people"
     t.boolean "status"
     t.bigint "activity_id", null: false
@@ -69,8 +67,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_031709) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.bigint "property_id"
+    t.bigint "time_slot_id"
     t.index ["activity_id"], name: "index_bookings_on_activity_id"
     t.index ["property_id"], name: "index_bookings_on_property_id"
+    t.index ["time_slot_id"], name: "index_bookings_on_time_slot_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
@@ -79,6 +79,25 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_031709) do
     t.string "photo_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "config_time_slots", force: :cascade do |t|
+    t.integer "frequency"
+    t.float "duration"
+    t.bigint "activities_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["activities_id"], name: "index_config_time_slots_on_activities_id"
+  end
+
+  create_table "days_time_slots", force: :cascade do |t|
+    t.string "day"
+    t.time "start_time"
+    t.time "end_time"
+    t.bigint "config_time_slots_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["config_time_slots_id"], name: "index_days_time_slots_on_config_time_slots_id"
   end
 
   create_table "pg_search_documents", force: :cascade do |t|
@@ -136,6 +155,17 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_031709) do
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
+  create_table "time_slots", force: :cascade do |t|
+    t.date "day"
+    t.time "start_time"
+    t.time "end_time"
+    t.boolean "booked"
+    t.bigint "activities_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["activities_id"], name: "index_time_slots_on_activities_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -160,9 +190,13 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_031709) do
   add_foreign_key "activities", "users"
   add_foreign_key "bookings", "activities"
   add_foreign_key "bookings", "properties"
+  add_foreign_key "bookings", "time_slots"
   add_foreign_key "bookings", "users"
+  add_foreign_key "config_time_slots", "activities", column: "activities_id"
+  add_foreign_key "days_time_slots", "config_time_slots", column: "config_time_slots_id"
   add_foreign_key "properties", "users"
   add_foreign_key "recommendations", "properties"
   add_foreign_key "reviews", "activities"
   add_foreign_key "reviews", "users"
+  add_foreign_key "time_slots", "activities", column: "activities_id"
 end
