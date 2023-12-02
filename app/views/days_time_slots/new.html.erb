@@ -4,7 +4,7 @@
       <div class="bg-white rounded p-3 shadow">
         <h1>Choose the day, start and end time</h1>
         <%= simple_form_for [@config_time_slot, @days_time_slot] do |f| %>
-          <%= f.input :day, value: ',', as: :check_boxes, :collection => %w[Monday Tuesday Wednesday Thursday Friday Saturday Sunday] %>
+          <%= f.input :day, as: :check_boxes, :collection => %w[Monday Tuesday Wednesday Thursday Friday Saturday Sunday] %>
           <%= f.input :start_time%>
           <%= f.input :end_time%>
           <%= f.submit%>
