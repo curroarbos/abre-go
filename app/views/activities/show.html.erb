@@ -22,12 +22,20 @@
               <img class="avatar me-4", src="https://res.cloudinary.com/dp39nvrov/image/upload/v1701160462/no_profile_pic_mygech.png" />
             <% end %>
             <p class="card-text m-0"><%= @activity.user.first_name %> -
+            <%# Get average rating %>
+            <% if @activity.reviews.present? %>
+            <% average_rating = @activity.reviews.average(:rating).to_f %>
+            <%= "%.1f" % average_rating %>
+            <i class="fa-solid fa-star text-warning"></i>
+            <% else %>
+             New
+            <% end %>
               <%# Get average rating %>
-              <% if @activity.reviews.empty? %>
-                No reviews yet
+              <%# <% if @activity.reviews.empty? %>
+                <%# No reviews yet
               <% else %>
-                <%= (@activity.reviews.pluck(:rating).sum / @activity.reviews.pluck(:rating).length).round(1) %>
-                <i class="fa-solid fa-star text-warning"></i>
+                <%# <%= (@activity.reviews.pluck(:rating).sum / @activity.reviews.pluck(:rating).length).round(1) %>
+                <%# <i class="fa-solid fa-star text-warning"></i>
               <% end %>
             </p>
           </div>
@@ -111,3 +119,8 @@
     </div>
   </div>
 </div>
+
+<%#
+<% if params[:property_id].present? %>
+<%# <%= link_to "Back to all recommendations", property_recommendations_path(params[:property_id]), class: "btn btn-dark-green" %> %>
+<%# <% end %>
