@@ -63,11 +63,6 @@
     <div class="row my-2">
     <div class="col-12 col-lg-8">
       <div class="cards" data-controller="recommendations">
-      <%= simple_form_for [@property, @recommendation] do |f| %>
-        <%= f.input :activity_ids, value: ',', as: :hidden, input_html: { data: { recommendations_target: 'activityIds' }}%>
-        <%= f.input :restaurant_ids, value: ',', as: :hidden, input_html: { data: { recommendations_target: 'restaurantIds' }} %>
-        <%= f.submit 'Finished', class: "btn-dark-green" %>
-      <% end %>
 
       <% @activities.each do | activity | %>
         <div data-id="<%= activity.id %>" class="mb-3" data-action="click->recommendations#selectActivity">
@@ -114,6 +109,12 @@
           </div>
         </div>
         <% end %>
+      <%= simple_form_for [@property, @recommendation] do |f| %>
+        <%= f.input :activity_ids, value: ',', as: :hidden, input_html: { data: { recommendations_target: 'activityIds' }}%>
+        <%= f.input :restaurant_ids, value: ',', as: :hidden, input_html: { data: { recommendations_target: 'restaurantIds' }} %>
+        <%= f.submit 'Finished', class: "btn-dark-green" %>
+      <% end %>
+      <%= link_to "Cancel", property_path(@property) %>
       </div>
       </div>
   </div>
