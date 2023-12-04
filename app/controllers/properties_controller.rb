@@ -11,6 +11,13 @@ class PropertiesController < ApplicationController
     # Have the user_id only
     @property = Property.find(params[:id])
     @recommendations = Recommendation.where(property_id: @property.id)
+    @inhouse_recommendations = @recommendations.select { |recommendation|
+      recommendation.recommendable_type == "Activity" && recommendation.recommendable.in_house
+    }
+    # Is there a way to exclude all the in_house recommendations from the @outdoor_recommendations?
+    @outdoor_recommendations = @recommendations.select { |recommendation|
+      recommendation.recommendable_type == "Activity" && recommendation.recommendable.in_house == false || recommendation.recommendable_type == "Restaurant"
+    }
   end
 
   def new
