@@ -5,5 +5,21 @@
         <%= link_to "Select the days and times", new_config_time_slot_days_time_slot_path(@config_time_slot)  %>
       </div>
     </div>
+    <div class="col-12 col-md-6 offset-lg-3">
+      <div class="bg-white rounded p-3 shadow my-3">
+        <%= link_to "Done", create_time_slot_path(:config_time_slot_id => @config_time_slot.id), data: { 'turbo-method' => :post } %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <ul class="list-group">
+        <% @days_time_slots.each do |days_time_slot| %>
+        <li class="list-group-item">
+          <%= days_time_slot.day %> - <%= days_time_slot.start_time%> - <%= days_time_slot.frequency %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </div>

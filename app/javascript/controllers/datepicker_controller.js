@@ -10,10 +10,8 @@ export default class extends Controller {
   connect() {
     // console.log(this.disabledDatesValue)
     flatpickr(this.element, {
-      enableTime: true,
-      dateFormat: "F j, Y - H:i",
+      dateFormat: "F j, Y",
       minDate: "today",
-      disable: this.disabledDatesValue
   })
   }
 }

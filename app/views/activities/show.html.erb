@@ -53,10 +53,11 @@
       <div class="card shadow sticky-top">
         <h2 class="card-header">Book now!</h2>
         <div class="card-body">
-          <%= simple_form_for [@activity, @booking] do |f| %>
-            <%= f.input :time_slot,
+          <%= simple_form_for [@activity, @booking], html: {data: {controller: "timeslots"}} do |f| %>
+            <%= f.input :day,
                         as: :string,
-                        input_html: { data: { controller: "datepicker" , datepicker_disabled_dates_value: @disabled_dates} } %>
+                        input_html: { data: { controller: "datepicker", action: "change->timeslots#dateChange" } } %>
+            <%= f.association :time_slot, collection: @activity.time_slots.where(["booked=?", "false"]).order(:start_time), as: :radio_buttons, label_method: :timeslot_display, value_method: :id %>
             <%= f.input :number_of_people%>
             <%= f.submit class: 'btn btn-primary' %>
           <% end %>

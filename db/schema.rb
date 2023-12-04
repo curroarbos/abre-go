@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_01_133101) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_04_080840) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -55,6 +55,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_133101) do
     t.float "longitude"
     t.bigint "category_id"
     t.boolean "in_house"
+    t.float "duration"
     t.index ["category_id"], name: "index_activities_on_category_id"
     t.index ["user_id"], name: "index_activities_on_user_id"
   end
@@ -68,6 +69,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_133101) do
     t.bigint "user_id"
     t.bigint "property_id"
     t.bigint "time_slot_id"
+    t.date "day"
     t.index ["activity_id"], name: "index_bookings_on_activity_id"
     t.index ["property_id"], name: "index_bookings_on_property_id"
     t.index ["time_slot_id"], name: "index_bookings_on_time_slot_id"
@@ -83,7 +85,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_133101) do
 
   create_table "config_time_slots", force: :cascade do |t|
     t.string "frequency"
-    t.float "duration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "activity_id"
@@ -92,11 +93,12 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_133101) do
 
   create_table "days_time_slots", force: :cascade do |t|
     t.time "start_time"
-    t.time "end_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "config_time_slot_id"
     t.string "day"
+    t.integer "frequency"
+    t.integer "interval"
     t.index ["config_time_slot_id"], name: "index_days_time_slots_on_config_time_slot_id"
   end
 
@@ -157,14 +159,13 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_133101) do
   end
 
   create_table "time_slots", force: :cascade do |t|
-    t.date "day"
-    t.time "start_time"
-    t.time "end_time"
-    t.boolean "booked"
-    t.bigint "activities_id", null: false
+    t.boolean "booked", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["activities_id"], name: "index_time_slots_on_activities_id"
+    t.bigint "activity_id"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.index ["activity_id"], name: "index_time_slots_on_activity_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -199,5 +200,5 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_133101) do
   add_foreign_key "recommendations", "properties"
   add_foreign_key "reviews", "activities"
   add_foreign_key "reviews", "users"
-  add_foreign_key "time_slots", "activities", column: "activities_id"
+  add_foreign_key "time_slots", "activities"
 end

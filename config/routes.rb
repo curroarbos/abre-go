@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+  post 'time_slots', to: 'time_slots#create', as: :create_time_slot
   devise_for :users
   root to: "pages#home"
 

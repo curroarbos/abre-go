@@ -9,8 +9,8 @@ class DaysTimeSlotsController < ApplicationController
   def create
     @days_time_slot = DaysTimeSlot.new(day_time_slot_params)
     @days_time_slot.config_time_slot = @config_time_slot
-      if @days_time_slot.save
-        redirect_to config_time_slot_path(@config_time_slot)
+    if @days_time_slot.save
+      redirect_to config_time_slot_path(@config_time_slot)
       else
         render :new, status: :unprocessable_entity
       end
@@ -23,6 +23,6 @@ class DaysTimeSlotsController < ApplicationController
   end
 
   def day_time_slot_params
-    params.require(:days_time_slot).permit(:day, :start_time, :end_time)
+    params.require(:days_time_slot).permit(:start_time, :interval, :frequency, day: [])
   end
 end
