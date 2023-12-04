@@ -11,7 +11,7 @@
       <div class="col-lg-10">
         <h4 class="text-body-emphasis">Hello from your landlord 👋 </h4>
         <p class="fs-5 text-muted italicized">
-          Welcome to <strong> <%= @property.name %> </strong> in Bali. To help you organize your holiday, I have put a list below with my favorite recommendations.
+          Welcome to <strong> <%= @property.name %> </strong>! To help you organize your holiday, I have put a list below with my favorite recommendations.
         </p>
       </div>
     </div>
@@ -185,8 +185,9 @@
  <div class="container my-4">
   <h3 class="text-center mb-3">Discover more from Abrego</h3>
     <div class="d-flex justify-content-between my-4">
-        <%= link_to "Explore all activties", activities_path(property_id: @property), class: "btn btn-dark-green" %>
+        <%= link_to "Explore all activities", activities_path(property_id: @property), class: "btn btn-dark-green" %>
         <%= link_to "Surprise me", activities_path(property_id: @property), class: "btn btn-dark-green" %>
         <%= link_to "Download local guide", activities_path(property_id: @property), class: "btn btn-dark-green" %>
     </div>
+    <% @property.embedded_link %>
   </div>
