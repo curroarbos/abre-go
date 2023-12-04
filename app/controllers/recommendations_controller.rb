@@ -11,6 +11,7 @@ class RecommendationsController < ApplicationController
     @recommendations = Recommendation.where(property_id: params[:property_id])
     @recommendation = Recommendation.new
     @activities = Activity.all
+    @restaurants = Restaurant.all
   end
 
   def create
@@ -24,6 +25,18 @@ class RecommendationsController < ApplicationController
     activity_ids.each do |activity_id|
       activity = Activity.find(activity_id)
       @recommendation = Recommendation.new(recommendable: activity)
+      @recommendation.property = @property
+      @recommendation.save
+    end
+
+    restaurant_ids = params[:recommendation][:restaurant_ids].split(",")
+    p "restaurant_ids: #{restaurant_ids}"
+    restaurant_ids.map(&:to_i).sort!
+    restaurant_ids.select! { |restaurant_id| restaurant_ids.count(restaurant_id) % 2 != 0 }
+    restaurant_ids.uniq!
+    restaurant_ids.each do |restaurant_id|
+      restaurant = Restaurant.find(restaurant_id)
+      @recommendation = Recommendation.new(recommendable: restaurant)
       @recommendation.property = @property
       @recommendation.save
     end
