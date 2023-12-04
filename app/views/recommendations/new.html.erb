@@ -20,19 +20,32 @@
             <% end %>
             <div class="p-3 rounded-bottom d-flex flex-column">
               <div class="d-flex justify-content-between">
+              <% if recommendation.recommendable_type == "Activity" %>
                 <h4> <%= recommendation.recommendable.title %> </h4>
+              <% else %>
+                <h4> <%= recommendation.recommendable.name %> </h4>
+              <% end %>
                 <p class="text-muted font-weight-normal">
                 <%# Get average rating %>
-                <% if recommendation.recommendable.reviews.empty? %>
-                  No reviews yet
+                <% if recommendation.recommendable_type == "Activity" %>
+                  <% if recommendation.recommendable.reviews.empty? %>
+                    No reviews yet
+                  <% else %>
+                    <%= (recommendation.recommendable.reviews.pluck(:rating).sum / recommendation.recommendable.reviews.pluck(:rating).length).round(1) %>
+                    <i class="fa-solid fa-star text-warning"></i>
+                  <% end %>
                 <% else %>
-                  <%= (recommendation.recommendable.reviews.pluck(:rating).sum / recommendation.recommendable.reviews.pluck(:rating).length).round(1) %>
+                  <%= recommendation.recommendable.rating %>
                   <i class="fa-solid fa-star text-warning"></i>
                 <% end %>
                 </p>
               </div>
-              <p> <%= recommendation.recommendable.location %> </p>
-              <p> <strong><%= recommendation.recommendable.price %> € </strong></p>
+              <% if recommendation.recommendable_type == "Activity" %>
+                <p> <%= recommendation.recommendable.location %> </p>
+                <p> <strong><%= recommendation.recommendable.price %> € </strong></p>
+              <% else %>
+                <p> <%= recommendation.recommendable.address %> </p>
+              <% end %>
             </div>
         <%# <% end %>
         <%= link_to "Delete", recommendation_path(recommendation), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
@@ -52,11 +65,12 @@
       <div class="cards" data-controller="recommendations">
       <%= simple_form_for [@property, @recommendation] do |f| %>
         <%= f.input :activity_ids, value: ',', as: :hidden, input_html: { data: { recommendations_target: 'activityIds' }}%>
+        <%= f.input :restaurant_ids, value: ',', as: :hidden, input_html: { data: { recommendations_target: 'restaurantIds' }} %>
         <%= f.submit 'Finished', class: "btn-dark-green" %>
       <% end %>
 
       <% @activities.each do | activity | %>
-        <div data-id="<%= activity.id %>" class="mb-3" data-recommendations-target="activity" data-action="click->recommendations#select">
+        <div data-id="<%= activity.id %>" class="mb-3" data-action="click->recommendations#selectActivity">
           <% if !activity.photo_url.nil?  %>
             <div class="card-category" data-aos="zoom-in" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%=activity.photo_url%>')"> </div>
           <% else %>
@@ -77,6 +91,26 @@
             </div>
             <p> <%= activity.location %> </p>
             <p> <strong><%= activity.price %> € </strong></p>
+          </div>
+        </div>
+        <% end %>
+
+        <% @restaurants.each do | restaurant | %>
+        <div data-id="<%= restaurant.id %>" class="mb-3" data-action="click->recommendations#selectRestaurant">
+          <% if !restaurant.photo_url.nil?  %>
+            <div class="card-category" data-aos="zoom-in" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%=restaurant.photo_url%>')"> </div>
+          <% else %>
+            <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('<%= cl_image_path restaurant.photo.key, height: 300, crop: :fill %>')"> </div>
+          <% end %>
+          <div class="p-3 rounded-bottom d-flex flex-column">
+            <div class="d-flex justify-content-between">
+              <h4> <%= restaurant.name %> </h4>
+              <p class="text-muted font-weight-normal">
+                <%= restaurant.rating %>
+                <i class="fa-solid fa-star text-warning"></i>
+              </p>
+            </div>
+            <p> <%= restaurant.address %> </p>
           </div>
         </div>
         <% end %>
