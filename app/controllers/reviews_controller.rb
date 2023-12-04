@@ -7,7 +7,7 @@ class ReviewsController < ApplicationController
     @review.activity = @activity
     @review.user = current_user
     if @review.save
-      redirect_to activity_path(@activity)
+      redirect_to activity_path(@activity, property_id: @property || params[:property_id])
     else
       render 'activities/show', status: :unprocessable_entity
     end

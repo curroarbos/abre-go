@@ -107,7 +107,8 @@
       <div class="card shadow">
         <h2 class="card-header">Leave a review</h2>
         <div class="card-body">
-          <%= simple_form_for [@activity, @review] do |f| %>
+          <%# <%= simple_form_for([@activity, @review], property_id: 45) do |f| %>
+          <%= simple_form_for(@review, as: :review, method: :post, url: activity_reviews_path(@activity, property_id: params[:property_id])) do |f| %>
             <%= f.input :comment,
                         as: :string %>
             <%= f.input :rating,
