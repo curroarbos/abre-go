@@ -10,7 +10,7 @@ Booking.destroy_all
 Category.create!(name: "Food")
 Category.create!(name: "Music")
 Category.create!(name: "Corporate Services")
-Category.create!(name: "Oudoors")
+Category.create!(name: "Outdoors")
 Category.create!(name: "Other")
 puts "Categories created"
 
