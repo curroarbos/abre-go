@@ -3,6 +3,10 @@ require "open-uri"
 
 class PropertiesController < ApplicationController
 
+  def index
+    @properties = Property.where(user: current_user)
+  end
+
   def show
     # Have the user_id only
     @property = Property.find(params[:id])
