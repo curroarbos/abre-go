@@ -12,6 +12,9 @@ export default class extends Controller {
     flatpickr(this.element, {
       dateFormat: "F j, Y",
       minDate: "today",
+      locale: {
+        firstDayOfWeek: 1
+      }
   })
   }
 }

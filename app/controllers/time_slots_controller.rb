@@ -6,6 +6,7 @@ class TimeSlotsController < ApplicationController
   before_action :set_days_time_slots, only: %i[create]
 
   def create
+    @activity.time_slots.where("booked=false").destroy_all
     @days_time_slots.each do |days_time_slot|
       JSON.parse(days_time_slot.day).each do |day|
         time = days_time_slot.start_time

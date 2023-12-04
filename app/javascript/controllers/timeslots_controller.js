@@ -16,32 +16,27 @@ export default class extends Controller {
   dateChange(event) {
     console.log(this.slotsTarget);
     const url = `http://localhost:3000/api/v1/time_slots?date=${encodeURI(event.currentTarget._flatpickr.selectedDates[0])}&activity_id=${this.idValue}`
+    console.log(url);
     fetch(url, { headers: { "Accept": "text/plain" } })
       .then(response => response.text())
       .then((data) => {
         console.log(data);
         this.slotsTarget.innerHTML = `<fieldset class="mb-3 radio_buttons optional booking_time_slot"><legend class="col-form-label pt-0">Time slot</legend><input type="hidden" name="booking[time_slot_id]" value="" autocomplete="off"></fieldset>`
         JSON.parse(data).forEach(slot => {
-          console.log(slot);
-          const timestampStart = Date.parse(slot.start_time);
-          const dateStart = new Date(timestampStart);
+          const startTime = new Date(slot.start_time);
+          const endTime = new Date(slot.end_time);
 
-          const hoursStart = String(dateStart.getHours()).padStart(2, '0'); // Ensures 2 digits with leading zero if needed
-          const minutesStart = String(dateStart.getMinutes()).padStart(2, '0'); // Ensures 2 digits with leading zero if needed
+          const options = {
+            hour12: false, // Use 24-hour format
+            hour: '2-digit',
+            minute: '2-digit',
+            timeZone: 'UTC' // Set the time zone to UTC to display the original time
+          };
 
-          const formattedTimeStart = `${hoursStart}:${minutesStart}`;
+          const formattedStartTime = startTime.toLocaleTimeString('en-US', options);
+          const formattedEndTime = endTime.toLocaleTimeString('en-US', options);
 
-          const timestampEnd = Date.parse(slot.end_time); // Assuming slot.end_time is the variable containing the end time
-
-          const dateEnd = new Date(timestampEnd);
-
-          const hoursEnd = String(dateEnd.getHours()).padStart(2, '0'); // Ensures 2 digits with leading zero if needed
-          const minutesEnd = String(dateEnd.getMinutes()).padStart(2, '0'); // Ensures 2 digits with leading zero if needed
-
-          const formattedTimeEnd = `${hoursEnd}:${minutesEnd}`;
-
-
-          this.slotsTarget.firstChild.insertAdjacentHTML("beforeend", `<div class="form-check"><input class="form-check-input radio_buttons optional" type="radio" value="${slot.id}" name="booking[time_slot_id]" id="booking_time_slot_id_${slot.id}"><label class="form-check-label collection_radio_buttons" for="booking_time_slot_id_99">${formattedTimeStart}-${formattedTimeEnd}</label></div>`)
+          this.slotsTarget.firstChild.insertAdjacentHTML("beforeend", `<div class="form-check"><input class="form-check-input radio_buttons optional" type="radio" value="${slot.id}" name="booking[time_slot_id]" id="booking_time_slot_id_${slot.id}"><label class="form-check-label collection_radio_buttons" for="booking_time_slot_id_99">${formattedStartTime}-${formattedEndTime}</label></div>`)
         });
       })
   }
