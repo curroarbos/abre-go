@@ -14,13 +14,13 @@ class Activity < ApplicationRecord
   # multisearchable against: [:title, :location, :category_id]
   include PgSearch::Model
   pg_search_scope :search_by_keyword,
-  against: [ :title, :location ],
-  associated_against: {
-    category: [:name]
-  },
-  using: {
-    tsearch: { prefix: true }
-  }
+    against: [ :title, :location ],
+    associated_against: {
+      category: [:name]
+    },
+    using: {
+      tsearch: { prefix: true }
+    }
 
   # pg_search_scope :search_by_keyword,
   # against: [ :title, :location],
@@ -28,5 +28,3 @@ class Activity < ApplicationRecord
   #   tsearch: { prefix: true }
   # }
 end
-
-
