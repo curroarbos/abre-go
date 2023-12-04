@@ -26,6 +26,7 @@ class ActivitiesController < ApplicationController
       lng: @activity.longitude
       }]
     @review = Review.new
+    @provider = @activity.user
   end
 
   def new
