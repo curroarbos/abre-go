@@ -124,7 +124,11 @@
           <% end %>
           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <%= link_to "Edit profile", edit_user_registration_path, class: "dropdown-item" %>
+            <% if params[:property_id].present? %>
+            <%= link_to "Explore all activties", activities_path(property_id: @property), class: "dropdown-item" %>
+            <%else%>
             <%= link_to "Explore all activities", activities_path, class: "dropdown-item" %>
+            <%end%>
             <%= link_to "Become a provider", new_activity_path, class: "dropdown-item" %>
             <%= link_to "Register a property", new_property_path, class: "dropdown-item" %>
             <%= button_to(
