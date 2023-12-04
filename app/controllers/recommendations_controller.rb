@@ -24,6 +24,12 @@ class RecommendationsController < ApplicationController
       @activities = Activity.all.where(in_house: false)
       @restaurants = Restaurant.all
     end
+    if params[:query].present?
+      @activities.search_by_keyword(params[:query])
+      # @restaurants.search_by_keyword(params[:query])
+    else
+      @activities
+    end
   end
 
   def create
