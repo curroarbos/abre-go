@@ -56,7 +56,7 @@
                               <% if activity.recommendable.reviews.present? %>
                               <% average_rating = activity.recommendable.reviews.average(:rating).to_f %>
                               <%= "%.1f" % average_rating %>
-                              <i class="fa-solid fa-star text-warning"></i>
+                              <i class="fas fa-star star-yellow"></i>
                               <% else %>
                                 New
                               <% end %>
@@ -76,7 +76,7 @@
                   <% activities[3...7].each do |activity| %>
                     <div class="col-md-3 mb-3">
                       <div class="card-carousel">
-                      <%= link_to activity_path(activity.recommendable), class: "text-decoration-none text-dark" do %>
+                      <%= link_to activity_path(activity.recommendable, property_id: @property), class: "text-decoration-none text-dark" do %>
                         <% if !activity.recommendable.photo_url.nil?  %>
                           <img class="img-fluid" alt="100%x280" src="<%= activity.recommendable.photo_url %>">
                         <% else %>
@@ -87,11 +87,12 @@
                             <h5 class="card-title"> <%= activity.recommendable.title %> </h5>
                             <p class="text-muted font-weight-normal">
                               <%# Get average rating %>
-                              <% if activity.recommendable.reviews.empty? %>
-                                New
+                              <% if activity.recommendable.reviews.present? %>
+                              <% average_rating = activity.recommendable.reviews.average(:rating).to_f %>
+                              <%= "%.1f" % average_rating %>
+                              <i class="fas fa-star star-yellow"></i>
                               <% else %>
-                                <%= (activity.recommendable.reviews.pluck(:rating).sum / activity.recommendable.reviews.pluck(:rating).length).round(1) %>
-                                <i class="fa-solid fa-star text-warning"></i>
+                                New
                               <% end %>
                             </p>
                           </div>
@@ -136,14 +137,14 @@
                   <% restaurants.first(4).each do |restaurant| %>
                     <div class="col-md-3 mb-3">
                       <div class="card-carousel">
-                      <%= link_to restaurant_path(restaurant.recommendable), class: "text-decoration-none text-dark" do %>
+                      <%= link_to restaurant_path(restaurant.recommendable, property_id: @property), class: "text-decoration-none text-dark" do %>
                           <img class="img-fluid" alt="100%x280" src="<%= restaurant.recommendable.photo_url %>" height="300">
 
                         <div class="card-body">
                           <div class="d-flex justify-content-between">
                             <h5 class="card-title">
                              <%= restaurant.recommendable.name %> </h5>
-                            <p class="card-text"><%= restaurant.recommendable.rating %><i class="fa-solid fa-star text-warning"></i> </p>
+                            <p class="card-text"><%= restaurant.recommendable.rating %><i class="fas fa-star star-yellow"></i> </p>
                           </div>
                         </div>
                       <% end %>
@@ -158,12 +159,12 @@
                   <% restaurants[3...7].each do |restaurant| %>
                     <div class="col-md-3 mb-3">
                       <div class="card-carousel">
-                      <%= link_to restaurant_path(restaurant.recommendable), class: "text-decoration-none text-dark" do %>
+                      <%= link_to restaurant_path(restaurant.recommendable, property_id: @property), class: "text-decoration-none text-dark" do %>
                           <img class="img-fluid" alt="100%x280" src="<%= restaurant.recommendable.photo_url %>">
                         <div class="card-body">
                           <div class="d-flex justify-content-between">
                             <h5 class="card-title"> <%= restaurant.recommendable.name %> </h5>
-                            <p class="card-text"><%= restaurant.recommendable.rating %><i class="fa-solid fa-star text-warning"></i> </p>
+                            <p class="card-text"><%= restaurant.recommendable.rating %><i class="fas fa-star star-yellow"></i> </p>
                           </div>
                             <%# <p class="card-text"> <%= restaurant.recommendable.address</p> %>
                         </div>
@@ -185,8 +186,8 @@
  <div class="container my-4">
   <h3 class="text-center mb-3">Discover more from Abrego</h3>
     <div class="d-flex justify-content-between my-4">
-        <%= link_to "Discover all activties", activities_path, class: "btn btn-dark-green" %>
-        <%= link_to "Surprise me", activities_path, class: "btn btn-dark-green" %>
-        <%= link_to "Download local guide", activities_path, class: "btn btn-dark-green" %>
+        <%= link_to "Discover all activties", activities_path(property_id: @property), class: "btn btn-dark-green" %>
+        <%= link_to "Surprise me", activities_path(property_id: @property), class: "btn btn-dark-green" %>
+        <%= link_to "Download local guide", activities_path(property_id: @property), class: "btn btn-dark-green" %>
     </div>
   </div>
