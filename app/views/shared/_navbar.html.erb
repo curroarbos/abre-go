@@ -105,7 +105,7 @@
           <%= link_to 'See my bookings', bookings_path, class: "nav-link text-white" %>
           <% if params[:property_id].present? %>
            <li class="nav-item">
-          <%= link_to "Your recommendations", property_recommendations_path(params[:property_id]), class: "nav-link text-white" %>
+          <%= link_to "Landlord recommendations", property_recommendations_path(params[:property_id]), class: "nav-link text-white" %>
           <% end %>
         <%# </li class="nav-item">
           <%= link_to "All reccomendations", property_recommendations_path, class: "nav-link text-white" %>
