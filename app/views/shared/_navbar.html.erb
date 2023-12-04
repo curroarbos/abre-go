@@ -37,6 +37,7 @@
           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <%= link_to "Edit profile", edit_user_registration_path, class: "dropdown-item" %>
             <%= link_to "Edit my activities", offered_path(current_user), class: "dropdown-item" %>
+            <%= link_to "Explore all activities", activities_path, class: "dropdown-item" %>
             <%= link_to "See my bookings as a user", bookings_path, class: "dropdown-item" %>
             <%= link_to "Register a new property", new_property_path, class: "dropdown-item" %>
             <%= button_to(
@@ -62,6 +63,7 @@
             <%= link_to "Edit profile", edit_user_registration_path, class: "dropdown-item" %>
             <%= link_to "See my properties", properties_path(current_user), class: "dropdown-item" %>
             <%= link_to "Register a new property", new_property_path, class: "dropdown-item" %>
+            <%= link_to "Explore all activities", activities_path, class: "dropdown-item" %>
             <%= link_to "See my bookings as a user", bookings_path, class: "dropdown-item" %>
             <%= button_to(
               "Log Out",
@@ -90,6 +92,7 @@
             <%= link_to "Edit my activities", offered_path(current_user), class: "dropdown-item" %>
             <%= link_to "See my properties", property_path(current_user), class: "dropdown-item" %>
             <%= link_to "Register a new property", new_property_path, class: "dropdown-item" %>
+            <%= link_to "Explore all activities", activities_path, class: "dropdown-item" %>
             <%= link_to "See my bookings as a user", bookings_path, class: "dropdown-item" %>
             <%= button_to(
               "Log Out",
@@ -118,6 +121,7 @@
           <% end %>
           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <%= link_to "Edit profile", edit_user_registration_path, class: "dropdown-item" %>
+            <%= link_to "Explore all activities", activities_path, class: "dropdown-item" %>
             <%= link_to "Become a provider", new_activity_path, class: "dropdown-item" %>
             <%= link_to "Register a property", new_property_path, class: "dropdown-item" %>
             <%= button_to(
