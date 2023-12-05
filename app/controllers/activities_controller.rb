@@ -1,7 +1,7 @@
 class ActivitiesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
   before_action :set_activity, only: [:show, :destroy, :update]
-  before_action :set_user, only: [:offered]
+  # before_action :set_user, only: [:offered]
 
   def index
     @activities =
@@ -52,7 +52,7 @@ class ActivitiesController < ApplicationController
 
   def update
     @activity.update(activity_params)
-    redirect_to activity_path(@activity)
+    redirect_to offered
   end
 
   def destroy
@@ -64,7 +64,7 @@ class ActivitiesController < ApplicationController
   end
 
   def offered
-
+    @user = current_user
     @activities = @user.activities
   end
 
@@ -79,6 +79,7 @@ class ActivitiesController < ApplicationController
   end
 
   def set_user
-    @user = User.find(params[:id])
+    @user = current_user
+    raise
   end
 end

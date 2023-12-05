@@ -44,10 +44,12 @@
                     <div class="col-md-3 mb-3">
                       <div class="card-carousel">
                       <%= link_to activity_path(activity.recommendable, property_id: @property), class: "text-decoration-none text-dark" do %>
-                        <% if !activity.recommendable.photo_url.nil?  %>
+                        <% if activity.recommendable.photo.attached?  %>
+                          <img class="img-fluid" alt="100%x280" src="<%= cl_image_path activity.photo.key, height: 300, crop: :fill %>">
+                        <% elsif !activity.recommendable.photo_url.nil? %>
                           <img class="img-fluid" alt="100%x280" src="<%= activity.recommendable.photo_url %>">
                         <% else %>
-                          <img class="img-fluid" alt="100%x280" src="<%= cl_image_path activity.photo.key, height: 300, crop: :fill %>">
+                          <img class="img-fluid" alt="100%x280" src="app/assets/images/in_house.avif">
                         <% end %>
                         <div class="card-carousel-body pt-2 p-2">
                           <div class="d-flex justify-content-between">
@@ -78,10 +80,12 @@
                     <div class="col-md-3 mb-3">
                       <div class="card-carousel">
                       <%= link_to activity_path(activity.recommendable, property_id: @property), class: "text-decoration-none text-dark" do %>
-                        <% if !activity.recommendable.photo_url.nil?  %>
+                        <% if activity.recommendable.photo.attached?  %>
+                          <img class="img-fluid" alt="100%x280" src="<%= cl_image_path activity.photo.key, height: 300, crop: :fill %>">
+                        <% elsif !activity.recommendable.photo_url.nil? %>
                           <img class="img-fluid" alt="100%x280" src="<%= activity.recommendable.photo_url %>">
                         <% else %>
-                          <img class="img-fluid" alt="100%x280" src="<%= cl_image_path activity.recommendable.photo.key, height: 300, crop: :fill %>">
+                          <img class="img-fluid" alt="100%x280" src="app/assets/images/in_house.avif">
                         <% end %>
                         <div class="card-carousel-body pt-2 p-2">
                           <div class="d-flex justify-content-between">
@@ -137,10 +141,12 @@
                     <div class="col-md-3 mb-3">
                       <div class="card-carousel">
                       <%= link_to activity_path(activity.recommendable, property_id: @property), class: "text-decoration-none text-dark" do %>
-                        <% if !activity.recommendable.photo_url.nil?  %>
+                        <% if activity.recommendable.photo.attached?  %>
+                          <img class="img-fluid" alt="100%x280" src="<%= cl_image_path activity.photo.key, height: 300, crop: :fill %>">
+                        <% elsif !activity.recommendable.photo_url.nil? %>
                           <img class="img-fluid" alt="100%x280" src="<%= activity.recommendable.photo_url %>">
                         <% else %>
-                          <img class="img-fluid" alt="100%x280" src="<%= cl_image_path activity.photo.key, height: 300, crop: :fill %>">
+                          <img class="img-fluid" alt="100%x280" src="app/assets/images/outdoors_activity.jpeg">
                         <% end %>
                         <div class="card-carousel-body pt-2 p-2">
                           <div class="d-flex justify-content-between">
@@ -170,10 +176,12 @@
                     <div class="col-md-3 mb-3">
                       <div class="card-carousel">
                       <%= link_to activity_path(activity.recommendable, property_id: @property), class: "text-decoration-none text-dark" do %>
-                        <% if !activity.recommendable.photo_url.nil?  %>
+                        <% if activity.recommendable.photo.attached?  %>
+                          <img class="img-fluid" alt="100%x280" src="<%= cl_image_path activity.photo.key, height: 300, crop: :fill %>">
+                        <% elsif !activity.recommendable.photo_url.nil? %>
                           <img class="img-fluid" alt="100%x280" src="<%= activity.recommendable.photo_url %>">
                         <% else %>
-                          <img class="img-fluid" alt="100%x280" src="<%= cl_image_path activity.recommendable.photo.key, height: 300, crop: :fill %>">
+                          <img class="img-fluid" alt="100%x280" src="app/assets/images/outdoors_activity.jpeg">
                         <% end %>
                         <div class="card-carousel-body pt-2 p-2">
                           <div class="d-flex justify-content-between">
