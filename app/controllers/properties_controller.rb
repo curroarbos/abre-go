@@ -16,7 +16,10 @@ class PropertiesController < ApplicationController
     }
     # Is there a way to exclude all the in_house recommendations from the @outdoor_recommendations?
     @outdoor_recommendations = @recommendations.select { |recommendation|
-      recommendation.recommendable_type == "Activity" && recommendation.recommendable.in_house == false || recommendation.recommendable_type == "Restaurant"
+      recommendation.recommendable_type == "Activity" && recommendation.recommendable.in_house == false
+    }
+    @restaurant_recommendations = @recommendations.select { |recommendation|
+      recommendation.recommendable_type == "Restaurant"
     }
   end
 
