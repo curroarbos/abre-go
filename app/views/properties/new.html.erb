@@ -4,7 +4,7 @@
   <p>All you have to do is paste the link to AirBnB below and we'll do the rest</p>
 
   <%= simple_form_for @property do |f| %>
-    <%= f.input :embedded_link %>
+    <%= f.input :embedded_link, label: "Aribnb Link" %>
     <%= f.button :submit, class: "btn-dark-green"%>
   <% end %>
 </div>
