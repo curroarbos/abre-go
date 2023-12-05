@@ -1,0 +1,13 @@
+<div class="container py-5">
+  <div class="row">
+    <div class="col-12 col-md-6 offset-lg-3">
+      <div class="bg-white rounded p-3 shadow">
+        <h1>Choose the frequency and duration</h1>
+        <%= simple_form_for [@activity, @config_time_slot] do |f| %>
+          <%= f.input :frequency, :collection => %w[Weekly Monthly] %>
+          <%= f.submit class: 'btn btn-primary' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

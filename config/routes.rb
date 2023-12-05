@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
+
+  post 'time_slots', to: 'time_slots#create', as: :create_time_slot
   devise_for :users
   root to: "pages#home"
 
   resources :activities do
+    resources :config_time_slots, only: %i[show new create], shallow: true do
+      resources :days_time_slots, only: %i[new create], shallow: true
+    end
     resources :bookings, only: %i[new create]
     resources :reviews, only: %i[new create]
   end
@@ -21,4 +26,9 @@ Rails.application.routes.draw do
   resources :recommendations, only: :destroy
   post '/properties/:property_id/recommendations', to: 'recommendations#create', as: :create_recommendation
 
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :time_slots, only: [ :index ]
+    end
+  end
 end

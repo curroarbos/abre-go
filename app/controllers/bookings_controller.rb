@@ -19,12 +19,12 @@ class BookingsController < ApplicationController
     @booking = Booking.new(booking_params)
     @booking.user = @user
     @booking.activity = @activity
-    # if @booking.valid?
-      if @booking.save
-        redirect_to bookings_path
-      else
-        render :new, status: :unprocessable_entity
-      end
+    @booking.time_slot.booked = true
+    if @booking.save
+      redirect_to bookings_path
+    else
+      render :new, status: :unprocessable_entity
+    end
     # else
     #   render "activities/show", status: :unprocessable_entity
     # end
@@ -60,6 +60,6 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:start_date, :end_date, :number_of_people, :status)
+    params.require(:booking).permit(:day, :number_of_people, :time_slot_id)
   end
 end

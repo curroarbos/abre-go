@@ -1,4 +1,5 @@
 class TimeSlot < ApplicationRecord
-  belongs_to :activities
+  belongs_to :activity
   has_one :booking
+
 end
