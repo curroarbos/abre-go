@@ -47,7 +47,7 @@
                         <% if !activity.recommendable.photo_url.nil? %>
                           <img class="img-fluid" alt="100%x280" src="<%= activity.recommendable.photo_url %>">
                         <% elsif activity.recommendable.photo.attached?  %>
-                          <img class="img-fluid" alt="100%x280" src="<%= cl_image_path activity.photo.key, height: 300, crop: :fill %>">
+                          <img class="img-fluid" alt="100%x280" src="<%= cl_image_path activity.recommendable.photo.key, height: 300, crop: :fill %>">
                         <% else %>
                           <img class="img-fluid" alt="100%x280" src="app/assets/images/in_house.avif">
                         <% end %>
@@ -83,7 +83,7 @@
                         <% if !activity.recommendable.photo_url.nil? %>
                           <img class="img-fluid" alt="100%x280" src="<%= activity.recommendable.photo_url %>">
                         <% elsif activity.recommendable.photo.attached?  %>
-                          <img class="img-fluid" alt="100%x280" src="<%= cl_image_path activity.photo.key, height: 300, crop: :fill %>">
+                          <img class="img-fluid" alt="100%x280" src="<%= cl_image_path activity.recommendable.photo.key, height: 300, crop: :fill %>">
                         <% else %>
                           <img class="img-fluid" alt="100%x280" src="app/assets/images/in_house.avif">
                         <% end %>
@@ -144,7 +144,7 @@
                         <% if !activity.recommendable.photo_url.nil? %>
                           <img class="img-fluid" alt="100%x280" src="<%= activity.recommendable.photo_url %>">
                         <% elsif activity.recommendable.photo.attached?  %>
-                          <img class="img-fluid" alt="100%x280" src="<%= cl_image_path activity.photo.key, height: 300, crop: :fill %>">
+                          <img class="img-fluid" alt="100%x280" src="<%= cl_image_path activity.recommendable.photo.key, height: 300, crop: :fill %>">
                         <% else %>
                           <img class="img-fluid" alt="100%x280" src="app/assets/images/outdoors_activity.jpeg">
                         <% end %>
@@ -179,7 +179,7 @@
                         <% if !activity.recommendable.photo_url.nil? %>
                           <img class="img-fluid" alt="100%x280" src="<%= activity.recommendable.photo_url %>">
                         <% elsif activity.recommendable.photo.attached?  %>
-                          <img class="img-fluid" alt="100%x280" src="<%= cl_image_path activity.photo.key, height: 300, crop: :fill %>">
+                          <img class="img-fluid" alt="100%x280" src="<%= cl_image_path activity.recommendable.photo.key, height: 300, crop: :fill %>">
                         <% else %>
                           <img class="img-fluid" alt="100%x280" src="app/assets/images/outdoors_activity.jpeg">
                         <% end %>
