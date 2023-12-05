@@ -92,11 +92,11 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_04_080840) do
   end
 
   create_table "days_time_slots", force: :cascade do |t|
+    t.string "day"
     t.time "start_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "config_time_slot_id"
-    t.string "day"
     t.integer "frequency"
     t.integer "interval"
     t.index ["config_time_slot_id"], name: "index_days_time_slots_on_config_time_slot_id"

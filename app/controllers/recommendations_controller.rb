@@ -17,32 +17,40 @@ class RecommendationsController < ApplicationController
       }
     elsif params[:some] == "outdoor"
       @recommendations = @recommendations.select { |recommendation|
-        recommendation.recommendable_type == "Activity" && recommendation.recommendable.in_house == false || recommendation.recommendable_type == "Restaurant"
+        recommendation.recommendable_type == "Activity" && recommendation.recommendable.in_house == false
+      }
+    elsif params[:some] == "restaurants"
+      @recommendations = @recommendations.select { |recommendation|
+        recommendation.recommendable_type == "Restaurant"
       }
     end
 
     # This splits the activities and restaurants into inhouse or outdoor
     if params[:some] == "in_house"
       @activities = Activity.all.where(in_house: true)
-    elsif params[:some] == "outdoor"
-      @activities = Activity.all.where(in_house: false)
-      @restaurants = Restaurant.all
-    end
-
-    # This is the logic for the search bar
-    # Doesn't include for inhouse or outdoor, and doesn't allow partial matches
       if params[:query].present?
-        @activities = PgSearch.multisearch(params[:query])
-        .select { |result|
+        @activities = PgSearch.multisearch(params[:query]).select { |result|
           result.searchable_type == "Activity"
         }
         @activities = @activities.map { |result| result.searchable }
+      end
+    elsif params[:some] == "outdoor"
+      @activities = Activity.all.where(in_house: false)
+      if params[:query].present?
+        @activities = PgSearch.multisearch(params[:query]).select { |result|
+          result.searchable_type == "Activity"
+        }
+        @activities = @activities.map { |result| result.searchable }
+      end
+    elsif params[:some] == "restaurants"
+      @restaurants = Restaurant.all
+      if params[:query].present?
         @restaurants = PgSearch.multisearch(params[:query]).select { |result|
           result.searchable_type == "Restaurant"
         }
         @restaurants = @restaurants.map { |result| result.searchable }
       end
-
+    end
   end
 
   def create
