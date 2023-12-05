@@ -90,7 +90,6 @@
           <% @activity.reviews.each do |review| %>
             <div class="card-body d-flex pb-0 border-bottom">
               <div class="d-flex flex-column">
-              <% console %>
                   <% if review.user.photo.attached? %>
                   <%= cl_image_tag review.user.photo.key, class: "avatar" %>
                 <% else %>
