@@ -8,6 +8,9 @@ class RecommendationsController < ApplicationController
   def new
     @property = Property.find(params[:property_id])
     @recommendations = Recommendation.where(property_id: params[:property_id])
+    @recommendation = Recommendation.new
+
+    # This is splits the previous recommendations into inhouse and outdoor
     if params[:some] == "in_house"
       @recommendations = @recommendations.select { |recommendation|
         recommendation.recommendable_type == "Activity" && recommendation.recommendable.in_house
@@ -17,19 +20,29 @@ class RecommendationsController < ApplicationController
         recommendation.recommendable_type == "Activity" && recommendation.recommendable.in_house == false || recommendation.recommendable_type == "Restaurant"
       }
     end
-    @recommendation = Recommendation.new
+
+    # This splits the activities and restaurants into inhouse or outdoor
     if params[:some] == "in_house"
       @activities = Activity.all.where(in_house: true)
     elsif params[:some] == "outdoor"
       @activities = Activity.all.where(in_house: false)
       @restaurants = Restaurant.all
     end
-    if params[:query].present?
-      @activities.search_by_keyword(params[:query])
-      # @restaurants.search_by_keyword(params[:query])
-    else
-      @activities
-    end
+
+    # This is the logic for the search bar
+    # Doesn't include for inhouse or outdoor, and doesn't allow partial matches
+      if params[:query].present?
+        @activities = PgSearch.multisearch(params[:query])
+        .select { |result|
+          result.searchable_type == "Activity"
+        }
+        @activities = @activities.map { |result| result.searchable }
+        @restaurants = PgSearch.multisearch(params[:query]).select { |result|
+          result.searchable_type == "Restaurant"
+        }
+        @restaurants = @restaurants.map { |result| result.searchable }
+      end
+
   end
 
   def create
@@ -78,6 +91,5 @@ class RecommendationsController < ApplicationController
   def set_property
     @property = Property.find(params[:property_id])
   end
-
 
 end

@@ -21,10 +21,14 @@ class Activity < ApplicationRecord
     using: {
       tsearch: { prefix: true }
     }
+  multisearchable against: [:title, :location]
 
   # pg_search_scope :search_by_keyword,
   # against: [ :title, :location],
   # using: {
   #   tsearch: { prefix: true }
   # }
+
+    # This is the logic for the recommendations search bar
+    # include PgSearch::Model÷
 end
