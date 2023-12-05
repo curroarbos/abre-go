@@ -1,7 +1,8 @@
 class BookingsController < ApplicationController
-  before_action :set_activity, only: %i[new create]
+  before_action :set_activity, only: %i[create]
   before_action :set_booking, only: %i[show update destroy]
   before_action :set_user, only: %i[index create requested]
+  before_action :set_property, only: %i[ create ]
 
   def index
     @bookings = @user.bookings
@@ -10,16 +11,12 @@ class BookingsController < ApplicationController
   def show
   end
 
-  def new
-    @booking = Booking.new
-    @disabled_dates = @activity.bookings.map { |booking| { from: booking.start_date, to: booking.end_date } }
-  end
-
   def create
     @booking = Booking.new(booking_params)
     @booking.user = @user
     @booking.activity = @activity
-    @booking.time_slot.booked = true
+    @booking.time_slot.update(booked:true)
+    @booking.property = @property
     if @booking.save
       redirect_to bookings_path
     else
@@ -39,6 +36,9 @@ class BookingsController < ApplicationController
 
   def update
     @booking.update(status: params[:status])
+    if @booking.status == false
+      @booking.time_slot.update(booked: false)
+    end
     redirect_to requested_path(current_user)
   end
 
@@ -57,6 +57,10 @@ class BookingsController < ApplicationController
 
   def set_user
     @user = current_user
+  end
+
+  def set_property
+    @property = Property.find(params[:booking][:property_id])
   end
 
   def booking_params

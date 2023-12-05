@@ -21,7 +21,7 @@ class ActivitiesController < ApplicationController
 
   def show
     @time_slot = TimeSlot.new
-    # @property = Property.find(params[:property_id]) if params[:property_id]
+    @property = Property.find(params[:property_id]) if params[:property_id]
     @booking = Booking.new
     @markers = [{
       lat: @activity.latitude,
@@ -39,7 +39,7 @@ class ActivitiesController < ApplicationController
     @activity = Activity.new(activity_params)
     @activity.user = current_user
     if @activity.save
-      redirect_to activity_path(@activity)
+      redirect_to new_activity_config_time_slot_path(@activity)
       current_user.update(is_provider: true)
     else
       render :new, status: :unprocessable_entity
