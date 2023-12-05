@@ -6,6 +6,7 @@ Recommendation.destroy_all
 Property.destroy_all
 User.destroy_all
 Booking.destroy_all
+TimeSlot.destroy_all
 
 Category.create!(name: "Food")
 Category.create!(name: "Music")
