@@ -89,8 +89,9 @@
           <% @activity.reviews.each do |review| %>
             <div class="card-body d-flex pb-0 border-bottom">
               <div class="d-flex flex-column">
-                  <% if @provider.photo.attached? %>
-                  <%= cl_image_tag @provider.photo.key, class: "avatar" %>
+              <% console %>
+                  <% if review.user.photo.attached? %>
+                  <%= cl_image_tag review.user.photo.key, class: "avatar" %>
                 <% else %>
                   <img class="avatar", src="https://res.cloudinary.com/dp39nvrov/image/upload/v1701160462/no_profile_pic_mygech.png" />
                 <% end %>
