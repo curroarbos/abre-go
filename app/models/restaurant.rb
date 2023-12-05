@@ -23,4 +23,7 @@ class Restaurant < ApplicationRecord
     self.google_link = details["data"][0]["share_link"]
     self.photo_url = details["data"][0]["photos_sample"][0]["photo_url"]
   end
+
+  include PgSearch::Model
+  multisearchable against: [:name, :address]
 end
