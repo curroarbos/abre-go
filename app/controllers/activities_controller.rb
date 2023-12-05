@@ -56,6 +56,9 @@ class ActivitiesController < ApplicationController
   end
 
   def destroy
+    @activity.config_time_slot.days_time_slots.destroy_all
+    @activity.config_time_slot.destroy
+    @activity.time_slots.destroy_all
     @activity.destroy
     redirect_to activities_path, status: :see_other
   end
