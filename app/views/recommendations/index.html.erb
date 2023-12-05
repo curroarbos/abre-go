@@ -23,8 +23,8 @@
   <div class="container">
     <div class="row">
       <div class="col-6">
-      <% activities = @recommendations.select { |recommendation| recommendation if recommendation.recommendable_type == 'Activity'} %>
-        <h4 class="mb-3">Recommended in-house activities</h4>
+      <% in_house_activities = @recommendations.select { |recommendation| recommendation if recommendation.recommendable_type == 'Activity' && recommendation.recommendable.in_house} %>
+        <h4 class="mb-3">Inhouse Recommendations</h4>
       </div>
       <div class="col-6 text-right">
         <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators1" role="button" data-slide="prev">
@@ -39,7 +39,101 @@
           <div class="carousel-inner">
             <div class="carousel-item active">
               <div class="row">
-                  <% activities.first(4).each do |activity| %>
+
+                  <% in_house_activities.first(4).each do |activity| %>
+                    <div class="col-md-3 mb-3">
+                      <div class="card-carousel">
+                      <%= link_to activity_path(activity.recommendable, property_id: @property), class: "text-decoration-none text-dark" do %>
+                        <% if !activity.recommendable.photo_url.nil?  %>
+                          <img class="img-fluid" alt="100%x280" src="<%= activity.recommendable.photo_url %>">
+                        <% else %>
+                          <img class="img-fluid" alt="100%x280" src="<%= cl_image_path activity.photo.key, height: 300, crop: :fill %>">
+                        <% end %>
+                        <div class="card-carousel-body pt-2 p-2">
+                          <div class="d-flex justify-content-between">
+                            <h5 class="card-title"> <%= activity.recommendable.title %> </h5>
+                            <p class="text-muted font-weight-normal">
+                              <%# Get average rating %>
+                              <% if activity.recommendable.reviews.present? %>
+                              <% average_rating = activity.recommendable.reviews.average(:rating).to_f %>
+                              <%= "%.1f" % average_rating %><i class="fas fa-star star-yellow"></i>
+                              <% else %>
+                                New
+                              <% end %>
+                            </p>
+                          </div>
+                            <p class="card-text"> <%= activity.recommendable.price %> € </p>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                  <% end %>
+
+              </div>
+            </div>
+
+            <div class="carousel-item">
+              <div class="row">
+                  <% in_house_activities[4...7].each do |activity| %>
+                    <div class="col-md-3 mb-3">
+                      <div class="card-carousel">
+                      <%= link_to activity_path(activity.recommendable, property_id: @property), class: "text-decoration-none text-dark" do %>
+                        <% if !activity.recommendable.photo_url.nil?  %>
+                          <img class="img-fluid" alt="100%x280" src="<%= activity.recommendable.photo_url %>">
+                        <% else %>
+                          <img class="img-fluid" alt="100%x280" src="<%= cl_image_path activity.recommendable.photo.key, height: 300, crop: :fill %>">
+                        <% end %>
+                        <div class="card-carousel-body pt-2 p-2">
+                          <div class="d-flex justify-content-between">
+                            <h5 class="card-title"> <%= activity.recommendable.title %> </h5>
+                            <p class="text-muted font-weight-normal">
+                              <%# Get average rating %>
+                              <% if activity.recommendable.reviews.present? %>
+                              <% average_rating = activity.recommendable.reviews.average(:rating).to_f %>
+                              <%= "%.1f" % average_rating %>
+                              <i class="fas fa-star star-yellow"></i>
+                              <% else %>
+                                New
+                              <% end %>
+                            </p>
+                          </div>
+                            <p class="card-text"> <%= activity.recommendable.price %> € </p>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                  <% end %>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+   </div>
+</section>
+
+<section class="pt-3 pb-3">
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
+      <% outdoor_activities = @recommendations.select { |recommendation| recommendation if recommendation.recommendable_type == 'Activity' && recommendation.recommendable.in_house == false} %>
+        <h4 class="mb-3">Outdoor Recommendations</h4>
+      </div>
+      <div class="col-6 text-right">
+        <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators2" role="button" data-slide="prev">
+          <i class="fa fa-arrow-left"></i>
+        </a>
+        <a class="btn btn-primary mb-3 " href="#carouselExampleIndicators2" role="button" data-slide="next">
+          <i class="fa fa-arrow-right"></i>
+        </a>
+      </div>
+      <div class="col-12">
+        <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel" data-interval="false">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="row">
+                  <% outdoor_activities.first(4).each do |activity| %>
                     <div class="col-md-3 mb-3">
                       <div class="card-carousel">
                       <%= link_to activity_path(activity.recommendable, property_id: @property), class: "text-decoration-none text-dark" do %>
@@ -72,7 +166,7 @@
 
             <div class="carousel-item">
               <div class="row">
-                  <% activities[3...7].each do |activity| %>
+                  <% outdoor_activities[4...7].each do |activity| %>
                     <div class="col-md-3 mb-3">
                       <div class="card-carousel">
                       <%= link_to activity_path(activity.recommendable, property_id: @property), class: "text-decoration-none text-dark" do %>
@@ -118,7 +212,7 @@
     <div class="row">
       <div class="col-6">
       <% restaurants = @recommendations.select { |restaurant| restaurant if restaurant.recommendable_type == 'Restaurant'} %>
-        <h4 class="mb-3">Recommended bars and restaurants</h4>
+        <h4 class="mb-3">Recommended Bars and Restaurants</h4>
       </div>
       <div class="col-6 text-right">
         <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators4" role="button" data-slide="prev">
@@ -155,7 +249,7 @@
 
             <div class="carousel-item">
               <div class="row">
-                  <% restaurants[3...7].each do |restaurant| %>
+                  <% restaurants[4...7].each do |restaurant| %>
                     <div class="col-md-3 mb-3">
                       <div class="card-carousel">
                       <%= link_to restaurant_path(restaurant.recommendable, property_id: @property), class: "text-decoration-none text-dark" do %>
