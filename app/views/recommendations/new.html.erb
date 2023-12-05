@@ -2,9 +2,13 @@
   <h1>Add new recommendations for <%= @property.name %></h1>
   <% if params[:some] == "in_house" %>
     <h3>These are your previous Inhouse recommendations</h3>
-  <% else %>
+  <% elsif params[:some] == "outdoor" %>
     <h3>These are your previous Outdoor recommendations</h3>
+  <% elsif params[:some] == "restaurants" %>
+    <h3>These are your previous Resturant recommendations</h3>
   <% end %>
+
+  <%= link_to "Add a new Restaurant", new_restaurant_path, class: "btn-dark-green" %>
 
   <% if @recommendations.nil? %>
     <p>You have no recommendations yet.</p>
