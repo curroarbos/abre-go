@@ -8,23 +8,27 @@ class TimeSlotsController < ApplicationController
   def create
     @activity.time_slots.where("booked=false").destroy_all
     @days_time_slots.each do |days_time_slot|
-      JSON.parse(days_time_slot.day).each do |day|
-        time = days_time_slot.start_time
-        today = Date.today
-        days_time_slot.frequency.times do
-          @time_slot = TimeSlot.new
-          @time_slot.activity = @activity
-          start_time = DateTime.parse("#{today.next_occurring(day.downcase.to_sym)}, #{time.hour}:#{time.min}")
-          @time_slot.start_time = start_time
-          end_time = start_time + Rational(@activity.duration, 24)
-          @time_slot.end_time = end_time
-          time = end_time + days_time_slot.interval.minutes
-          @time_slot.save
+      today = Date.today
+      8.times do
+        JSON.parse(days_time_slot.day).each do |day|
+          time = days_time_slot.start_time
+          days_time_slot.frequency.times do
+            @time_slot = TimeSlot.new
+            @time_slot.activity = @activity
+            start_time = DateTime.parse("#{today.next_occurring(day.downcase.to_sym)}, #{time.hour}:#{time.min}")
+            @time_slot.start_time = start_time
+            end_time = start_time + Rational(@activity.duration, 24)
+            @time_slot.end_time = end_time
+            time = end_time + days_time_slot.interval.minutes
+            @time_slot.save
+          end
         end
+        today += 7.days
       end
     end
     redirect_to activity_path(@activity)
   end
+
 
   private
 
