@@ -1,4 +1,5 @@
 class ActivitiesController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:index, :show]
   before_action :set_activity, only: [:show, :destroy, :update]
   before_action :set_user, only: [:offered]
 
@@ -20,12 +21,14 @@ class ActivitiesController < ApplicationController
 
   def show
     @time_slot = TimeSlot.new
+    # @property = Property.find(params[:property_id]) if params[:property_id]
     @booking = Booking.new
     @markers = [{
       lat: @activity.latitude,
       lng: @activity.longitude
       }]
     @review = Review.new
+    @provider = @activity.user
   end
 
   def new
@@ -65,7 +68,7 @@ class ActivitiesController < ApplicationController
   private
 
   def activity_params
-    params.require(:activity).permit(:title, :location, :max_people, :price, :photo_url, :category_id, :photo, :duration)
+    params.require(:activity).permit(:title, :location, :max_people, :price, :photo_url, :category_id, :photo, :property_id)
   end
 
   def set_activity

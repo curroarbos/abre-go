@@ -37,6 +37,7 @@
           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <%= link_to "Edit profile", edit_user_registration_path, class: "dropdown-item" %>
             <%= link_to "Edit my activities", offered_path(current_user), class: "dropdown-item" %>
+            <%= link_to "Explore all activities", activities_path, class: "dropdown-item" %>
             <%= link_to "See my bookings as a user", bookings_path, class: "dropdown-item" %>
             <%= link_to "Register a new property", new_property_path, class: "dropdown-item" %>
             <%= button_to(
@@ -60,8 +61,9 @@
           <% end %>
           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <%= link_to "Edit profile", edit_user_registration_path, class: "dropdown-item" %>
-            <%= link_to "See my properties", property_path(current_user), class: "dropdown-item" %>
+            <%= link_to "See my properties", properties_path(current_user), class: "dropdown-item" %>
             <%= link_to "Register a new property", new_property_path, class: "dropdown-item" %>
+            <%= link_to "Explore all activities", activities_path, class: "dropdown-item" %>
             <%= link_to "See my bookings as a user", bookings_path, class: "dropdown-item" %>
             <%= button_to(
               "Log Out",
@@ -90,6 +92,7 @@
             <%= link_to "Edit my activities", offered_path(current_user), class: "dropdown-item" %>
             <%= link_to "See my properties", property_path(current_user), class: "dropdown-item" %>
             <%= link_to "Register a new property", new_property_path, class: "dropdown-item" %>
+            <%= link_to "Explore all activities", activities_path, class: "dropdown-item" %>
             <%= link_to "See my bookings as a user", bookings_path, class: "dropdown-item" %>
             <%= button_to(
               "Log Out",
@@ -101,9 +104,18 @@
             </div>
         </li>
       <% elsif !current_user.nil? %>
-        <li class="nav-item">
+          <% if params[:property_id].present? %>
+           <li class="nav-item">
+          <%= link_to "Landlord recommendations", property_recommendations_path(params[:property_id]), class: "nav-link text-white" %>
+          </li>
+           <li class="nav-item">
+          <%= link_to 'See my bookings', bookings_path(property_id: params[:property_id]), class: "nav-link text-white" %>
+          </li>
+          <% else%>
+          <li class="nav-item">
           <%= link_to 'See my bookings', bookings_path, class: "nav-link text-white" %>
-        </li>
+           </li>
+          <% end %>
         <li class="nav-item dropdown">
           <% if current_user.photo.attached? %>
             <%= cl_image_tag current_user.photo.key, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false"} %>
@@ -112,6 +124,11 @@
           <% end %>
           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <%= link_to "Edit profile", edit_user_registration_path, class: "dropdown-item" %>
+            <% if params[:property_id].present? %>
+            <%= link_to "Explore all activties", activities_path(property_id: @property), class: "dropdown-item" %>
+            <%else%>
+            <%= link_to "Explore all activities", activities_path, class: "dropdown-item" %>
+            <%end%>
             <%= link_to "Become a provider", new_activity_path, class: "dropdown-item" %>
             <%= link_to "Register a property", new_property_path, class: "dropdown-item" %>
             <%= button_to(
