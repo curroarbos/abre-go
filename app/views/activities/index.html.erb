@@ -23,10 +23,14 @@
         <div class="mb-3">
           <%= link_to activity_path(activity, property_id: @property || params[:property_id]), class: "text-decoration-none text-dark" do %>
             <% if !activity.photo_url.nil?  %>
-              <div class="card-category" data-aos="zoom-in" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%=activity.photo_url%>')"> </div>
-            <% else %>
-              <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('<%= cl_image_path activity.photo.key, height: 300, crop: :fill %>')"> </div>
-            <% end %>
+            <div class="card-category">
+              <%= image_tag activity.photo_url, alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+            </div>
+          <% else %>
+            <div class="card-category">
+              <%= cl_image_tag activity.photo.key, height: 300, crop: :fill , alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+            </div>
+          <% end %>
             <div class="p-3 rounded-bottom d-flex flex-column">
               <div class="d-flex justify-content-between">
                 <h4> <%= activity.title %> </h4>
@@ -40,9 +44,9 @@
                 <%# <% end %>
                  <%# Get average rating %>
                  <% if activity.reviews.present? %>
-                 <% average_rating = activity.reviews.average(:rating).to_f %>
-                 <%= "%.1f" % average_rating %>
-                 <i class="fas fa-star star-yellow"></i>
+                  <% average_rating = activity.reviews.average(:rating).to_f %>
+                  <%= "%.1f" % average_rating %>
+                  <i class="fas fa-star star-yellow"></i>
                  <% else %>
                     New
                  <% end %>
