@@ -61,7 +61,7 @@
               <% end %>
             </div>
         <%# <% end %>
-        <%= link_to "Delete", recommendation_path(recommendation), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+        <%= link_to "Delete", recommendation_path(recommendation, some: params[:some]), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
         </div>
       <% end %>
       </div>

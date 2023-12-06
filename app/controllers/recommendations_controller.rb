@@ -87,7 +87,7 @@ class RecommendationsController < ApplicationController
   def destroy
     @recommendation = Recommendation.find(params[:id])
     @recommendation.destroy
-    redirect_to new_property_recommendation_path(@recommendation.property)
+    redirect_to new_property_recommendation_path(@recommendation.property, some: params[:some])
   end
 
   private
