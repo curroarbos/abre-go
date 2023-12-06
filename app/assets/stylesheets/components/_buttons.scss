@@ -40,11 +40,25 @@
   transition: background 0.3s ease;
 }
 
+
 .btn-dark-green:hover {
   background: #375c42;
   color: white;
 }
 
+
+.btn-light-green {
+  color: white;
+  padding: 8px 24px;
+  border-radius: 4px;
+  background: $light-green;
+  transition: background 0.3s ease;
+}
+
+.btn-light-green:hover {
+  background: #375c42;
+  color: white;
+}
 
 
 .btn-lighter-green {
@@ -56,6 +70,6 @@
 }
 
 .btn-lighter-green:hover {
-  background: $light-green;
+  background: #375c42;
   color: white;
 }
