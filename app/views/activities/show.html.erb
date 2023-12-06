@@ -1,7 +1,11 @@
-<% if !@activity.photo_url.nil? %>
-  <div class="map" style="background-image: url('<%= @activity.photo_url %>')"></div>
+<% if !@activity.photo_url.nil?  %>
+  <div class="card-category">
+    <%= image_tag @activity.photo_url, alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+  </div>
 <% else %>
-  <div class="map" style="background-image: url('<%=cl_image_path @activity.photo.key, crop: :fill %>')"></div>
+  <div class="card-category">
+    <%= cl_image_tag @activity.photo.key, height: 300, crop: :fill , alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+  </div>
 <% end %>
 <div class="container margin-top-negative">
   <div class="row">
@@ -17,18 +21,18 @@
         <div class="card-body d-flex justify-content-between align-items-center">
           <div class= "d-flex justify-content-start align-items-center">
             <% if @provider.photo.attached? %>
-              <%= cl_image_tag @provider.photo.key, class: "avatar me-4" %>
+              <%= cl_image_tag @provider.photo.key, class: "avatar me-4", loading: "lazy" %>
             <% else %>
-              <img class="avatar me-4", src="https://res.cloudinary.com/dp39nvrov/image/upload/v1701160462/no_profile_pic_mygech.png" />
+              <img class="avatar me-4", loading="lazy", src="https://res.cloudinary.com/dp39nvrov/image/upload/v1701160462/no_profile_pic_mygech.png" />
             <% end %>
             <p class="card-text m-0"><%= @activity.user.first_name %> -
             <%# Get average rating %>
             <% if @activity.reviews.present? %>
-            <% average_rating = @activity.reviews.average(:rating).to_f %>
-            <%= "%.1f" % average_rating %>
-            <i class="fa-solid fa-star text-warning"></i>
+              <% average_rating = @activity.reviews.average(:rating).to_f %>
+              <%= "%.1f" % average_rating %>
+              <i class="fa-solid fa-star text-warning"></i>
             <% else %>
-             New
+              New
             <% end %>
               <%# Get average rating %>
               <%# <% if @activity.reviews.empty? %>
@@ -91,9 +95,9 @@
             <div class="card-body d-flex pb-0 border-bottom">
               <div class="d-flex flex-column">
                   <% if review.user.photo.attached? %>
-                  <%= cl_image_tag review.user.photo.key, class: "avatar" %>
+                  <%= cl_image_tag review.user.photo.key, class: "avatar", loading: "lazy" %>
                 <% else %>
-                  <img class="avatar", src="https://res.cloudinary.com/dp39nvrov/image/upload/v1701160462/no_profile_pic_mygech.png" />
+                  <img class="avatar", loading="lazy", src="https://res.cloudinary.com/dp39nvrov/image/upload/v1701160462/no_profile_pic_mygech.png" />
                 <% end %>
                 <p class="text-center"><%= review.user.first_name %></p>
               </div>

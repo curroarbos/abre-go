@@ -23,9 +23,13 @@
         <div class="mb-3">
           <%# <%= link_to activity_path(activity), class: "text-decoration-none text-dark" do %>
             <% if !recommendation.recommendable.photo_url.nil?  %>
-              <div class="card-category" data-aos="zoom-in" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%=recommendation.recommendable.photo_url%>')"> </div>
+              <div class="card-category">
+                <%= image_tag recommendation.recommendable.photo_url, alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+              </div>
             <% else %>
-              <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('<%= cl_image_path recommendation.recommendable.photo.key, height: 300, crop: :fill %>')"> </div>
+              <div class="card-category">
+                <%= cl_image_tag recommendation.recommendable.photo.key, height: 300, crop: :fill , alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+              </div>
             <% end %>
             <div class="p-3 rounded-bottom d-flex flex-column">
               <div class="d-flex justify-content-between">
@@ -87,9 +91,13 @@
       <% @activities.each do | activity | %>
         <div data-id="<%= activity.id %>" class="mb-3" data-action="click->recommendations#selectActivity">
           <% if !activity.photo_url.nil?  %>
-            <div class="card-category" data-aos="zoom-in" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%=activity.photo_url%>')"> </div>
+            <div class="card-category">
+              <%= image_tag activity.photo_url, alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+            </div>
           <% else %>
-            <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('<%= cl_image_path activity.photo.key, height: 300, crop: :fill %>')"> </div>
+            <div class="card-category">
+              <%= cl_image_tag activity.photo.key, height: 300, crop: :fill , alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+            </div>
           <% end %>
           <div class="p-3 rounded-bottom d-flex flex-column">
             <div class="d-flex justify-content-between">
@@ -116,9 +124,13 @@
           <% @restaurants.each do | restaurant | %>
           <div data-id="<%= restaurant.id %>" class="mb-3" data-action="click->recommendations#selectRestaurant">
             <% if !restaurant.photo_url.nil?  %>
-              <div class="card-category" data-aos="zoom-in" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%=restaurant.photo_url%>')"> </div>
+              <div class="card-category">
+                <%= image_tag restaurant.photo_url, alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+              </div>
             <% else %>
-              <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('<%= cl_image_path restaurant.photo.key, height: 300, crop: :fill %>')"> </div>
+              <div class="card-category">
+                <%= cl_image_tag restaurant.photo.key, height: 300, crop: :fill , alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+              </div>
             <% end %>
             <div class="p-3 rounded-bottom d-flex flex-column">
               <div class="d-flex justify-content-between">
