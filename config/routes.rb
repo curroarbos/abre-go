@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
   resources :restaurants, only: %i[show]
   resources :properties, only: %i[index show new create] do
-    resources :recommendations, only: %i[new create]
+    resources :recommendations, only: %i[index new create]
   end
   resources :properties, only: %i[index show new create] do
     resources :restaurants, only: %i[new create]
