@@ -26,7 +26,7 @@ class RestaurantsController < ApplicationController
     @restaurant.enrich(url)
 
     if @restaurant.save
-      redirect_to restaurant_path(@restaurant)
+      redirect_to new_property_recommendation_path(params[:property_id], some: 'restaurants')
     else
       render :new, status: :unprocessable_entity
     end

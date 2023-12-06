@@ -6,6 +6,7 @@
         <h3>Create a new experience</h3>
         <%= simple_form_for @activity do |f| %>
           <%= f.input :title %>
+          <%= f.input :description %>
           <%= f.input :price %>
           <%= f.input :duration %>
           <%= f.input :location,
