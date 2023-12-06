@@ -4,6 +4,8 @@ class ConfigTimeSlotsController < ApplicationController
   before_action :set_days_time_slots, only: %i[show]
 
   def show
+    @activity = @config_time_slot.activity
+
   end
 
   def new
@@ -19,6 +21,8 @@ class ConfigTimeSlotsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
+
+
 
   private
 
