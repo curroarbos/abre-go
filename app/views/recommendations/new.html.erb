@@ -8,7 +8,9 @@
     <h3>These are your previous Resturant recommendations</h3>
   <% end %>
 
-  <%= link_to "Add a new Restaurant", new_property_restaurant_path(params[:property_id]), class: "btn-dark-green" %>
+  <% if params[:some] == "restaurants" %>
+    <%= link_to "Add a new Restaurant", new_property_restaurant_path(params[:property_id]), class: "btn-dark-green" %>
+  <% end %>
 
   <% if @recommendations.nil? %>
     <p>You have no recommendations yet.</p>
