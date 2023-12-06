@@ -4,6 +4,7 @@ class TimeSlotsController < ApplicationController
   before_action :set_activity, only: %i[create]
   before_action :set_config_time_slot, only: %i[create]
   before_action :set_days_time_slots, only: %i[create]
+  before_action :set_user, only: %i[create]
 
   def create
     @activity.time_slots.where("booked=false").destroy_all
@@ -26,7 +27,7 @@ class TimeSlotsController < ApplicationController
         today += 7.days
       end
     end
-    redirect_to activity_path(@activity)
+    redirect_to offered_path(@user)
   end
 
 
@@ -44,5 +45,9 @@ class TimeSlotsController < ApplicationController
 
   def set_days_time_slots
     @days_time_slots = @config_time_slot.days_time_slots
+  end
+
+  def set_user
+    @user = current_user
   end
 end

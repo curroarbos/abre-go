@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   post 'time_slots', to: 'time_slots#create', as: :create_time_slot
   devise_for :users

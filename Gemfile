@@ -80,3 +80,5 @@ gem "cloudinary"
 gem "dotenv-rails"
 gem 'faker'
 gem "pg_search"
+gem "rails_admin", "3.0"
+gem "sassc-rails"

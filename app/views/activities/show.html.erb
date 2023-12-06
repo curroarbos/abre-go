@@ -74,7 +74,7 @@
             <fieldset class="mb-3 radio_buttons optional booking_time_slot"><legend class="col-form-label pt-0">Time slot</legend><input type="hidden" name="booking[time_slot_id]" value="" autocomplete="off"></fieldset>
             </div>
             <%= f.input :number_of_people%>
-            <%= f.hidden_field :property_id, value: @property.id if !@property.nil?%>
+            <%= f.hidden_field :property_id, value: params[:property_id] unless params[:property_id].nil? %>
             <%= f.submit class: 'btn btn-primary' %>
             </div>
           <% end %>
