@@ -77,6 +77,14 @@
   object-position: center;
 }
 
+.card-category img {
+  width: 100%; /* Ensure the image takes the full width of its container */
+  height: 180px; /* Set a fixed height for the image */
+  object-fit: cover; /* Scale the image as large as possible while preserving its aspect ratio */
+  object-position: center;
+  border-radius: 5px;
+}
+
 .card {
   border-radius: 5px;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);

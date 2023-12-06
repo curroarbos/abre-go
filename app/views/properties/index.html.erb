@@ -9,7 +9,7 @@
         <div class="col-4">
           <% if property.photo.nil? %>
           <% else %>
-            <%= image_tag property.photo, alt: "#{property.name} Main Photo", class: "img-thumbnail", width: 200, height: 200 %>
+            <%= image_tag property.photo, alt: "#{property.name} Main Photo", class: "img-thumbnail", width: 200, height: 200, loading: "lazy" %>
           <% end %>
         </div>
       </div>
