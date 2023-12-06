@@ -17,8 +17,8 @@ export default class extends Controller {
     console.log(this.slotsTarget);
     const urlProd = `https://abre-go.osc-fr1.scalingo.io/api/v1/time_slots?date=${encodeURI(event.currentTarget._flatpickr.selectedDates[0])}&activity_id=${this.idValue}`
     const urlDev = `http://localhost:3000/api/v1/time_slots?date=${encodeURI(event.currentTarget._flatpickr.selectedDates[0])}&activity_id=${this.idValue}`
-    console.log(urlDev);
-    fetch(urlDev, { headers: { "Accept": "text/plain" } })
+    console.log(urlProd);
+    fetch(urlProd, { headers: { "Accept": "text/plain" } })
       .then(response => response.text())
       .then((data) => {
         console.log(data);
