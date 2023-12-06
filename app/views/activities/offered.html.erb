@@ -5,21 +5,26 @@
   <div class="mb-3">
     <%= link_to activity_path(activity), class: "text-decoration-none text-dark" do %>
       <% if !activity.photo_url.nil?  %>
-        <div class="card-category" data-aos="zoom-in" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%=activity.photo_url%>')"> </div>
+        <div class="card-category">
+          <%= image_tag activity.photo_url, alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+        </div>
       <% else %>
-        <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('<%= cl_image_path activity.photo.key, height: 300, crop: :fill %>')"> </div>
+        <div class="card-category">
+          <%= cl_image_tag activity.photo.key, height: 300, crop: :fill , alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+        </div>
       <% end %>
       <div class="p-3 rounded-bottom d-flex flex-column">
         <div class="d-flex justify-content-between">
           <h4> <%= activity.title %> </h4>
           <p class="text-muted font-weight-normal">
-          <% if activity.reviews.empty? %>
-                  No reviews yet
-                <% else %>
-                  <%= (activity.reviews.pluck(:rating).sum / activity.reviews.pluck(:rating).length).round(1) %>
-                  <i class="fa-solid fa-star text-warning"></i>
-                <% end %>
-           <i class="fas fa-star star-yellow"></i></p>
+            <% if activity.reviews.present? %>
+              <% average_rating = activity.reviews.average(:rating).to_f %>
+              <%= "%.1f" % average_rating %>
+              <i class="fas fa-star star-yellow"></i>
+            <% else %>
+                New
+            <% end %>
+          </p>
         </div>
           <p> <%= activity.location %> </p>
           <div class="d-flex justify-content-between">

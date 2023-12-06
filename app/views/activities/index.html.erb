@@ -43,13 +43,13 @@
                   <%# <i class="fa-solid fa-star text-warning"></i> %>
                 <%# <% end %>
                  <%# Get average rating %>
-                 <% if activity.reviews.present? %>
+                <% if activity.reviews.present? %>
                   <% average_rating = activity.reviews.average(:rating).to_f %>
                   <%= "%.1f" % average_rating %>
                   <i class="fas fa-star star-yellow"></i>
-                 <% else %>
+                <% else %>
                     New
-                 <% end %>
+                <% end %>
                 </p>
               </div>
               <p> <%= activity.location %> </p>
