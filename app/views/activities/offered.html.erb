@@ -30,6 +30,11 @@
           <%= link_to activity_path(activity), class:"text-danger", data: {turbo_method: :delete , turbo_confirm: "Are you sure?"} do %>
             <i class="fa-solid fa-trash"></i>
           <% end %>
+          <% unless activity.config_time_slot.nil?  %>
+            <%= link_to "Edit time slots", config_time_slot_path(activity.config_time_slot), class: 'btn btn-primary' %>
+          <% else %>
+            <%= link_to "Create time slots", new_activity_config_time_slot_path(activity), class: 'btn btn-primary' %>
+          <% end %>
           </div>
         </div>
     <% end %>

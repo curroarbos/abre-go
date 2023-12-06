@@ -52,15 +52,15 @@ class ActivitiesController < ApplicationController
 
   def update
     @activity.update(activity_params)
-    redirect_to offered
+    redirect_to offered_path
   end
 
   def destroy
-    @activity.config_time_slot.days_time_slots.destroy_all
-    @activity.config_time_slot.destroy
-    @activity.time_slots.destroy_all
+    @activity.config_time_slot.days_time_slots.destroy_all unless @activity.config_time_slot.nil?
+    @activity.config_time_slot.destroy unless @activity.config_time_slot.nil?
+    @activity.time_slots.destroy_all unless @activity.time_slots.nil?
     @activity.destroy
-    redirect_to activities_path, status: :see_other
+    redirect_to offered_path, status: :see_other
   end
 
   def offered
@@ -80,6 +80,5 @@ class ActivitiesController < ApplicationController
 
   def set_user
     @user = current_user
-    raise
   end
 end

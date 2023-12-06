@@ -18,7 +18,7 @@ class BookingsController < ApplicationController
     @booking.time_slot.update(booked:true)
     @booking.property = @property
     if @booking.save
-      redirect_to bookings_path
+      redirect_to bookings_path(property_id: params[:booking][:property_id])
     else
       render :new, status: :unprocessable_entity
     end
