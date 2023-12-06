@@ -1,25 +1,29 @@
-<div class="container py-5">
+<div class="container my-4">
   <div class="row">
-    <div class="col-12 col-md-6 offset-lg-3">
-      <div class="bg-white rounded p-3 shadow">
-        <%= link_to "Select the days and times", new_config_time_slot_days_time_slot_path(@config_time_slot)  %>
+    <div class="col-12 col-md-8 offset-lg-2 d-flex align-items-center">
+      <div class="container">
+        <h2 class="text-center">Current configuration for <%= @activity.title %></h2>
+        <ul class="list-group">
+          <% @days_time_slots.each do |days_time_slot| %>
+          <li class="list-group-item d-flex justify-content-between">
+            <%= JSON.parse(days_time_slot.day).join(" ") %> - from <%= days_time_slot.start_time.strftime("%H:%M")%> - <%= days_time_slot.frequency%> times - <%= days_time_slot.interval %> min in between
+            <%= link_to days_time_slot_path(days_time_slot), class:"text-danger", data: {turbo_method: :delete , turbo_confirm: "Are you sure?"} do %>
+              <i class="fa-solid fa-trash"></i>
+            <% end %>
+          </li>
+          <% end %>
+          <li class="list-group-item"> <%= link_to "+ Add a new config", new_config_time_slot_days_time_slot_path(@config_time_slot)  %> </li>
+        </ul>
       </div>
     </div>
-    <div class="col-12 col-md-6 offset-lg-3">
-      <div class="bg-white rounded p-3 shadow my-3">
-        <%= link_to "Done", create_time_slot_path(:config_time_slot_id => @config_time_slot.id), data: { 'turbo-method' => :post } %>
+    <div class="col-12 col-md-8 offset-lg-2">
+      <div class="my-3 d-flex justify-content-center">
+        <%= link_to "Done", create_time_slot_path(:config_time_slot_id => @config_time_slot.id), data: { 'turbo-method' => :post }, class: "btn btn-primary btn-lg btn-block" %>
       </div>
     </div>
   </div>
   <div class="row">
     <div class="col-12">
-      <ul class="list-group">
-        <% @days_time_slots.each do |days_time_slot| %>
-        <li class="list-group-item">
-          <%= days_time_slot.day %> - <%= days_time_slot.start_time%> - <%= days_time_slot.frequency %>
-        </li>
-        <% end %>
-      </ul>
     </div>
   </div>
 </div>
