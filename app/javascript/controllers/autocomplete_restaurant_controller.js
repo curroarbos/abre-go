@@ -4,6 +4,7 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static values = {
     key: String,
+    propertyid: Number
   }
 
   static targets = ["list", "search"]
@@ -26,6 +27,7 @@ export default class extends Controller {
       .then(response => response.json())
       .then((data) => {
         console.log(data)
+        console.log(this.propertyidValue);
         this.listTarget.innerHTML = "";
         const places = data.data.filter((placeItem) => {
           return placeItem.type === "place"
@@ -35,7 +37,8 @@ export default class extends Controller {
         } else
           data.data.forEach(restaurant => {
             if (restaurant.type === "place") {
-              this.listTarget.insertAdjacentHTML("beforeend", `<li class="list-group-item"><a data-turbo-method="post" href="/restaurants?place_id=${restaurant.place_id}">${restaurant.main_text} - ${restaurant.secondary_text}</a></li>`);
+              this.listTarget.insertAdjacentHTML("beforeend",
+              `<li class="list-group-item"><a data-turbo-method="post" href="/properties/${this.propertyidValue}/restaurants?place_id=${restaurant.place_id}">${restaurant.main_text} - ${restaurant.secondary_text}</a></li>`);
             }
           });
       }).catch(error => console.log(error))
