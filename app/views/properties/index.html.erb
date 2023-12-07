@@ -15,15 +15,5 @@
       </div>
     <% end %>
 
-      <div class="row">
-        <h5>Here is the link to send to your guests</h5>
-        <div class="input-group" data-controller="clipboard" data-clipboard-feedback-text-value="Copied!">
-          <input class="form-control" data-clipboard-target="input" type="text" value="https://abre-go.osc-fr1.scalingo.io/properties/<%= property.id %>/recommendations" readonly>
-          <div class="input-group-append">
-            <button id="copy-button" class="btn btn-outline-primary" data-action="click->clipboard#copy"><i class="fa-regular fa-paste"></i> Copy to Clipboard</button>
-          </div>
-        </div>
-      </div>
-
   <% end %>
 </div>
