@@ -132,3 +132,21 @@
   margin-top: 8px;
   text-decoration: none;
 }
+
+
+.cards-recommend {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 16px;
+  p, h4 {
+    margin: 0;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+}
