@@ -10,16 +10,13 @@ export default class extends Controller {
   }
 
   selectActivity(event) {
-    event.currentTarget.classList.toggle("border");
-    event.currentTarget.classList.toggle("border-primary");
+    event.currentTarget.classList.toggle("card-select");
     this.activityIdsTarget.value = this.activityIdsTarget.value + event.currentTarget.dataset.id + ",";
-    console.log("Array:",this.activityIdsTarget.value);
   }
 
   selectRestaurant(event) {
     event.currentTarget.classList.toggle("border");
     event.currentTarget.classList.toggle("border-primary");
     this.restaurantIdsTarget.value = this.restaurantIdsTarget.value + event.currentTarget.dataset.id + ",";
-    console.log("Array:",this.restaurantIdsTarget.value);
   }
 }
