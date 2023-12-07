@@ -1,9 +1,15 @@
 <div class="container my-2">
-  <div class="row align-items-center">
-    <div class="col-8">
-      <h1>Welcome to recommendations for <%= @property.name %></h1>
+  <div class="d-flex jusitfy-content-between">
+    <div class="col-8 my-5">
+      <div class="d-flex flex-column justify-content-between">
+        <div class="align-items-start">
+          <%= link_to "My properties", properties_path(current_user), class: "btn-dark-green" %>
+        </div>
+        <h1>Welcome to <%= @property.name %></h1>
+      </div>
     </div>
     <div class="col-4">
+      <%= image_tag 'outdoors_activity', alt: "text", class: "img-thumbnail", width: 400, height: 400, loading: "lazy" %>
       <% if @property.photo.nil? %>
       <% else %>
         <%= image_tag @property.photo, alt: "#{@property.name} Main Photo", class: "img-thumbnail", width: 400, height: 400, loading: "lazy" %>
@@ -20,28 +26,32 @@
   </div>
 
 
-  <% if @recommendations.empty? %>
-    <p>You have not given any
-    recommendations yet.</p>
-    <%= link_to "Add Inhouse recommendations", new_property_recommendation_path(@property, some: "in_house"), class: "btn-dark-green" %>
-    <%= link_to "Add Outdoor recommendations", new_property_recommendation_path(@property, some: "outdoor"), class: "btn-dark-green" %>
-    <%= link_to "Add Restaurant recommendations", new_property_recommendation_path(@property, some: "restaurants"), class: "btn-dark-green" %>
-  <% else %>
+  <%# <% if @recommendations.empty? %>
+    <%# <p>You have not given any %>
+    <%# recommendations yet.</p> %>
+    <%# <%= link_to "Add Inhouse recommendations", new_property_recommendation_path(@property, some: "in_house"), class: "btn-dark-green" %>
+    <%# <%= link_to "Add Outdoor recommendations", new_property_recommendation_path(@property, some: "outdoor"), class: "btn-dark-green" %>
+    <%# <%= link_to "Add Restaurant recommendations", new_property_recommendation_path(@property, some: "restaurants"), class: "btn-dark-green" %>
+  <%# <% else %>
     <div class="mb-3">
-    <div class="row my-2">
+    <div class="row">
     <div class="col-12">
-      <h3>InHouse Recommendations</h3>
-      <%= link_to "Edit Inhouse recommendations", new_property_recommendation_path(@property, some: "in_house"), class: "btn-dark-green" %>
+      <div class="d-flex justify-content-between mt-4 mb-3 border-bottom">
+        <h3>InHouse Recommendations</h3>
+        <%= link_to new_property_recommendation_path(@property, some: "in_house"), class: "btn-dark-green mb-2" do %>
+          <i class="fa-solid fa-plus"></i>
+        <% end %>
+      </div>
       <div class="cards">
       <% @inhouse_recommendations.each do |recommendation| %>
-        <div class="mb-3">
+        <div class="card-carousel mb-3">
           <%# <%= link_to activity_path(activity), class: "text-decoration-none text-dark" do %>
             <% if !recommendation.recommendable.photo_url.nil?  %>
-              <div class="card-category">
+              <div class="">
                 <%= image_tag recommendation.recommendable.photo_url, alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
               </div>
             <% else %>
-              <div class="card-category">
+              <div class="">
                 <%= cl_image_tag recommendation.recommendable.photo.key, height: 300, crop: :fill , alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
               </div>
             <% end %>
@@ -86,18 +96,22 @@
     <div class="mb-3">
     <div class="row my-2">
     <div class="col-12">
-      <h3>Outdoor Recommendations</h3>
-      <%= link_to "Edit Outdoor selection", new_property_recommendation_path(@property, some: "outdoor"), class: "btn-dark-green" %>
+      <div class="d-flex justify-content-between my-4 border-bottom">
+        <h3>Outdoor Recommendations</h3>
+        <%= link_to new_property_recommendation_path(@property, some: "in_house"), class: "btn-dark-green mb-2" do %>
+          <i class="fa-solid fa-plus"></i>
+        <% end %>
+      </div>
       <div class="cards">
       <% @outdoor_recommendations.each do |recommendation| %>
-        <div class="mb-3">
+        <div class="card-carousel mb-3">
           <%# <%= link_to activity_path(activity), class: "text-decoration-none text-dark" do %>
             <% if !recommendation.recommendable.photo_url.nil?  %>
-              <div class="card-category">
+              <div class="">
                 <%= image_tag recommendation.recommendable.photo_url, alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
               </div>
             <% else %>
-              <div class="card-category">
+              <div class="">
                 <%= cl_image_tag recommendation.recommendable.photo.key, height: 300, crop: :fill , alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
               </div>
             <% end %>
@@ -142,18 +156,22 @@
     <div class="mb-3">
     <div class="row my-2">
     <div class="col-12">
-      <h3>Restaurant Recommendations</h3>
-      <%= link_to "Edit Restaurant selection", new_property_recommendation_path(@property, some: "restaurants"), class: "btn-dark-green" %>
+      <div class="d-flex justify-content-between my-4 border-bottom">
+        <h3>Restaurant Recommendations</h3>
+        <%= link_to new_property_recommendation_path(@property, some: "in_house"), class: "btn-dark-green mb-2" do %>
+          <i class="fa-solid fa-plus"></i>
+        <% end %>
+      </div>
       <div class="cards">
       <% @restaurant_recommendations.each do |recommendation| %>
-        <div class="mb-3">
+        <div class="card-carousel mb-3">
           <%# <%= link_to activity_path(activity), class: "text-decoration-none text-dark" do %>
             <% if !recommendation.recommendable.photo_url.nil?  %>
-              <div class="card-category">
+              <div class="">
                 <%= image_tag recommendation.recommendable.photo_url, alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
               </div>
             <% else %>
-              <div class="card-category">
+              <div class="">
                 <%= cl_image_tag recommendation.recommendable.photo.key, height: 300, crop: :fill , alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
               </div>
             <% end %>
@@ -194,6 +212,5 @@
     </div>
     </div>
     </div>
-  <% end %>
-  <%= link_to "Back to all properties", properties_path(current_user), class: "btn-dark-green"  %>
+  <%# <% end %>
 </div>
