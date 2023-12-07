@@ -76,7 +76,9 @@
             <% else %>
               <p> <%= recommendation.recommendable.address %> </p>
             <% end %>
-            <%= link_to "Delete", recommendation_path(recommendation), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn-dark-green" %>
+            <div class="align-items-start mt-3">
+              <%= link_to "Delete", recommendation_path(recommendation), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn-dark-green" %>
+            </div>
           </div>
       <%# <% end %>
       <%# <%= link_to "Delete", property_path(@property), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
