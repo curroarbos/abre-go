@@ -11,6 +11,10 @@
 .text-yellow {
   color: $yellow;
   font-family: $headers-font;
+
+  &:hover {
+    color: white
+  }
 }
 
 .navbar-lewagon .navbar-brand img {
