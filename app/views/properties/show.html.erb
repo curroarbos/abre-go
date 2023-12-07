@@ -3,7 +3,7 @@
     <div class="col-8 my-5">
       <div class="d-flex flex-column justify-content-between">
         <div class="align-items-start">
-          <%= link_to "My properties", properties_path(current_user), class: "btn-dark-green" %>
+          <%= link_to "All your properties", properties_path(current_user), class: "btn-dark-green" %>
         </div>
         <h1>Welcome to <%= @property.name %></h1>
       </div>
@@ -25,192 +25,192 @@
     </div>
   </div>
 
-
-  <%# <% if @recommendations.empty? %>
-    <%# <p>You have not given any %>
-    <%# recommendations yet.</p> %>
-    <%# <%= link_to "Add Inhouse recommendations", new_property_recommendation_path(@property, some: "in_house"), class: "btn-dark-green" %>
-    <%# <%= link_to "Add Outdoor recommendations", new_property_recommendation_path(@property, some: "outdoor"), class: "btn-dark-green" %>
-    <%# <%= link_to "Add Restaurant recommendations", new_property_recommendation_path(@property, some: "restaurants"), class: "btn-dark-green" %>
-  <%# <% else %>
-    <div class="mb-3">
-    <div class="row">
-    <div class="col-12">
-      <div class="d-flex justify-content-between mt-4 mb-3 border-bottom">
-        <h3>InHouse Recommendations</h3>
-        <%= link_to new_property_recommendation_path(@property, some: "in_house"), class: "btn-dark-green mb-2" do %>
-          <i class="fa-solid fa-plus"></i>
-        <% end %>
-      </div>
-      <div class="cards">
-      <% @inhouse_recommendations.each do |recommendation| %>
-        <div class="card-carousel mb-3">
-          <%# <%= link_to activity_path(activity), class: "text-decoration-none text-dark" do %>
-            <% if !recommendation.recommendable.photo_url.nil?  %>
-              <div class="">
-                <%= image_tag recommendation.recommendable.photo_url, alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
-              </div>
+  <div class="mb-3">
+  <div class="row">
+  <div class="col-12">
+    <div class="d-flex justify-content-between mt-4 mb-3 border-bottom">
+      <h3>InHouse Recommendations</h3>
+      <%= link_to new_property_recommendation_path(@property, some: "in_house"), class: "btn-dark-green mb-2" do %>
+        <i class="fa-solid fa-plus"></i>
+      <% end %>
+    </div>
+    <% if @inhouse_recommendations.empty? %>
+    <% else %>
+    <div class="cards">
+    <% @inhouse_recommendations.each do |recommendation| %>
+      <div class="card-carousel mb-3">
+        <%# <%= link_to activity_path(activity), class: "text-decoration-none text-dark" do %>
+          <% if !recommendation.recommendable.photo_url.nil?  %>
+            <div class="">
+              <%= image_tag recommendation.recommendable.photo_url, alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+            </div>
+          <% else %>
+            <div class="">
+              <%= cl_image_tag recommendation.recommendable.photo.key, height: 300, crop: :fill , alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+            </div>
+          <% end %>
+          <div class="p-3 rounded-bottom d-flex flex-column">
+            <div class="d-flex justify-content-between">
+            <% if recommendation.recommendable_type == "Activity" %>
+              <h4> <%= recommendation.recommendable.title %> </h4>
             <% else %>
-              <div class="">
-                <%= cl_image_tag recommendation.recommendable.photo.key, height: 300, crop: :fill , alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
-              </div>
+              <h4> <%= recommendation.recommendable.name %> </h4>
             <% end %>
-            <div class="p-3 rounded-bottom d-flex flex-column">
-              <div class="d-flex justify-content-between">
+              <p class="text-muted font-weight-normal">
+              <%# Get average rating %>
               <% if recommendation.recommendable_type == "Activity" %>
-                <h4> <%= recommendation.recommendable.title %> </h4>
-              <% else %>
-                <h4> <%= recommendation.recommendable.name %> </h4>
-              <% end %>
-                <p class="text-muted font-weight-normal">
-                <%# Get average rating %>
-                <% if recommendation.recommendable_type == "Activity" %>
-                  <% if recommendation.recommendable.reviews.empty? %>
-                    No reviews yet
-                  <% else %>
-                    <%= (recommendation.recommendable.reviews.pluck(:rating).sum / recommendation.recommendable.reviews.pluck(:rating).length).round(1) %>
-                    <i class="fa-solid fa-star text-warning"></i>
-                  <% end %>
+                <% if recommendation.recommendable.reviews.empty? %>
+                  No reviews yet
                 <% else %>
-                  <%= recommendation.recommendable.rating %>
+                  <%= (recommendation.recommendable.reviews.pluck(:rating).sum / recommendation.recommendable.reviews.pluck(:rating).length).round(1) %>
                   <i class="fa-solid fa-star text-warning"></i>
                 <% end %>
-                </p>
-              </div>
-              <% if recommendation.recommendable_type == "Activity" %>
-                <p> <%= recommendation.recommendable.location %> </p>
-                <p> <strong><%= recommendation.recommendable.price %> € </strong></p>
               <% else %>
-                <p> <%= recommendation.recommendable.address %> </p>
+                <%= recommendation.recommendable.rating %>
+                <i class="fa-solid fa-star text-warning"></i>
               <% end %>
+              </p>
             </div>
-        <%# <% end %>
-        <%# <%= link_to "Delete", property_path(@property), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-        </div>
-      <% end %>
-      </div>
-    </div>
-    </div>
-    </div>
-
-    <div class="mb-3">
-    <div class="row my-2">
-    <div class="col-12">
-      <div class="d-flex justify-content-between my-4 border-bottom">
-        <h3>Outdoor Recommendations</h3>
-        <%= link_to new_property_recommendation_path(@property, some: "in_house"), class: "btn-dark-green mb-2" do %>
-          <i class="fa-solid fa-plus"></i>
-        <% end %>
-      </div>
-      <div class="cards">
-      <% @outdoor_recommendations.each do |recommendation| %>
-        <div class="card-carousel mb-3">
-          <%# <%= link_to activity_path(activity), class: "text-decoration-none text-dark" do %>
-            <% if !recommendation.recommendable.photo_url.nil?  %>
-              <div class="">
-                <%= image_tag recommendation.recommendable.photo_url, alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
-              </div>
+            <% if recommendation.recommendable_type == "Activity" %>
+              <p> <%= recommendation.recommendable.location %> </p>
+              <p> <strong><%= recommendation.recommendable.price %> € </strong></p>
             <% else %>
-              <div class="">
-                <%= cl_image_tag recommendation.recommendable.photo.key, height: 300, crop: :fill , alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
-              </div>
+              <p> <%= recommendation.recommendable.address %> </p>
             <% end %>
-            <div class="p-3 rounded-bottom d-flex flex-column">
-              <div class="d-flex justify-content-between">
+          </div>
+      <%# <% end %>
+      <%# <%= link_to "Delete", property_path(@property), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+      </div>
+    <% end %>
+    </div>
+  <% end %>
+  </div>
+  </div>
+  </div>
+
+  <div class="mb-3">
+  <div class="row my-2">
+  <div class="col-12">
+    <div class="d-flex justify-content-between my-4 border-bottom">
+      <h3>Outdoor Recommendations</h3>
+      <%= link_to new_property_recommendation_path(@property, some: "in_house"), class: "btn-dark-green mb-2" do %>
+        <i class="fa-solid fa-plus"></i>
+      <% end %>
+    </div>
+    <% if @outdoor_recommendations.empty? %>
+    <% else %>
+    <div class="cards">
+    <% @outdoor_recommendations.each do |recommendation| %>
+      <div class="card-carousel mb-3">
+        <%# <%= link_to activity_path(activity), class: "text-decoration-none text-dark" do %>
+          <% if !recommendation.recommendable.photo_url.nil?  %>
+            <div class="">
+              <%= image_tag recommendation.recommendable.photo_url, alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+            </div>
+          <% else %>
+            <div class="">
+              <%= cl_image_tag recommendation.recommendable.photo.key, height: 300, crop: :fill , alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+            </div>
+          <% end %>
+          <div class="p-3 rounded-bottom d-flex flex-column">
+            <div class="d-flex justify-content-between">
+            <% if recommendation.recommendable_type == "Activity" %>
+              <h4> <%= recommendation.recommendable.title %> </h4>
+            <% else %>
+              <h4> <%= recommendation.recommendable.name %> </h4>
+            <% end %>
+              <p class="text-muted font-weight-normal">
+              <%# Get average rating %>
               <% if recommendation.recommendable_type == "Activity" %>
-                <h4> <%= recommendation.recommendable.title %> </h4>
-              <% else %>
-                <h4> <%= recommendation.recommendable.name %> </h4>
-              <% end %>
-                <p class="text-muted font-weight-normal">
-                <%# Get average rating %>
-                <% if recommendation.recommendable_type == "Activity" %>
-                  <% if recommendation.recommendable.reviews.empty? %>
-                    No reviews yet
-                  <% else %>
-                    <%= (recommendation.recommendable.reviews.pluck(:rating).sum / recommendation.recommendable.reviews.pluck(:rating).length).round(1) %>
-                    <i class="fa-solid fa-star text-warning"></i>
-                  <% end %>
+                <% if recommendation.recommendable.reviews.empty? %>
+                  No reviews yet
                 <% else %>
-                  <%= recommendation.recommendable.rating %>
+                  <%= (recommendation.recommendable.reviews.pluck(:rating).sum / recommendation.recommendable.reviews.pluck(:rating).length).round(1) %>
                   <i class="fa-solid fa-star text-warning"></i>
                 <% end %>
-                </p>
-              </div>
-              <% if recommendation.recommendable_type == "Activity" %>
-                <p> <%= recommendation.recommendable.location %> </p>
-                <p> <strong><%= recommendation.recommendable.price %> € </strong></p>
               <% else %>
-                <p> <%= recommendation.recommendable.address %> </p>
+                <%= recommendation.recommendable.rating %>
+                <i class="fa-solid fa-star text-warning"></i>
               <% end %>
+              </p>
             </div>
-        <%# <% end %>
-        <%# <%= link_to "Delete", property_path(@property), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-        </div>
-      <% end %>
-      </div>
-    </div>
-    </div>
-    </div>
-
-    <div class="mb-3">
-    <div class="row my-2">
-    <div class="col-12">
-      <div class="d-flex justify-content-between my-4 border-bottom">
-        <h3>Restaurant Recommendations</h3>
-        <%= link_to new_property_recommendation_path(@property, some: "in_house"), class: "btn-dark-green mb-2" do %>
-          <i class="fa-solid fa-plus"></i>
-        <% end %>
-      </div>
-      <div class="cards">
-      <% @restaurant_recommendations.each do |recommendation| %>
-        <div class="card-carousel mb-3">
-          <%# <%= link_to activity_path(activity), class: "text-decoration-none text-dark" do %>
-            <% if !recommendation.recommendable.photo_url.nil?  %>
-              <div class="">
-                <%= image_tag recommendation.recommendable.photo_url, alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
-              </div>
+            <% if recommendation.recommendable_type == "Activity" %>
+              <p> <%= recommendation.recommendable.location %> </p>
+              <p> <strong><%= recommendation.recommendable.price %> € </strong></p>
             <% else %>
-              <div class="">
-                <%= cl_image_tag recommendation.recommendable.photo.key, height: 300, crop: :fill , alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
-              </div>
+              <p> <%= recommendation.recommendable.address %> </p>
             <% end %>
-            <div class="p-3 rounded-bottom d-flex flex-column">
-              <div class="d-flex justify-content-between">
+          </div>
+      <%# <% end %>
+      <%# <%= link_to "Delete", property_path(@property), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+      </div>
+    <% end %>
+    </div>
+  <% end %>
+  </div>
+  </div>
+  </div>
+
+  <div class="mb-3">
+  <div class="row my-2">
+  <div class="col-12">
+    <div class="d-flex justify-content-between my-4 border-bottom">
+      <h3>Restaurant Recommendations</h3>
+      <%= link_to new_property_recommendation_path(@property, some: "in_house"), class: "btn-dark-green mb-2" do %>
+        <i class="fa-solid fa-plus"></i>
+      <% end %>
+    </div>
+    <% if @restaurant_recommendations.empty? %>
+    <% else %>
+    <div class="cards">
+    <% @restaurant_recommendations.each do |recommendation| %>
+      <div class="card-carousel mb-3">
+        <%# <%= link_to activity_path(activity), class: "text-decoration-none text-dark" do %>
+          <% if !recommendation.recommendable.photo_url.nil?  %>
+            <div class="">
+              <%= image_tag recommendation.recommendable.photo_url, alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+            </div>
+          <% else %>
+            <div class="">
+              <%= cl_image_tag recommendation.recommendable.photo.key, height: 300, crop: :fill , alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+            </div>
+          <% end %>
+          <div class="p-3 rounded-bottom d-flex flex-column">
+            <div class="d-flex justify-content-between">
+            <% if recommendation.recommendable_type == "Activity" %>
+              <h4> <%= recommendation.recommendable.title %> </h4>
+            <% else %>
+              <h4> <%= recommendation.recommendable.name %> </h4>
+            <% end %>
+              <p class="text-muted font-weight-normal">
+              <%# Get average rating %>
               <% if recommendation.recommendable_type == "Activity" %>
-                <h4> <%= recommendation.recommendable.title %> </h4>
-              <% else %>
-                <h4> <%= recommendation.recommendable.name %> </h4>
-              <% end %>
-                <p class="text-muted font-weight-normal">
-                <%# Get average rating %>
-                <% if recommendation.recommendable_type == "Activity" %>
-                  <% if recommendation.recommendable.reviews.empty? %>
-                    No reviews yet
-                  <% else %>
-                    <%= (recommendation.recommendable.reviews.pluck(:rating).sum / recommendation.recommendable.reviews.pluck(:rating).length).round(1) %>
-                    <i class="fa-solid fa-star text-warning"></i>
-                  <% end %>
+                <% if recommendation.recommendable.reviews.empty? %>
+                  No reviews yet
                 <% else %>
-                  <%= recommendation.recommendable.rating %>
+                  <%= (recommendation.recommendable.reviews.pluck(:rating).sum / recommendation.recommendable.reviews.pluck(:rating).length).round(1) %>
                   <i class="fa-solid fa-star text-warning"></i>
                 <% end %>
-                </p>
-              </div>
-              <% if recommendation.recommendable_type == "Activity" %>
-                <p> <%= recommendation.recommendable.location %> </p>
-                <p> <strong><%= recommendation.recommendable.price %> € </strong></p>
               <% else %>
-                <p> <%= recommendation.recommendable.address %> </p>
+                <%= recommendation.recommendable.rating %>
+                <i class="fa-solid fa-star text-warning"></i>
               <% end %>
+              </p>
             </div>
-        <%# <% end %>
-        <%# <%= link_to "Delete", property_path(@property), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-        </div>
-      <% end %>
+            <% if recommendation.recommendable_type == "Activity" %>
+              <p> <%= recommendation.recommendable.location %> </p>
+              <p> <strong><%= recommendation.recommendable.price %> € </strong></p>
+            <% else %>
+              <p> <%= recommendation.recommendable.address %> </p>
+            <% end %>
+          </div>
+      <%# <% end %>
+      <%# <%= link_to "Delete", property_path(@property), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
       </div>
+    <% end %>
     </div>
-    </div>
-    </div>
-  <%# <% end %>
+    <% end %>
+  </div>
+  </div>
+  </div>
 </div>
