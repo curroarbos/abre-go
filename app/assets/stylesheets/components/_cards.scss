@@ -66,7 +66,7 @@
 // Extra large devices (large desktops, 1200px and up)
 @media (min-width: 1200px) {
   .cards {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }
 
@@ -86,11 +86,9 @@
 }
 
 .card {
-  border-radius: 5px;
+  border-radius: 8px;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
   overflow: hidden;
-  position: relative;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
   // height: 280px;
 }
 
@@ -98,14 +96,13 @@
   border-radius: 5px;
   overflow: hidden;
   position: relative;
-  height: 270px;
+  height: 100%;
   box-shadow: 0 0 4px rgba(0,0,0,0.2);
 
   &:hover {
     box-shadow: 0 0 8px rgba(0,0,0,0.75);
   }
 }
-
 
 .card-carousel img {
   width: 100%; /* Ensure the image takes the full width of its container */
