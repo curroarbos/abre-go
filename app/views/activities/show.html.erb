@@ -1,6 +1,6 @@
-<% if !@activity.photo_url.nil?  %>
+<% if !@activity.photo.attached?  %>
   <div class="card-category">
-    <%= image_tag @activity.photo_url, alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+    <%= image_tag "outdoors_activity.jpeg", alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
   </div>
 <% else %>
   <div class="card-category">
@@ -98,7 +98,7 @@
                         as: :string %>
             <%= f.input :rating,
                         as: :float %>
-            <%= f.submit class: 'btn btn-primary' %>
+            <%= f.button :submit, "Leave a review", class: 'btn-dark-green' %>
           <% end %>
         </div>
       </div>
