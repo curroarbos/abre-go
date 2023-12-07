@@ -1,8 +1,15 @@
 <div class="navbar navbar-expand-sm navbar-lewagon">
   <div class="container-fluid mx-5">
-    <%= link_to root_path do %>
-      <%= image_tag "Screenshot 2023-12-07 at 10.06.43.png", alt: "Logo", width: 150 %>
+    <% if user_signed_in? && !current_user.provider? && !current_user.is_owner %>
+      <%= link_to root_path do %>
+        <%= image_tag "logo_yellow.png", alt: "Logo", width: 150 %>
+      <% end %>
+    <% else %>
+      <%= link_to root_path do %>
+        <%= image_tag "Screenshot 2023-12-07 at 10.06.43.png", alt: "Logo", width: 150 %>
+      <% end %>
     <% end %>
+
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
