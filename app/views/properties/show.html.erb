@@ -9,7 +9,6 @@
       </div>
     </div>
     <div class="col-4">
-      <%= image_tag 'outdoors_activity', alt: "text", class: "img-thumbnail", width: 400, height: 400, loading: "lazy" %>
       <% if @property.photo.nil? %>
       <% else %>
         <%= image_tag @property.photo, alt: "#{@property.name} Main Photo", class: "img-thumbnail", width: 400, height: 400, loading: "lazy" %>
