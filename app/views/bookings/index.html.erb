@@ -1,7 +1,7 @@
 <div class="container">
     <div class="d-flex justify-content-end my-4">
       <% if params[:property_id].present? %>
-      <%= link_to "Explore all activities", activities_path(property_id: @property), class: "btn btn-dark-green" %>
+      <%= link_to "Explore all activities", activities_path(property_id: @property || params[:property_id]), class: "btn btn-dark-green" %>
       <% end %>
     </div>
 </div>
