@@ -29,69 +29,74 @@
           <% if @activities.nil? %>
           <% else %>
           <% @activities.each do | activity | %>
-            <div data-id="<%= activity.id %>" class="mb-3" data-action="click->recommendations#selectActivity">
-              <% if !activity.photo_url.nil?  %>
-                <div class="card-category">
-                <%# Make alt tag work %>
-                  <%= image_tag activity.photo_url, alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
-                </div>
-              <% else %>
-                <div class="card-category">
-                  <%= cl_image_tag activity.photo.key, height: 300, crop: :fill , alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
-                </div>
-              <% end %>
-              <div class="p-3 rounded-bottom d-flex flex-column">
-                <div class="d-flex justify-content-between">
-                  <h4> <%= activity.title %> </h4>
-                  <p class="text-muted font-weight-normal">
-                  <%# Get average rating %>
-                  <% if activity.reviews.empty? %>
-                    No reviews yet
-                  <% else %>
-                    <%= (activity.reviews.pluck(:rating).sum / activity.reviews.pluck(:rating).length).round(1) %>
-                    <i class="fa-solid fa-star text-warning"></i>
-                  <% end %>
-                  </p>
-                </div>
-                <p> <%= activity.location %> </p>
-                <p> <strong><%= activity.price %> € </strong></p>
-              </div>
-            </div>
-            <% end %>
-          <% end %>
-
-            <% if @restaurants.nil? %>
-            <% else %>
-              <% @restaurants.each do | restaurant | %>
-              <div data-id="<%= restaurant.id %>" class="mb-3" data-action="click->recommendations#selectRestaurant">
-                <% if !restaurant.photo_url.nil?  %>
-                  <div class="card-category">
-                    <%= image_tag restaurant.photo_url, alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+            <div class="card-carousel">
+              <div data-id="<%= activity.id %>" class="mb-3" data-action="click->recommendations#selectActivity">
+                <% if !activity.photo_url.nil?  %>
+                  <div class="">
+                  <%# Make alt tag work %>
+                    <%= image_tag activity.photo_url, alt: "#{activity.title}", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
                   </div>
                 <% else %>
-                  <div class="card-category">
-                    <%= cl_image_tag restaurant.photo.key, height: 300, crop: :fill , alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+                  <div class="">
+                    <%= cl_image_tag activity.photo.key, height: 300, crop: :fill , alt: "#{activity.title}", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
                   </div>
                 <% end %>
                 <div class="p-3 rounded-bottom d-flex flex-column">
                   <div class="d-flex justify-content-between">
-                    <h4> <%= restaurant.name %> </h4>
+                    <h4> <%= activity.title %> </h4>
                     <p class="text-muted font-weight-normal">
-                      <%= restaurant.rating %>
+                    <%# Get average rating %>
+                    <% if activity.reviews.empty? %>
+                      No reviews yet
+                    <% else %>
+                      <%= (activity.reviews.pluck(:rating).sum / activity.reviews.pluck(:rating).length).round(1) %>
                       <i class="fa-solid fa-star text-warning"></i>
+                    <% end %>
                     </p>
                   </div>
-                  <p> <%= restaurant.address %> </p>
+                  <p> <%= activity.location %> </p>
+                  <p> <strong><%= activity.price %> € </strong></p>
                 </div>
               </div>
-              <% end %>
+            </div>
+          <% end %>
+          <% end %>
+
+          <% if @restaurants.nil? %>
+          <% else %>
+            <% @restaurants.each do | restaurant | %>
+              <div class="card-carousel">
+                <div data-id="<%= restaurant.id %>" class="mb-3" data-action="click->recommendations#selectRestaurant">
+                  <% if !restaurant.photo_url.nil?  %>
+                    <div class="card-category">
+                      <%= image_tag restaurant.photo_url, alt: "#{restaurant.name}", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+                    </div>
+                  <% else %>
+                    <div class="card-category">
+                      <%= cl_image_tag restaurant.photo.key, height: 300, crop: :fill , alt: "#{restaurant.name}", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+                    </div>
+                  <% end %>
+                  <div class="p-3 rounded-bottom d-flex flex-column">
+                    <div class="d-flex justify-content-between">
+                      <h4> <%= restaurant.name %> </h4>
+                      <p class="text-muted font-weight-normal">
+                        <%= restaurant.rating %>
+                        <i class="fa-solid fa-star text-warning"></i>
+                      </p>
+                    </div>
+                    <p> <%= restaurant.address %> </p>
+                  </div>
+                </div>
+              </div>
             <% end %>
-            <%= simple_form_for [@property, @recommendation] do |f| %>
-              <%= f.input :activity_ids, value: ',', as: :hidden, input_html: { data: { recommendations_target: 'activityIds' }}%>
-              <%= f.input :restaurant_ids, value: ',', as: :hidden, input_html: { data: { recommendations_target: 'restaurantIds' }} %>
-              <%= f.submit 'Finished', class: "btn-dark-green" %>
-            <% end %>
-            <%= link_to "Cancel", property_path(@property) %>
+          <% end %>
+
+          <%= simple_form_for [@property, @recommendation] do |f| %>
+            <%= f.input :activity_ids, value: ',', as: :hidden, input_html: { data: { recommendations_target: 'activityIds' }}%>
+            <%= f.input :restaurant_ids, value: ',', as: :hidden, input_html: { data: { recommendations_target: 'restaurantIds' }} %>
+            <%= f.submit 'Finished', class: "btn-dark-green" %>
+          <% end %>
+          <%= link_to "Cancel", property_path(@property) %>
         </div>
       </div>
 
@@ -157,16 +162,16 @@
             <%# Recommendation photo %>
             <% if !recommendation.recommendable.photo_url.nil?  %>
               <div class="d-flex align-items-center">
-                <%= image_tag recommendation.recommendable.photo_url, alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+                <%= image_tag recommendation.recommendable.photo_url, alt: "#{recommendation.recommendable_type == "Activity"? recommendation.recommendable.title : recommendation.recommendable.name}", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
               </div>
             <% else %>
               <div class="d-flex align-items-center">
-                <%= cl_image_tag recommendation.recommendable.photo.key, height: 300, crop: :fill , alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+                <%= cl_image_tag recommendation.recommendable.photo.key, height: 300, crop: :fill , alt: "#{recommendation.recommendable_type == "Activity"? recommendation.recommendable.title : recommendation.recommendable.name}", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
               </div>
             <% end %>
         <%# <% end %>
             <div class="d-flex align-items-center ms-1">
-              <%= link_to "Delete", recommendation_path(recommendation, some: params[:some]), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+              <%= link_to "Delete", recommendation_path(recommendation, some: params[:some]), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn-dark-green" %>
             </div>
           </div>
           </div>
