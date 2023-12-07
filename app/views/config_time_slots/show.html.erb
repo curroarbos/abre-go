@@ -12,13 +12,13 @@
             <% end %>
           </li>
           <% end %>
-          <li class="list-group-item"> <%= link_to "+ Add a new config", new_config_time_slot_days_time_slot_path(@config_time_slot)  %> </li>
+          <li class="list-group-item"> <%= link_to "+ Add new time slots", new_config_time_slot_days_time_slot_path(@config_time_slot), class: "text-decoration-none"  %> </li>
         </ul>
       </div>
     </div>
     <div class="col-12 col-md-8 offset-lg-2">
       <div class="my-3 d-flex justify-content-center">
-        <%= link_to "Create time slots", create_time_slot_path(:config_time_slot_id => @config_time_slot.id), data: { 'turbo-method' => :post }, class: "btn btn-primary btn-lg" %>
+        <%= link_to "Done", create_time_slot_path(:config_time_slot_id => @config_time_slot.id), data: { 'turbo-method' => :post }, class: "btn-dark-green" %>
       </div>
     </div>
   </div>
