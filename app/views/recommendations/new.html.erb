@@ -1,157 +1,189 @@
 <div class="container">
-  <h1>Add new recommendations for <%= @property.name %></h1>
-  <% if params[:some] == "in_house" %>
-    <h3>These are your previous Inhouse recommendations</h3>
-  <% elsif params[:some] == "outdoor" %>
-    <h3>These are your previous Outdoor recommendations</h3>
-  <% elsif params[:some] == "restaurants" %>
-    <h3>These are your previous Resturant recommendations</h3>
-  <% end %>
+  <div class="row">
+    <div class="my-4 d-flex justify-content-between align-items-center">
+      <h1>Add new recommendations for <%= @property.name %></h1>
 
-  <% if params[:some] == "restaurants" %>
-    <%= link_to "Add a new Restaurant", new_property_restaurant_path(params[:property_id]), class: "btn-dark-green" %>
-  <% end %>
+      <% if params[:some] == "restaurants" %>
+      <%# <div class="align-items-center"> %>
+        <%= link_to "Add a new Restaurant", new_property_restaurant_path(params[:property_id]), class: "btn-dark-green" %>
+      <%# </div> %>
+      <% end %>
+    </div>
+  </div>
 
-  <% if @recommendations.nil? %>
-    <p>You have no recommendations yet.</p>
-  <% else %>
-    <div class="mb-3">
-    <div class="row my-2">
-    <div class="col-12">
-      <div class="cards">
-      <% @recommendations.each do |recommendation| %>
-        <div class="mb-3">
-          <%# <%= link_to activity_path(activity), class: "text-decoration-none text-dark" do %>
-            <% if !recommendation.recommendable.photo_url.nil?  %>
-              <div class="card-category">
-                <%= image_tag recommendation.recommendable.photo_url, alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+  <div class="d-flex">
+    <div class="col-12 col-lg-8">
+      <h3>Add new recommendations below</h3>
+
+      <%# Search Bar %>
+      <%= form_with url: new_property_recommendation_path(@property), method: :get, class: "d-flex mb-3" do |form| %>
+        <%= form.hidden_field :some, value: params[:some] %>
+        <%= form.text_field :query,
+              value: params[:query],
+              class: "form-control",
+              placeholder: "Type a keyword"
+          %>
+        <%= submit_tag "Search", name: "", class: "btn btn-dark-green" %>
+      <% end %>
+
+      <%# Activities and Restaurants to recommend %>
+        <div class="cards" data-controller="recommendations">
+          <% if @activities.nil? %>
+          <% else %>
+          <% @activities.each do | activity | %>
+            <div class="card-carousel">
+              <div data-id="<%= activity.id %>" class="mb-3" data-action="click->recommendations#selectActivity">
+                <% if !activity.photo_url.nil?  %>
+                  <div class="">
+                    <%= image_tag activity.photo_url, alt: "#{activity.title}", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+                  </div>
+                <% else %>
+                  <div class="">
+                    <%= cl_image_tag activity.photo.key, height: 300, crop: :fill , alt: "#{activity.title}", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+                  </div>
+                <% end %>
+                <div class="p-3 rounded-bottom d-flex flex-column">
+                  <div class="d-flex justify-content-between">
+                    <h4> <%= activity.title %> </h4>
+                    <div>
+                      <p class="text-muted font-weight-normal">
+                      <%# Get average rating %>
+                      <% if activity.reviews.empty? %>
+                        No reviews yet
+                      <% else %>
+                          <%= (activity.reviews.pluck(:rating).sum / activity.reviews.pluck(:rating).length).round(1) %>
+                          <i class="fa-solid fa-star text-warning"></i>
+                      <% end %>
+                      </p>
+                    </div>
+                  </div>
+                  <p> <%= activity.location %> </p>
+                  <p> <strong><%= activity.price %> € </strong></p>
+                </div>
               </div>
-            <% else %>
-              <div class="card-category">
-                <%= cl_image_tag recommendation.recommendable.photo.key, height: 300, crop: :fill , alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+            </div>
+          <% end %>
+          <% end %>
+
+          <% if @restaurants.nil? %>
+          <% else %>
+            <% @restaurants.each do | restaurant | %>
+              <div class="card-carousel">
+                <div data-id="<%= restaurant.id %>" class="mb-3" data-action="click->recommendations#selectRestaurant">
+                  <% if !restaurant.photo_url.nil?  %>
+                    <div class="card-category">
+                      <%= image_tag restaurant.photo_url, alt: "#{restaurant.name}", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+                    </div>
+                  <% else %>
+                    <div class="card-category">
+                      <%= cl_image_tag restaurant.photo.key, height: 300, crop: :fill , alt: "#{restaurant.name}", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+                    </div>
+                  <% end %>
+                  <div class="p-3 rounded-bottom d-flex flex-column">
+                    <div class="d-flex justify-content-between">
+                      <h4> <%= restaurant.name %> </h4>
+                      <div>
+                        <p class="text-muted font-weight-normal">
+                          <%= restaurant.rating %>
+                          <i class="fa-solid fa-star text-warning"></i>
+                        </p>
+                      </div>
+                    </div>
+                    <p> <%= restaurant.address.truncate(60) %> </p>
+                  </div>
+                </div>
               </div>
             <% end %>
-            <div class="p-3 rounded-bottom d-flex flex-column">
-              <div class="d-flex justify-content-between">
-              <% if recommendation.recommendable_type == "Activity" %>
-                <h4> <%= recommendation.recommendable.title %> </h4>
-              <% else %>
-                <h4> <%= recommendation.recommendable.name %> </h4>
-              <% end %>
-                <p class="text-muted font-weight-normal">
-                <%# Get average rating %>
+          <% end %>
+
+          <%# Hidden form to store selected activities and restaurants %>
+          <div class="d-flex justify-content-around align-items-center">
+            <%= simple_form_for [@property, @recommendation] do |f| %>
+              <%= f.input :activity_ids, value: ',', as: :hidden, input_html: { data: { recommendations_target: 'activityIds' }}%>
+              <%= f.input :restaurant_ids, value: ',', as: :hidden, input_html: { data: { recommendations_target: 'restaurantIds' }} %>
+              <%= f.submit 'Finished', class: "btn-dark-green align-items-center" %>
+            <% end %>
+            <%= link_to "Cancel", property_path(@property), class: "btn-light-green align-items-center" %>
+          </div>
+        </div>
+      </div>
+
+    <div class="col-12 col-lg-4">
+    <div class="card shadow sticky-top">
+    <%# Header for Previous recommendations %>
+      <% if params[:some] == "in_house" %>
+        <h3 class="card-header">Your previous Inhouse recommendations</h3>
+      <% elsif params[:some] == "outdoor" %>
+        <h3 class="card-header">Your previous Outdoor recommendations</h3>
+      <% elsif params[:some] == "restaurants" %>
+        <h3 class="card-header">Your previous Resturant recommendations</h3>
+      <% end %>
+
+      <%# Previous recommendations %>
+      <% if @recommendations.nil? %>
+        <p>You have no recommendations yet.</p>
+      <% else %>
+        <div class="mb-3">
+        <div class="row my-2">
+          <div class="">
+          <% @recommendations.each do |recommendation| %>
+          <div class="card-body">
+            <div class="card-prev-recom rounded-bottom d-flex justify-content-between">
+              <%# <%= link_to activity_path(activity), class: "text-decoration-none text-dark" do %>
+              <div class="d-flex flex-column flex-grow-1">
+              <%# Recomendation title %>
+              <div class="d-flex justify-content-between me-3 align-items-center">
+                <% if recommendation.recommendable_type == "Activity" %>
+                  <h4> <%= recommendation.recommendable.title %> </h4>
+                <% else %>
+                  <h4> <%= recommendation.recommendable.name %> </h4>
+                <% end %>
+                  <%# Get average review rating %>
                 <% if recommendation.recommendable_type == "Activity" %>
                   <% if recommendation.recommendable.reviews.empty? %>
+                  <p class="text-muted font-weight-normal">
                     No reviews yet
+                  </p>
                   <% else %>
-                    <%= (recommendation.recommendable.reviews.pluck(:rating).sum / recommendation.recommendable.reviews.pluck(:rating).length).round(1) %>
-                    <i class="fa-solid fa-star text-warning"></i>
+                    <div class="d-flex">
+                      <p class="text-muted font-weight-normal">
+                        <%= (recommendation.recommendable.reviews.pluck(:rating).sum / recommendation.recommendable.reviews.pluck(:rating).length).round(1) %>
+                        <i class="fa-solid fa-star text-warning"></i>
+                      </p>
+                    </div>
                   <% end %>
                 <% else %>
-                  <%= recommendation.recommendable.rating %>
-                  <i class="fa-solid fa-star text-warning"></i>
+                  <div class="d-flex">
+                    <p class="text-muted font-weight-normal">
+                      <%= recommendation.recommendable.rating %>
+                    </p>
+                    <i class="fa-solid fa-star text-warning"></i>
+                  </div>
                 <% end %>
-                </p>
               </div>
+              <%# Recommendation location, price %>
               <% if recommendation.recommendable_type == "Activity" %>
-                <p> <%= recommendation.recommendable.location %> </p>
-                <p> <strong><%= recommendation.recommendable.price %> € </strong></p>
+                <div class="d-flex justify-content-between me-3">
+                  <p> <strong><%= recommendation.recommendable.price %> € </strong></p>
+                  <p> <%= recommendation.recommendable.location.truncate(30) %> </p>
+                </div>
               <% else %>
-                <p> <%= recommendation.recommendable.address %> </p>
+                <div class="d-flex">
+                  <p class="align-items-end me-3"> <%= recommendation.recommendable.address.truncate(60) %> </p>
+                </div>
               <% end %>
+              </div>
+            <div class="d-flex align-items-center ms-1">
+              <%= link_to "Delete", recommendation_path(recommendation, some: params[:some]), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn-dark-green" %>
             </div>
-        <%# <% end %>
-        <%= link_to "Delete", recommendation_path(recommendation, some: params[:some]), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+          </div>
+          </div>
+          <% end %>
+        </div>
+        </div>
         </div>
       <% end %>
       </div>
-    </div>
-    </div>
-    </div>
-  <% end %>
-
-  <h3>Add new recommendations below</h3>
-
-  <%= form_with url: new_property_recommendation_path(@property), method: :get, class: "d-flex" do |form| %>
-    <%= form.hidden_field :some, value: params[:some] %>
-    <%= form.text_field :query,
-          value: params[:query],
-          class: "form-control",
-          placeholder: "Type a keyword"
-      %>
-    <%= submit_tag "Search", name: "", class: "btn btn-dark-green" %>
-  <% end %>
-
-  <div class="mb-3">
-    <div class="row my-2">
-    <div class="col-12">
-      <div class="cards" data-controller="recommendations">
-      <% if @activities.nil? %>
-      <% else %>
-      <% @activities.each do | activity | %>
-        <div data-id="<%= activity.id %>" class="mb-3" data-action="click->recommendations#selectActivity">
-          <% if !activity.photo_url.nil?  %>
-            <div class="card-category">
-              <%= image_tag activity.photo_url, alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
-            </div>
-          <% else %>
-            <div class="card-category">
-              <%= cl_image_tag activity.photo.key, height: 300, crop: :fill , alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
-            </div>
-          <% end %>
-          <div class="p-3 rounded-bottom d-flex flex-column">
-            <div class="d-flex justify-content-between">
-              <h4> <%= activity.title %> </h4>
-              <p class="text-muted font-weight-normal">
-              <%# Get average rating %>
-              <% if activity.reviews.empty? %>
-                No reviews yet
-              <% else %>
-                <%= (activity.reviews.pluck(:rating).sum / activity.reviews.pluck(:rating).length).round(1) %>
-                <i class="fa-solid fa-star text-warning"></i>
-              <% end %>
-              </p>
-            </div>
-            <p> <%= activity.location %> </p>
-            <p> <strong><%= activity.price %> € </strong></p>
-          </div>
-        </div>
-        <% end %>
-      <% end %>
-
-        <% if @restaurants.nil? %>
-        <% else %>
-          <% @restaurants.each do | restaurant | %>
-          <div data-id="<%= restaurant.id %>" class="mb-3" data-action="click->recommendations#selectRestaurant">
-            <% if !restaurant.photo_url.nil?  %>
-              <div class="card-category">
-                <%= image_tag restaurant.photo_url, alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
-              </div>
-            <% else %>
-              <div class="card-category">
-                <%= cl_image_tag restaurant.photo.key, height: 300, crop: :fill , alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
-              </div>
-            <% end %>
-            <div class="p-3 rounded-bottom d-flex flex-column">
-              <div class="d-flex justify-content-between">
-                <h4> <%= restaurant.name %> </h4>
-                <p class="text-muted font-weight-normal">
-                  <%= restaurant.rating %>
-                  <i class="fa-solid fa-star text-warning"></i>
-                </p>
-              </div>
-              <p> <%= restaurant.address %> </p>
-            </div>
-          </div>
-          <% end %>
-        <% end %>
-      <%= simple_form_for [@property, @recommendation] do |f| %>
-        <%= f.input :activity_ids, value: ',', as: :hidden, input_html: { data: { recommendations_target: 'activityIds' }}%>
-        <%= f.input :restaurant_ids, value: ',', as: :hidden, input_html: { data: { recommendations_target: 'restaurantIds' }} %>
-        <%= f.submit 'Finished', class: "btn-dark-green" %>
-      <% end %>
-      <%= link_to "Cancel", property_path(@property) %>
       </div>
-      </div>
-  </div>
+    </div>
 </div>

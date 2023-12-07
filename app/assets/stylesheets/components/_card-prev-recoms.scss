@@ -1,0 +1,15 @@
+.card-prev-recom {
+  overflow: hidden;
+
+  p {
+    margin: 0 !important;
+  }
+
+  img {
+    width: 150px; /* Ensure the image takes the full width of its container */
+    height: 100%; /* Set a fixed height for the image */
+    // object-fit: cover; /* Scale the image as large as possible while preserving its aspect ratio */
+    object-position: center;
+    border-radius: 5px;
+  }
+}

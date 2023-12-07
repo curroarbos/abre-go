@@ -9,34 +9,37 @@
     <%# <p> Your Host's Finest Selection!" <p> %>
     <div class="d-flex justify-content-between my-4">
       <% if current_user.nil? %>
-        <%= link_to "Explore services now", activities_path, class: "btn btn-dark-green" %>
-        <%= link_to "Landlord? Create recommendations", new_property_path, class: "btn btn-light-green" %>
-        <%= link_to "Become a service provider", new_activity_path, class: "btn btn-lighter-green" %>
+        <%= link_to "Landlord? Create recommendations", new_property_path, class: "btn btn-yellow" %>
+        <%= link_to "Guest? Explore services", activities_path, class: "btn btn-yellow" %>
+        <%= link_to "Become a service provider", new_activity_path, class: "btn btn-dark-green" %>
       <% elsif current_user.provider? %>
-        <%= link_to "Explore services now", activities_path, class: "btn btn-dark-green" %>
+        <%= link_to "Explore services", activities_path, class: "btn btn-yellow" %>
       <% elsif !current_user.nil? %>
         <%= link_to "Explore services now", activities_path, class: "btn btn-dark-green" %>
-        <%= link_to "Become a service provider", new_activity_path, class: "btn btn-lighter-green" %>
+        <%= link_to "Become a service provider", new_activity_path, class: "btn btn-dark-green" %>
       <% end %>
     </div>
   </div>
 </div>
 
-<div class="container py-3">
-    <h3 class="mb-3"> Discover what our customers love</h3>
+
+<div class="container py-3 mt-3">
+<div style="text-align: center;">
+    <h5 class="mb-3">Discover what our customers love</h5>
+</div>
   <div class="d-flex align-items-center justify-content-between mb-3">
     <div class="cards">
       <div>
 
-        <div class="p-3 rounded-bottom d-flex flex-column">
+        <div class="p-3 rounded-bottom d-flex flex-column text-center">
           <strong> Guitar Lesson  <span class="text-muted font-weight-normal">• 5 <i class="fas fa-star star-yellow"></i></span></strong>
-          <small class="text-muted"> Curro was the best guitar instructor in Bali ! He even took our friends group to the beach to have a ROMANTIC guitar and singing evening! </small>
+          <small class="text-muted"> Curro is best guitar teacher in Bali. What a ROMANTIC evening by the beach! </small>
         </div>
       </div>
 
       <div>
 
-        <div class="p-3 rounded-bottom d-flex flex-column">
+        <div class="p-3 rounded-bottom d-flex flex-column text-center">
           <strong> Jet Ski Experience  <span class="text-muted font-weight-normal">• 4.5 <i class="fas fa-star star-yellow"></i></span></strong>
           <small class="text-muted"> Wooohoooo! What a cool experience! </small>
         </div>
@@ -44,7 +47,7 @@
 
       <div>
 
-        <div class="p-3 rounded-bottom d-flex flex-column">
+        <div class="p-3 rounded-bottom d-flex flex-column text-center">
           <strong> Wine Tasting  <span class="text-muted font-weight-normal">• 4.7 <i class="fas fa-star star-yellow"></i></span></strong>
           <small class="text-muted"> Tasty, Boozy and Fun!  </small>
         </div>
