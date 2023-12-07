@@ -31,8 +31,7 @@
           <% if @activities.nil? %>
           <% else %>
           <% @activities.each do | activity | %>
-            <div class="card-carousel">
-              <div data-id="<%= activity.id %>" class="mb-3" data-action="click->recommendations#selectActivity">
+              <div class="card-carousel" data-id="<%= activity.id %>" class="mb-3" data-action="click->recommendations#selectActivity">
                 <% if !activity.photo_url.nil?  %>
                   <div class="">
                     <%= image_tag activity.photo_url, alt: "#{activity.title}", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
@@ -49,7 +48,7 @@
                       <p class="text-muted font-weight-normal">
                       <%# Get average rating %>
                       <% if activity.reviews.empty? %>
-                        No reviews yet
+                        New
                       <% else %>
                           <%= (activity.reviews.pluck(:rating).sum / activity.reviews.pluck(:rating).length).round(1) %>
                           <i class="fa-solid fa-star text-warning"></i>
@@ -61,36 +60,33 @@
                   <p> <strong><%= activity.price %> € </strong></p>
                 </div>
               </div>
-            </div>
           <% end %>
           <% end %>
 
           <% if @restaurants.nil? %>
           <% else %>
             <% @restaurants.each do | restaurant | %>
-              <div class="card-carousel">
-                <div data-id="<%= restaurant.id %>" class="mb-3" data-action="click->recommendations#selectRestaurant">
-                  <% if !restaurant.photo_url.nil?  %>
-                    <div class="card-category">
-                      <%= image_tag restaurant.photo_url, alt: "#{restaurant.name}", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
-                    </div>
-                  <% else %>
-                    <div class="card-category">
-                      <%= cl_image_tag restaurant.photo.key, height: 300, crop: :fill , alt: "#{restaurant.name}", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
-                    </div>
-                  <% end %>
-                  <div class="p-3 rounded-bottom d-flex flex-column">
-                    <div class="d-flex justify-content-between">
-                      <h4> <%= restaurant.name %> </h4>
-                      <div>
-                        <p class="text-muted font-weight-normal">
-                          <%= restaurant.rating %>
-                          <i class="fa-solid fa-star text-warning"></i>
-                        </p>
-                      </div>
-                    </div>
-                    <p> <%= restaurant.address.truncate(60) %> </p>
+              <div class="card-carousel" data-id="<%= restaurant.id %>" class="mb-3" data-action="click->recommendations#selectRestaurant">
+                <% if !restaurant.photo_url.nil?  %>
+                  <div class="card-category">
+                    <%= image_tag restaurant.photo_url, alt: "#{restaurant.name}", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
                   </div>
+                <% else %>
+                  <div class="card-category">
+                    <%= cl_image_tag restaurant.photo.key, height: 300, crop: :fill , alt: "#{restaurant.name}", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+                  </div>
+                <% end %>
+                <div class="p-3 rounded-bottom d-flex flex-column">
+                  <div class="d-flex justify-content-between">
+                    <h4> <%= restaurant.name %> </h4>
+                    <div>
+                      <p class="text-muted font-weight-normal">
+                        <%= restaurant.rating %>
+                        <i class="fa-solid fa-star text-warning"></i>
+                      </p>
+                    </div>
+                  </div>
+                  <p> <%= restaurant.address.truncate(60) %> </p>
                 </div>
               </div>
             <% end %>
@@ -103,21 +99,23 @@
               <%= f.input :restaurant_ids, value: ',', as: :hidden, input_html: { data: { recommendations_target: 'restaurantIds' }} %>
               <%= f.submit 'Finished', class: "btn-dark-green align-items-center" %>
             <% end %>
-            <%= link_to "Cancel", property_path(@property), class: "btn-light-green align-items-center" %>
+            <%= link_to "Cancel", property_path(@property), class: "btn-cancel align-items-center mt-3" %>
           </div>
         </div>
       </div>
 
     <div class="col-12 col-lg-4">
-    <div class="card shadow sticky-top">
+    <div class="card shadow">
     <%# Header for Previous recommendations %>
-      <% if params[:some] == "in_house" %>
-        <h3 class="card-header">Your previous Inhouse recommendations</h3>
-      <% elsif params[:some] == "outdoor" %>
-        <h3 class="card-header">Your previous Outdoor recommendations</h3>
-      <% elsif params[:some] == "restaurants" %>
-        <h3 class="card-header">Your previous Resturant recommendations</h3>
-      <% end %>
+      <div class="d-flex">
+        <% if params[:some] == "in_house" %>
+          <h3 class="border-bottom mt-3 pb-3">Your previous Inhouse recommendations</h3>
+        <% elsif params[:some] == "outdoor" %>
+          <h3 class="border-bottom mt-3 pb-3">Your previous Outdoor recommendations</h3>
+        <% elsif params[:some] == "restaurants" %>
+          <h3 class="border-bottom mt-3 pb-3">Your previous Resturant recommendations</h3>
+        <% end %>
+      </div>
 
       <%# Previous recommendations %>
       <% if @recommendations.nil? %>
@@ -142,7 +140,7 @@
                 <% if recommendation.recommendable_type == "Activity" %>
                   <% if recommendation.recommendable.reviews.empty? %>
                   <p class="text-muted font-weight-normal">
-                    No reviews yet
+                    New
                   </p>
                   <% else %>
                     <div class="d-flex">

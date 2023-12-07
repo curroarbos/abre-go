@@ -119,3 +119,16 @@
 .carousel-inner {
   padding: 5px;
 }
+
+.card-select {
+  box-shadow: 0 0 12px rgba(0,0,0,0.75);
+  border: 1px solid $dark-green;
+}
+
+.card-property {
+  border-radius: 5px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.2);
+  margin-bottom: 8px;
+  margin-top: 8px;
+  text-decoration: none;
+}
