@@ -99,7 +99,7 @@
               <%= f.input :restaurant_ids, value: ',', as: :hidden, input_html: { data: { recommendations_target: 'restaurantIds' }} %>
               <%= f.submit 'Finished', class: "btn-dark-green align-items-center" %>
             <% end %>
-            <%= link_to "Cancel", property_path(@property), class: "btn-light-green align-items-center" %>
+            <%= link_to "Cancel", property_path(@property), class: "btn-cancel align-items-center mt-3" %>
           </div>
         </div>
       </div>

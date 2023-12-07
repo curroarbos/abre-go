@@ -81,10 +81,27 @@
   border-radius: 4px;
   background: $dark-green;
   transition: background 0.3s ease;
+  text-decoration: none;
 }
 
 
 .btn-dark-green:hover {
   background: $yellow;
   color: $gray;
+}
+
+.btn-cancel {
+  color: white;
+  padding: 8px 24px;
+  border-radius: 4px;
+  background: $dark-green;
+  transition: background 0.3s ease;
+  text-decoration: none;
+  border: 2px outset grey;
+
+  &:hover {
+    background: $yellow;
+    color: $gray;
+  }
+
 }
