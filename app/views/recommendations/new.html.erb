@@ -48,7 +48,7 @@
                       <p class="text-muted font-weight-normal">
                       <%# Get average rating %>
                       <% if activity.reviews.empty? %>
-                        No reviews yet
+                        New
                       <% else %>
                           <%= (activity.reviews.pluck(:rating).sum / activity.reviews.pluck(:rating).length).round(1) %>
                           <i class="fa-solid fa-star text-warning"></i>
@@ -105,15 +105,17 @@
       </div>
 
     <div class="col-12 col-lg-4">
-    <div class="card shadow sticky-top">
+    <div class="card shadow">
     <%# Header for Previous recommendations %>
-      <% if params[:some] == "in_house" %>
-        <h3 class="card-header">Your previous Inhouse recommendations</h3>
-      <% elsif params[:some] == "outdoor" %>
-        <h3 class="card-header">Your previous Outdoor recommendations</h3>
-      <% elsif params[:some] == "restaurants" %>
-        <h3 class="card-header">Your previous Resturant recommendations</h3>
-      <% end %>
+      <div class="d-flex">
+        <% if params[:some] == "in_house" %>
+          <h3 class="border-bottom mt-3 pb-3">Your previous Inhouse recommendations</h3>
+        <% elsif params[:some] == "outdoor" %>
+          <h3 class="border-bottom mt-3 pb-3">Your previous Outdoor recommendations</h3>
+        <% elsif params[:some] == "restaurants" %>
+          <h3 class="border-bottom mt-3 pb-3">Your previous Resturant recommendations</h3>
+        <% end %>
+      </div>
 
       <%# Previous recommendations %>
       <% if @recommendations.nil? %>
@@ -138,7 +140,7 @@
                 <% if recommendation.recommendable_type == "Activity" %>
                   <% if recommendation.recommendable.reviews.empty? %>
                   <p class="text-muted font-weight-normal">
-                    No reviews yet
+                    New
                   </p>
                   <% else %>
                     <div class="d-flex">
