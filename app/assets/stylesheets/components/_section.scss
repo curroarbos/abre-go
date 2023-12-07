@@ -1,0 +1,36 @@
+.section-title {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  line-height: 3.75rem;
+  flex: 0;
+  width: 100%;
+  margin-bottom: 0.75rem;
+  padding-right: 3.75rem
+}
+.section-title>* {
+  display: inline-flex
+}
+.section-title::after {
+  content: ‘’;
+  flex-grow: 1;
+  margin-left: .625rem;
+  border-top: 1px solid #DEE2E6
+}
+.section-title .anchor {
+  transition: all 0.2s ease-in-out;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 3.125rem;
+  height: 3.125rem;
+  border-radius: 50%;
+  border: 1px solid #DEE2E6;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none
+}
