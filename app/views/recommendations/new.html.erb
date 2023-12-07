@@ -1,10 +1,12 @@
 <div class="container">
   <div class="row">
-    <div class="my-4 d-flex justify-content-between">
+    <div class="my-4 d-flex justify-content-between align-items-center">
       <h1>Add new recommendations for <%= @property.name %></h1>
 
       <% if params[:some] == "restaurants" %>
+      <%# <div class="align-items-center"> %>
         <%= link_to "Add a new Restaurant", new_property_restaurant_path(params[:property_id]), class: "btn-dark-green" %>
+      <%# </div> %>
       <% end %>
     </div>
   </div>
@@ -44,15 +46,18 @@
                 <div class="p-3 rounded-bottom d-flex flex-column">
                   <div class="d-flex justify-content-between">
                     <h4> <%= activity.title %> </h4>
-                    <p class="text-muted font-weight-normal">
-                    <%# Get average rating %>
-                    <% if activity.reviews.empty? %>
-                      No reviews yet
-                    <% else %>
-                      <%= (activity.reviews.pluck(:rating).sum / activity.reviews.pluck(:rating).length).round(1) %>
-                      <i class="fa-solid fa-star text-warning"></i>
-                    <% end %>
-                    </p>
+                    <div>
+                      <p class="text-muted font-weight-normal">
+                      <%# Get average rating %>
+                      <% if activity.reviews.empty? %>
+                        No reviews yet
+                      <% else %>
+                          <%= (activity.reviews.pluck(:rating).sum / activity.reviews.pluck(:rating).length).round(1) %>
+                          <i class="fa-solid fa-star text-warning"></i>
+                        </div>
+                      <% end %>
+                      </p>
+                    </div>
                   </div>
                   <p> <%= activity.location %> </p>
                   <p> <strong><%= activity.price %> € </strong></p>
@@ -79,10 +84,12 @@
                   <div class="p-3 rounded-bottom d-flex flex-column">
                     <div class="d-flex justify-content-between">
                       <h4> <%= restaurant.name %> </h4>
-                      <p class="text-muted font-weight-normal">
-                        <%= restaurant.rating %>
-                        <i class="fa-solid fa-star text-warning"></i>
-                      </p>
+                      <div>
+                        <p class="text-muted font-weight-normal">
+                          <%= restaurant.rating %>
+                          <i class="fa-solid fa-star text-warning"></i>
+                        </p>
+                      </div>
                     </div>
                     <p> <%= restaurant.address %> </p>
                   </div>
@@ -137,19 +144,21 @@
                   </p>
                   <% else %>
                     <div class="d-flex">
+                    <div>
                       <p class="text-muted font-weight-normal">
                         <%= (recommendation.recommendable.reviews.pluck(:rating).sum / recommendation.recommendable.reviews.pluck(:rating).length).round(1) %>
                         <i class="fa-solid fa-star text-warning"></i>
                       </p>
+                    </div>
                     </div>
                   <% end %>
                 <% else %>
                   <div class="d-flex">
                     <p class="text-muted font-weight-normal">
                       <%= recommendation.recommendable.rating %>
+                      <i class="fa-solid fa-star text-warning"></i>
                     </p>
                   </div>
-                  <i class="fa-solid fa-star text-warning"></i>
                 <% end %>
               <%# Recommendation location, price %>
               <% if recommendation.recommendable_type == "Activity" %>
@@ -159,16 +168,6 @@
                 <p> <%= recommendation.recommendable.address %> </p>
               <% end %>
               </div>
-            <%# Recommendation photo %>
-            <% if !recommendation.recommendable.photo_url.nil?  %>
-              <div class="d-flex align-items-center">
-                <%= image_tag recommendation.recommendable.photo_url, alt: "#{recommendation.recommendable_type == "Activity"? recommendation.recommendable.title : recommendation.recommendable.name}", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
-              </div>
-            <% else %>
-              <div class="d-flex align-items-center">
-                <%= cl_image_tag recommendation.recommendable.photo.key, height: 300, crop: :fill , alt: "#{recommendation.recommendable_type == "Activity"? recommendation.recommendable.title : recommendation.recommendable.name}", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
-              </div>
-            <% end %>
         <%# <% end %>
             <div class="d-flex align-items-center ms-1">
               <%= link_to "Delete", recommendation_path(recommendation, some: params[:some]), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn-dark-green" %>
