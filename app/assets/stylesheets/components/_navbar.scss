@@ -1,10 +1,16 @@
 .navbar-lewagon {
   justify-content: space-between;
   background: $dark-green;
+  color: $yellow;
 }
 
 .navbar-lewagon .navbar-collapse {
   flex-grow: 0;
+}
+
+.text-yellow {
+  color: $yellow;
+  font-family: $headers-font;
 }
 
 .navbar-lewagon .navbar-brand img {

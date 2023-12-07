@@ -20,7 +20,7 @@
 
 .cards {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 16px;
   p, h4 {
     margin: 0;
@@ -70,12 +70,12 @@
   }
 }
 
-.card img {
-  width: 100%; /* Ensure the image takes the full width of its container */
-  height: 180px; /* Set a fixed height for the image */
-  object-fit: cover; /* Scale the image as large as possible while preserving its aspect ratio */
-  object-position: center;
-}
+// .card img {
+//   width: 100%; /* Ensure the image takes the full width of its container */
+//   height: 180px; /* Set a fixed height for the image */
+//   object-fit: cover; /* Scale the image as large as possible while preserving its aspect ratio */
+//   object-position: center;
+// }
 
 .card-category img {
   width: 100%; /* Ensure the image takes the full width of its container */
@@ -96,16 +96,29 @@
 
 .card-carousel {
   border-radius: 5px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
   overflow: hidden;
   position: relative;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-  height: 260px;
+  height: 270px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.2);
+
+  &:hover {
+    box-shadow: 0 0 8px rgba(0,0,0,0.75);
+  }
 }
+
 
 .card-carousel img {
   width: 100%; /* Ensure the image takes the full width of its container */
   height: 180px; /* Set a fixed height for the image */
   object-fit: cover; /* Scale the image as large as possible while preserving its aspect ratio */
   object-position: center;
+}
+
+.card-header {
+  color: $yellow;
+  background-color: $dark-green;
+}
+
+.carousel-inner {
+  padding: 5px;
 }
