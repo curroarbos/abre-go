@@ -4,9 +4,9 @@
 <% @activities.each do | activity | %>
   <div class="mb-3">
     <%= link_to activity_path(activity), class: "text-decoration-none text-dark" do %>
-      <% if !activity.photo_url.nil?  %>
+      <% if !activity.photo.attached?  %>
         <div class="card-carousel">
-          <%= image_tag activity.photo_url, alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
+          <%= image_tag "outdoors_activity.jpeg", alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
       <% else %>
         <div class="card-carousel">
           <%= cl_image_tag activity.photo.key, height: 300, crop: :fill , alt: "text", style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))", data: {aos: "zoom-in"}, loading: "lazy" %>
