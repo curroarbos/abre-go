@@ -51,7 +51,7 @@
       <div class="card shadow my-4 p-0">
         <h4 class="card-header">Know more about this experience</h4>
         <div class="card-body d-flex justify-content-start align-items-center">
-          <p class="card-text m-0"><%= Faker::Lorem.paragraphs(number: 8).join(" ") %></p>
+          <p class="card-text m-0"><%= @activity.description %></p>
         </div>
       </div>
       <div class="card shadow my-4 p-0">
@@ -86,7 +86,6 @@
       </div>
     </div>
   </div>
-
   <div class="row my-4">
     <div class="col-12 col-lg-8">
       <div class="card shadow">
