@@ -89,19 +89,22 @@
                         </p>
                       </div>
                     </div>
-                    <p> <%= restaurant.address %> </p>
+                    <p> <%= restaurant.address.truncate(60) %> </p>
                   </div>
                 </div>
               </div>
             <% end %>
           <% end %>
 
-          <%= simple_form_for [@property, @recommendation] do |f| %>
-            <%= f.input :activity_ids, value: ',', as: :hidden, input_html: { data: { recommendations_target: 'activityIds' }}%>
-            <%= f.input :restaurant_ids, value: ',', as: :hidden, input_html: { data: { recommendations_target: 'restaurantIds' }} %>
-            <%= f.submit 'Finished', class: "btn-dark-green" %>
-          <% end %>
-          <%= link_to "Cancel", property_path(@property) %>
+          <%# Hidden form to store selected activities and restaurants %>
+          <div class="d-flex justify-content-around align-items-center">
+            <%= simple_form_for [@property, @recommendation] do |f| %>
+              <%= f.input :activity_ids, value: ',', as: :hidden, input_html: { data: { recommendations_target: 'activityIds' }}%>
+              <%= f.input :restaurant_ids, value: ',', as: :hidden, input_html: { data: { recommendations_target: 'restaurantIds' }} %>
+              <%= f.submit 'Finished', class: "btn-dark-green align-items-center" %>
+            <% end %>
+            <%= link_to "Cancel", property_path(@property), class: "btn-light-green align-items-center" %>
+          </div>
         </div>
       </div>
 
@@ -129,12 +132,13 @@
               <%# <%= link_to activity_path(activity), class: "text-decoration-none text-dark" do %>
               <div class="d-flex flex-column flex-grow-1">
               <%# Recomendation title %>
-              <% if recommendation.recommendable_type == "Activity" %>
-                <h4> <%= recommendation.recommendable.title %> </h4>
-              <% else %>
-                <h4> <%= recommendation.recommendable.name %> </h4>
-              <% end %>
-                <%# Get average review rating %>
+              <div class="d-flex justify-content-between me-3 align-items-center">
+                <% if recommendation.recommendable_type == "Activity" %>
+                  <h4> <%= recommendation.recommendable.title %> </h4>
+                <% else %>
+                  <h4> <%= recommendation.recommendable.name %> </h4>
+                <% end %>
+                  <%# Get average review rating %>
                 <% if recommendation.recommendable_type == "Activity" %>
                   <% if recommendation.recommendable.reviews.empty? %>
                   <p class="text-muted font-weight-normal">
@@ -152,16 +156,21 @@
                   <div class="d-flex">
                     <p class="text-muted font-weight-normal">
                       <%= recommendation.recommendable.rating %>
-                      <i class="fa-solid fa-star text-warning"></i>
                     </p>
+                    <i class="fa-solid fa-star text-warning"></i>
                   </div>
                 <% end %>
+              </div>
               <%# Recommendation location, price %>
               <% if recommendation.recommendable_type == "Activity" %>
-                <p> <%= recommendation.recommendable.location %> </p>
-                <p> <strong><%= recommendation.recommendable.price %> € </strong></p>
+                <div class="d-flex justify-content-between me-3">
+                  <p> <strong><%= recommendation.recommendable.price %> € </strong></p>
+                  <p> <%= recommendation.recommendable.location.truncate(30) %> </p>
+                </div>
               <% else %>
-                <p> <%= recommendation.recommendable.address %> </p>
+                <div class="d-flex">
+                  <p class="align-items-end me-3"> <%= recommendation.recommendable.address.truncate(60) %> </p>
+                </div>
               <% end %>
               </div>
             <div class="d-flex align-items-center ms-1">
