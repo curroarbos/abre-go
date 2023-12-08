@@ -8,7 +8,6 @@
       <%= link_to property_path(property) do %>
         <h3><%= property.name %></h3>
       <% end %>
-        <%= image_tag 'outdoors_activity', alt: "text", class: "img-thumbnail align-items-end", width: 200, height: 200 %>
       <% if property.photo.nil? %>
       <% else %>
         <%= image_tag property.photo, alt: "#{property.name} Main Photo", class: "img-thumbnail", width: 200, height: 200, loading: "lazy" %>
