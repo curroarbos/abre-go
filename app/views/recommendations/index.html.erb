@@ -155,7 +155,6 @@
                         <% elsif activity.recommendable.photo.attached?  %>
                           <img class="img-fluid" alt="100%x280", loading="lazy", src="<%= cl_image_path activity.recommendable.photo.key, height: 300, crop: :fill %>">
                         <% else %>
-                          <img class="img-fluid" alt="100%x280", loading="lazy", src="app/assets/images/outdoors_activity">
                         <% end %>
                         <div class="card-carousel-body pt-2 p-2">
                           <div class="d-flex justify-content-between">
@@ -190,7 +189,6 @@
                         <% elsif activity.recommendable.photo.attached?  %>
                           <img class="img-fluid" alt="100%x280", loading="lazy", src="<%= cl_image_path activity.recommendable.photo.key, height: 300, crop: :fill %>">
                         <% else %>
-                          <img class="img-fluid" alt="100%x280", loading="lazy", src="app/assets/images/outdoors_activity">
                         <% end %>
                         <div class="card-carousel-body pt-2 p-2">
                           <div class="d-flex justify-content-between">
