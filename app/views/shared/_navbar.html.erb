@@ -1,6 +1,6 @@
 <div class="navbar navbar-expand-sm navbar-lewagon">
   <div class="container-fluid mx-5">
-    <% if user_signed_in? && !current_user.provider? && !current_user.is_owner %>
+    <% if user_signed_in? && (current_user.provider? || current_user.is_owner) %>
       <%= link_to root_path do %>
         <%= image_tag "logo_yellow.png", alt: "Logo", width: 150 %>
       <% end %>

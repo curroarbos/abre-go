@@ -19,7 +19,7 @@
   </head>
 
   <body>
-    <div class="<%= "user-theme" if user_signed_in? && !current_user.provider? && !current_user.is_owner %>">
+    <div class="<%= "user-theme" if user_signed_in? && (current_user.provider? || current_user.is_owner) %>">
       <%= render 'shared/navbar' %>
       <%= render "shared/flashes" %>
       <%= yield %>
